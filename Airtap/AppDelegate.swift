@@ -3,6 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 27.02.2021.
+//  Copyright © 2021 Airtap OÜ. All rights reserved.
 //
 
 import Cocoa
@@ -13,10 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
 
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+        let contentView = MainView()
 
         // Create the window and set the content view.
         window = NSWindow(
@@ -33,7 +33,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
-
 }
 

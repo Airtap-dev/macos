@@ -8,21 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119825EA4B4300B1F90B /* AppDelegate.swift */; };
-		FAAD119B25EA4B4300B1F90B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119A25EA4B4300B1F90B /* ContentView.swift */; };
+		FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119A25EA4B4300B1F90B /* MainView.swift */; };
 		FAAD119D25EA4B4500B1F90B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAAD119C25EA4B4500B1F90B /* Assets.xcassets */; };
 		FAAD11A025EA4B4500B1F90B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAAD119F25EA4B4500B1F90B /* Preview Assets.xcassets */; };
 		FAAD11A325EA4B4500B1F90B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAAD11A125EA4B4500B1F90B /* Main.storyboard */; };
+		FAF27F4F25EA561900DC04D6 /* ContactAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */; };
+		FAF27F5525EA568E00DC04D6 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5425EA568E00DC04D6 /* KeyboardView.swift */; };
+		FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5825EA56AD00DC04D6 /* KeyboardKeyView.swift */; };
+		FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */; };
+		FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */; };
+		FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FAAD119525EA4B4300B1F90B /* Airtap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airtap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAD119825EA4B4300B1F90B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAAD119A25EA4B4300B1F90B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FAAD119A25EA4B4300B1F90B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FAAD119C25EA4B4500B1F90B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAAD119F25EA4B4500B1F90B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FAAD11A225EA4B4500B1F90B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAAD11A425EA4B4500B1F90B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAAD11A525EA4B4500B1F90B /* Airtap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Airtap.entitlements; sourceTree = "<group>"; };
+		FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAvatarView.swift; sourceTree = "<group>"; };
+		FAF27F5425EA568E00DC04D6 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
+		FAF27F5825EA56AD00DC04D6 /* KeyboardKeyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeyView.swift; sourceTree = "<group>"; };
+		FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
+		FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				FAAD119825EA4B4300B1F90B /* AppDelegate.swift */,
-				FAAD119A25EA4B4300B1F90B /* ContentView.swift */,
+				FAAD11B125EA4D6700B1F90B /* Scenes */,
+				FAF27F5E25EA574D00DC04D6 /* Extensions */,
 				FAAD119C25EA4B4500B1F90B /* Assets.xcassets */,
 				FAAD11A125EA4B4500B1F90B /* Main.storyboard */,
 				FAAD11A425EA4B4500B1F90B /* Info.plist */,
@@ -72,6 +85,59 @@
 				FAAD119F25EA4B4500B1F90B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FAAD11B125EA4D6700B1F90B /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F5125EA566500DC04D6 /* Common */,
+				FAAD11B225EA4D6C00B1F90B /* Main */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		FAAD11B225EA4D6C00B1F90B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F5225EA567100DC04D6 /* Views */,
+				FAAD119A25EA4B4300B1F90B /* MainView.swift */,
+				FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		FAF27F5125EA566500DC04D6 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F5325EA568000DC04D6 /* KeyboardView */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		FAF27F5225EA567100DC04D6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */,
+				FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		FAF27F5325EA568000DC04D6 /* KeyboardView */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F5425EA568E00DC04D6 /* KeyboardView.swift */,
+				FAF27F5825EA56AD00DC04D6 /* KeyboardKeyView.swift */,
+			);
+			path = KeyboardView;
+			sourceTree = "<group>";
+		};
+		FAF27F5E25EA574D00DC04D6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,8 +166,10 @@
 		FAAD118D25EA4B4300B1F90B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
+				ORGANIZATIONNAME = "Airtap OÜ";
 				TargetAttributes = {
 					FAAD119425EA4B4300B1F90B = {
 						CreatedOnToolsVersion = 12.4;
@@ -144,8 +212,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAAD119B25EA4B4300B1F90B /* ContentView.swift in Sources */,
+				FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */,
+				FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */,
+				FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */,
+				FAF27F5525EA568E00DC04D6 /* KeyboardView.swift in Sources */,
+				FAF27F4F25EA561900DC04D6 /* ContactAvatarView.swift in Sources */,
+				FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */,
 				FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */,
+				FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
