@@ -19,7 +19,11 @@ struct MainView: View {
             ContactView(name: "Ilia Andreev", key: "1")
             ContactView(name: "Aleksandr Litreev", key: "2")
             ContactView(name: "Queen Elisabeth", key: "3")
-        }.frame(width: 200)
+        }
+        .frame(width: 200)
+        .padding()
+        .background(Color.white)
+        .cornerRadius(5)
     }
 }
 
