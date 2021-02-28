@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,19 @@
 		FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */; };
 		FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */; };
 		FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */; };
+		FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */; };
+		FAF27F6C25EBB7FF00DC04D6 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6B25EBB7FF00DC04D6 /* BackendService.swift */; };
+		FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6E25EBBAC800DC04D6 /* Config.swift */; };
+		FAF27F7425EBBD6B00DC04D6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */; };
+		FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7725EBBDB400DC04D6 /* WelcomeViewModel.swift */; };
+		FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7A25EBC11800DC04D6 /* WelcomeModel.swift */; };
+		FAF27F7F25EBC5C700DC04D6 /* DTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7E25EBC5C700DC04D6 /* DTOs.swift */; };
+		FAF27F8225EBC5DD00DC04D6 /* BackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8125EBC5DD00DC04D6 /* BackendError.swift */; };
+		FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27F8625EBC7D500DC04D6 /* KeychainSwift */; };
+		FAF27F8B25EBC83100DC04D6 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8A25EBC83100DC04D6 /* AuthProvider.swift */; };
+		FAF27F8E25EBCBD100DC04D6 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8D25EBCBD100DC04D6 /* Resolver.swift */; };
+		FAF27F9125EBCDA300DC04D6 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F9025EBCDA300DC04D6 /* MainModel.swift */; };
+		FAF27F9725EBD71300DC04D6 /* NSTextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +48,17 @@
 		FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		FAF27F6B25EBB7FF00DC04D6 /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
+		FAF27F6E25EBBAC800DC04D6 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		FAF27F7725EBBDB400DC04D6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		FAF27F7A25EBC11800DC04D6 /* WelcomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModel.swift; sourceTree = "<group>"; };
+		FAF27F7E25EBC5C700DC04D6 /* DTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOs.swift; sourceTree = "<group>"; };
+		FAF27F8125EBC5DD00DC04D6 /* BackendError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendError.swift; sourceTree = "<group>"; };
+		FAF27F8A25EBC83100DC04D6 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
+		FAF27F8D25EBCBD100DC04D6 /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
+		FAF27F9025EBCDA300DC04D6 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextField+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
+				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +94,10 @@
 			isa = PBXGroup;
 			children = (
 				FAAD119825EA4B4300B1F90B /* AppDelegate.swift */,
+				FAF27F6E25EBBAC800DC04D6 /* Config.swift */,
+				FAF27F8D25EBCBD100DC04D6 /* Resolver.swift */,
+				FAF27F6A25EBB7C700DC04D6 /* Network */,
+				FAF27F8925EBC80D00DC04D6 /* Providers */,
 				FAAD11B125EA4D6700B1F90B /* Scenes */,
 				FAF27F5E25EA574D00DC04D6 /* Extensions */,
 				FAAD119C25EA4B4500B1F90B /* Assets.xcassets */,
@@ -90,8 +120,9 @@
 		FAAD11B125EA4D6700B1F90B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				FAF27F5125EA566500DC04D6 /* Common */,
+				FAF27F7225EBBD4C00DC04D6 /* Welcome */,
 				FAAD11B225EA4D6C00B1F90B /* Main */,
+				FAF27F5125EA566500DC04D6 /* Common */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -102,6 +133,7 @@
 				FAF27F5225EA567100DC04D6 /* Views */,
 				FAAD119A25EA4B4300B1F90B /* MainView.swift */,
 				FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */,
+				FAF27F9025EBCDA300DC04D6 /* MainModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -136,8 +168,37 @@
 			isa = PBXGroup;
 			children = (
 				FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */,
+				FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FAF27F6A25EBB7C700DC04D6 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F7E25EBC5C700DC04D6 /* DTOs.swift */,
+				FAF27F6B25EBB7FF00DC04D6 /* BackendService.swift */,
+				FAF27F8125EBC5DD00DC04D6 /* BackendError.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		FAF27F7225EBBD4C00DC04D6 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */,
+				FAF27F7725EBBDB400DC04D6 /* WelcomeViewModel.swift */,
+				FAF27F7A25EBC11800DC04D6 /* WelcomeModel.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		FAF27F8925EBC80D00DC04D6 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F8A25EBC83100DC04D6 /* AuthProvider.swift */,
+			);
+			path = Providers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +217,10 @@
 			dependencies = (
 			);
 			name = Airtap;
+			packageProductDependencies = (
+				FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */,
+				FAF27F8625EBC7D500DC04D6 /* KeychainSwift */,
+			);
 			productName = Airtap;
 			productReference = FAAD119525EA4B4300B1F90B /* Airtap.app */;
 			productType = "com.apple.product-type.application";
@@ -185,6 +250,10 @@
 				Base,
 			);
 			mainGroup = FAAD118C25EA4B4300B1F90B;
+			packageReferences = (
+				FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */,
+				FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+			);
 			productRefGroup = FAAD119625EA4B4300B1F90B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -213,11 +282,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */,
+				FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */,
+				FAF27F6C25EBB7FF00DC04D6 /* BackendService.swift in Sources */,
+				FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */,
 				FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */,
 				FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */,
 				FAF27F5525EA568E00DC04D6 /* KeyboardView.swift in Sources */,
 				FAF27F4F25EA561900DC04D6 /* ContactAvatarView.swift in Sources */,
+				FAF27F7425EBBD6B00DC04D6 /* WelcomeView.swift in Sources */,
+				FAF27F7F25EBC5C700DC04D6 /* DTOs.swift in Sources */,
+				FAF27F8B25EBC83100DC04D6 /* AuthProvider.swift in Sources */,
 				FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */,
+				FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */,
+				FAF27F8E25EBCBD100DC04D6 /* Resolver.swift in Sources */,
+				FAF27F9125EBCDA300DC04D6 /* MainModel.swift in Sources */,
+				FAF27F8225EBC5DD00DC04D6 /* BackendError.swift in Sources */,
+				FAF27F9725EBD71300DC04D6 /* NSTextField+Extensions.swift in Sources */,
 				FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */,
 				FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */,
 			);
@@ -370,7 +450,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.macos.Airtap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -394,7 +474,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.macos.Airtap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -422,6 +502,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Airtap-dev/airtap-swift-http-client.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 19.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */;
+			productName = TinyHTTP;
+		};
+		FAF27F8625EBC7D500DC04D6 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FAAD118D25EA4B4300B1F90B /* Project object */;
 }

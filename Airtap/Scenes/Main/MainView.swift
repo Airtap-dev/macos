@@ -9,6 +9,11 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    init(viewModel: MainViewModel) {
+        
+    }
+    
     var body: some View {
         VStack {
             ContactView(name: "Ilia Andreev", key: "1")
@@ -20,6 +25,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        Resolver().main()
     }
 }

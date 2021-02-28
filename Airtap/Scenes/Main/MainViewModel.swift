@@ -9,10 +9,7 @@
 import Foundation
 
 class MainViewModel {
-    
-    
-    
-    init() {
+    init(model: MainModel) {
         
     }
 }
