@@ -17,22 +17,22 @@ enum WelcomeModelEvent {
 class WelcomeModel {
     
     // Injectables
-    private let backendService: BackendServing
+    private let apiService: BackendAPIServing
     private let authProvider: AuthProviding
     
     private(set) var eventSubject = PassthroughSubject<WelcomeModelEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        backendService: BackendServing,
+        backendService: BackendAPIServing,
         authProvider: AuthProviding
     ) {
-        self.backendService = backendService
+        self.apiService = backendService
         self.authProvider = authProvider
     }
     
     func signUp(licenseKey: String, firstName: String, lastName: String?) {
-        backendService
+        apiService
             .createAccount(licenseKey: licenseKey, firstName: firstName, lastName: lastName)
             .sink(receiveCompletion: { [weak self] completion in
                 switch(completion) {
@@ -46,7 +46,7 @@ class WelcomeModel {
                     token: response.token
                 )
                 
-                self?.backendService.setIdentity(
+                self?.apiService.setIdentity(
                     accountId: response.accountId,
                     token: response.token
                 )

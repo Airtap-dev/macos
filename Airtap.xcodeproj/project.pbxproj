@@ -19,18 +19,23 @@
 		FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */; };
 		FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */; };
 		FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */; };
-		FAF27F6C25EBB7FF00DC04D6 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6B25EBB7FF00DC04D6 /* BackendService.swift */; };
+		FAF27F6C25EBB7FF00DC04D6 /* BackendAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6B25EBB7FF00DC04D6 /* BackendAPIService.swift */; };
 		FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6E25EBBAC800DC04D6 /* Config.swift */; };
 		FAF27F7425EBBD6B00DC04D6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */; };
 		FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7725EBBDB400DC04D6 /* WelcomeViewModel.swift */; };
 		FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7A25EBC11800DC04D6 /* WelcomeModel.swift */; };
-		FAF27F7F25EBC5C700DC04D6 /* DTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7E25EBC5C700DC04D6 /* DTOs.swift */; };
-		FAF27F8225EBC5DD00DC04D6 /* BackendError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8125EBC5DD00DC04D6 /* BackendError.swift */; };
+		FAF27F7F25EBC5C700DC04D6 /* BackendAPIDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7E25EBC5C700DC04D6 /* BackendAPIDTO.swift */; };
+		FAF27F8225EBC5DD00DC04D6 /* BackendAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8125EBC5DD00DC04D6 /* BackendAPIError.swift */; };
 		FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27F8625EBC7D500DC04D6 /* KeychainSwift */; };
 		FAF27F8B25EBC83100DC04D6 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8A25EBC83100DC04D6 /* AuthProvider.swift */; };
 		FAF27F8E25EBCBD100DC04D6 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8D25EBCBD100DC04D6 /* Resolver.swift */; };
 		FAF27F9125EBCDA300DC04D6 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F9025EBCDA300DC04D6 /* MainModel.swift */; };
 		FAF27F9725EBD71300DC04D6 /* NSTextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */; };
+		FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27FA025EC2D0100DC04D6 /* Starscream */; };
+		FAF27FA625EC2D2A00DC04D6 /* BackendWSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FA525EC2D2A00DC04D6 /* BackendWSService.swift */; };
+		FAF27FAB25EC30FD00DC04D6 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27FAA25EC30FD00DC04D6 /* WebRTC */; };
+		FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FAE25EC313F00DC04D6 /* WebRTCService.swift */; };
+		FAF27FB325EC3DDE00DC04D6 /* BackendWSDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FB225EC3DDE00DC04D6 /* BackendWSDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,17 +53,20 @@
 		FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		FAF27F6B25EBB7FF00DC04D6 /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
+		FAF27F6B25EBB7FF00DC04D6 /* BackendAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPIService.swift; sourceTree = "<group>"; };
 		FAF27F6E25EBBAC800DC04D6 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		FAF27F7725EBBDB400DC04D6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		FAF27F7A25EBC11800DC04D6 /* WelcomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeModel.swift; sourceTree = "<group>"; };
-		FAF27F7E25EBC5C700DC04D6 /* DTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOs.swift; sourceTree = "<group>"; };
-		FAF27F8125EBC5DD00DC04D6 /* BackendError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendError.swift; sourceTree = "<group>"; };
+		FAF27F7E25EBC5C700DC04D6 /* BackendAPIDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPIDTO.swift; sourceTree = "<group>"; };
+		FAF27F8125EBC5DD00DC04D6 /* BackendAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendAPIError.swift; sourceTree = "<group>"; };
 		FAF27F8A25EBC83100DC04D6 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		FAF27F8D25EBCBD100DC04D6 /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		FAF27F9025EBCDA300DC04D6 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextField+Extensions.swift"; sourceTree = "<group>"; };
+		FAF27FA525EC2D2A00DC04D6 /* BackendWSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendWSService.swift; sourceTree = "<group>"; };
+		FAF27FAE25EC313F00DC04D6 /* WebRTCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCService.swift; sourceTree = "<group>"; };
+		FAF27FB225EC3DDE00DC04D6 /* BackendWSDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendWSDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +75,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
+				FAF27FAB25EC30FD00DC04D6 /* WebRTC in Frameworks */,
 				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
+				FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,9 +186,9 @@
 		FAF27F6A25EBB7C700DC04D6 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				FAF27F7E25EBC5C700DC04D6 /* DTOs.swift */,
-				FAF27F6B25EBB7FF00DC04D6 /* BackendService.swift */,
-				FAF27F8125EBC5DD00DC04D6 /* BackendError.swift */,
+				FAF27FAD25EC313200DC04D6 /* WebRTC */,
+				FAF27FA425EC2D1400DC04D6 /* BackendWS */,
+				FAF27F9D25EC2C9100DC04D6 /* BackendAPI */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -201,6 +211,33 @@
 			path = Providers;
 			sourceTree = "<group>";
 		};
+		FAF27F9D25EC2C9100DC04D6 /* BackendAPI */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F7E25EBC5C700DC04D6 /* BackendAPIDTO.swift */,
+				FAF27F8125EBC5DD00DC04D6 /* BackendAPIError.swift */,
+				FAF27F6B25EBB7FF00DC04D6 /* BackendAPIService.swift */,
+			);
+			path = BackendAPI;
+			sourceTree = "<group>";
+		};
+		FAF27FA425EC2D1400DC04D6 /* BackendWS */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27FA525EC2D2A00DC04D6 /* BackendWSService.swift */,
+				FAF27FB225EC3DDE00DC04D6 /* BackendWSDTO.swift */,
+			);
+			path = BackendWS;
+			sourceTree = "<group>";
+		};
+		FAF27FAD25EC313200DC04D6 /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27FAE25EC313F00DC04D6 /* WebRTCService.swift */,
+			);
+			path = WebRTC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -220,6 +257,8 @@
 			packageProductDependencies = (
 				FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */,
 				FAF27F8625EBC7D500DC04D6 /* KeychainSwift */,
+				FAF27FA025EC2D0100DC04D6 /* Starscream */,
+				FAF27FAA25EC30FD00DC04D6 /* WebRTC */,
 			);
 			productName = Airtap;
 			productReference = FAAD119525EA4B4300B1F90B /* Airtap.app */;
@@ -253,6 +292,8 @@
 			packageReferences = (
 				FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */,
 				FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				FAF27F9F25EC2D0100DC04D6 /* XCRemoteSwiftPackageReference "Starscream" */,
+				FAF27FA925EC30FD00DC04D6 /* XCRemoteSwiftPackageReference "WebRTC" */,
 			);
 			productRefGroup = FAAD119625EA4B4300B1F90B /* Products */;
 			projectDirPath = "";
@@ -281,22 +322,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF27FA625EC2D2A00DC04D6 /* BackendWSService.swift in Sources */,
 				FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */,
+				FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */,
 				FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */,
-				FAF27F6C25EBB7FF00DC04D6 /* BackendService.swift in Sources */,
+				FAF27F6C25EBB7FF00DC04D6 /* BackendAPIService.swift in Sources */,
 				FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */,
+				FAF27FB325EC3DDE00DC04D6 /* BackendWSDTO.swift in Sources */,
 				FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */,
 				FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */,
 				FAF27F5525EA568E00DC04D6 /* KeyboardView.swift in Sources */,
 				FAF27F4F25EA561900DC04D6 /* ContactAvatarView.swift in Sources */,
 				FAF27F7425EBBD6B00DC04D6 /* WelcomeView.swift in Sources */,
-				FAF27F7F25EBC5C700DC04D6 /* DTOs.swift in Sources */,
+				FAF27F7F25EBC5C700DC04D6 /* BackendAPIDTO.swift in Sources */,
 				FAF27F8B25EBC83100DC04D6 /* AuthProvider.swift in Sources */,
 				FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */,
 				FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */,
 				FAF27F8E25EBCBD100DC04D6 /* Resolver.swift in Sources */,
 				FAF27F9125EBCDA300DC04D6 /* MainModel.swift in Sources */,
-				FAF27F8225EBC5DD00DC04D6 /* BackendError.swift in Sources */,
+				FAF27F8225EBC5DD00DC04D6 /* BackendAPIError.swift in Sources */,
 				FAF27F9725EBD71300DC04D6 /* NSTextField+Extensions.swift in Sources */,
 				FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */,
 				FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */,
@@ -516,8 +560,24 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 19.0.0;
+				kind = exactVersion;
+				version = 19.0.0;
+			};
+		};
+		FAF27F9F25EC2D0100DC04D6 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				kind = exactVersion;
+				version = 4.0.4;
+			};
+		};
+		FAF27FA925EC30FD00DC04D6 /* XCRemoteSwiftPackageReference "WebRTC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexpiezo/WebRTC.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.1.31567;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -532,6 +592,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		FAF27FA025EC2D0100DC04D6 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAF27F9F25EC2D0100DC04D6 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		FAF27FAA25EC30FD00DC04D6 /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAF27FA925EC30FD00DC04D6 /* XCRemoteSwiftPackageReference "WebRTC" */;
+			productName = WebRTC;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

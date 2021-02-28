@@ -1,5 +1,5 @@
 //
-//  DTOs.swift
+//  BackendAPIDTO.swift
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.

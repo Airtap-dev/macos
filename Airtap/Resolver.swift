@@ -10,7 +10,8 @@ import Foundation
 
 class Resolver {
     
-    private let backendService  = BackendService()
+    private let backendService  = BackendAPIService()
+    private let webRTCService = WebRTCService()
     private let authProvider = AuthProvider()
 
     func welcome() -> WelcomeView {

@@ -1,5 +1,5 @@
 //
-//  APIClientService.swift
+//  BackendAPIService.swift
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
@@ -11,14 +11,14 @@ import Combine
 import TinyHTTP
 
 
-protocol BackendServing {
+protocol BackendAPIServing {
     func setIdentity(accountId: Int, token: String)
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError>
     func discover(code: String) -> Future<DiscoverResponse, NetworkingError>
 }
 
-class BackendService: BackendServing {
+class BackendAPIService: BackendAPIServing {
     
     private var basicAuth: String?
     
