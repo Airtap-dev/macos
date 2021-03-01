@@ -46,9 +46,11 @@ class WebRTCService: NSObject, WebRTCServing {
                     Config.rtcEndpoint
                 ],
                 username: "ninefingers",
-                credential: "youhavetoberealistic"
+                credential: "youhavetoberealistic",
+                tlsCertPolicy: .insecureNoCheck
             )
         ]
+        rtcConfig.sdpSemantics = .unifiedPlan
     }
     
     func createConnection(id: Int) {
@@ -58,6 +60,7 @@ class WebRTCService: NSObject, WebRTCServing {
             delegate: self
         )
         
+        peerConnection.addTransceiver(of: .audio)
         peerConnections[id] = peerConnection
     }
     
@@ -123,22 +126,27 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
         //no-op
+        print("RTC: \(stateChanged)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
         //no-op
+        print("RTC: \(stream)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
         //no-op
+        print("RTC: \(stream)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         //no-op
+        print("RTC: \(newState)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
         //no-op
+        print("RTC: \(newState)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
@@ -149,6 +157,7 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
         //no-op
+        print("RTC: \(candidates)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
