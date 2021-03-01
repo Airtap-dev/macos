@@ -77,6 +77,11 @@ class WebRTCService: NSObject, WebRTCServing {
     }
     
     func setOffer(for id: Int, sdp: String, completion: @escaping () -> Void) {
+        if peerConnections[id]?.localDescription != nil {
+            peerConnections[id]?.close()
+            createConnection(id: id)
+        }
+        
         guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
         
         let sessionDescription = RTCSessionDescription(type: .offer, sdp: sdp)

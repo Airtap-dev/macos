@@ -31,13 +31,20 @@ class PersistenceProvider: PersistenceProviding {
     
     init() {
         realm = try! Realm()
+        
+        try! realm.write {
+            realm.deleteAll()
+        }
+        
     }
     
     func start() {
-        let peers = realm.objects(Peer.self)
-        self.peers = peers.map { $0 }
-        self.peers.forEach {
-            self.eventSubject.send(.peerLoaded($0))
+        DispatchQueue.main.async { [weak self] in
+            guard let peers = self?.realm.objects(Peer.self) else { return }
+            self?.peers = peers.map { $0 }
+            self?.peers.forEach {
+                self?.eventSubject.send(.peerLoaded($0))
+            }
         }
     }
     

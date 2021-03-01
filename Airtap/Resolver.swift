@@ -48,8 +48,8 @@ class Resolver {
     }
     
     func start(accountId: Int, token: String) {
-        apiService.setIdentity(accountId: accountId, token: token)
         wsService.start(accountId: accountId, token: token)
+        apiService.setIdentity(accountId: accountId, token: token)
         callProvider.start(accountId: accountId, token: token)
         persistenceProvider.start()
     }
