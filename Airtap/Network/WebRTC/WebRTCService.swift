@@ -30,7 +30,12 @@ protocol WebRTCServing {
 class WebRTCService: NSObject, WebRTCServing {
     
     private let rtcPeerConnectionFactory = RTCPeerConnectionFactory()
-    private let rtcMediaConstraints: RTCMediaConstraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
+    private let rtcMediaConstraints: RTCMediaConstraints = RTCMediaConstraints(
+        mandatoryConstraints: [
+            "OfferToReceiveAudio": "true"
+        ],
+        optionalConstraints: nil
+    )
     private let rtcConfig = RTCConfiguration()
     
     private var peerConnections: [Int: RTCPeerConnection] = [:]
@@ -162,5 +167,6 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
         //no-op
+        print("RTC: \(dataChannel)")
     }
 }
