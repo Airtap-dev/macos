@@ -51,6 +51,7 @@ class Resolver {
         apiService.setIdentity(accountId: accountId, token: token)
         wsService.start(accountId: accountId, token: token)
         callProvider.start(accountId: accountId, token: token)
+        persistenceProvider.start()
     }
     
     // MARK: - Routing -

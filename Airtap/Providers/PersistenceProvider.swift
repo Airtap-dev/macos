@@ -18,6 +18,7 @@ enum PersistenceProviderEvent {
 protocol PersistenceProviding {
     var eventSubject: PassthroughSubject<PersistenceProviderEvent, Never> { get }
     
+    func start() 
     func insertPeer(id: Int, firstName: String, lastName: String?)
     func deletePeer(id: Int)
 }
@@ -30,10 +31,9 @@ class PersistenceProvider: PersistenceProviding {
     
     init() {
         realm = try! Realm()
-        loadPeers()
     }
     
-    private func loadPeers() {
+    func start() {
         let peers = realm.objects(Peer.self)
         self.peers = peers.map { $0 }
         self.peers.forEach {
@@ -47,7 +47,6 @@ class PersistenceProvider: PersistenceProviding {
             peer.id = id
             peer.firstName = firstName
             peer.lastName = lastName
-            
             
             try! self?.realm.write {
                 self?.realm.add(peer)

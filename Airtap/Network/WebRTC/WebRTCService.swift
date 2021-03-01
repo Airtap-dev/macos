@@ -80,7 +80,7 @@ class WebRTCService: NSObject, WebRTCServing {
         guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
         
         let sessionDescription = RTCSessionDescription(type: .offer, sdp: sdp)
-        peerConnection.setRemoteDescription(sessionDescription, completionHandler: { _ in
+        peerConnection.setRemoteDescription(sessionDescription, completionHandler: { err in
             completion()
         })
     }

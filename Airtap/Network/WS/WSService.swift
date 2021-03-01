@@ -97,6 +97,8 @@ class WSService: WSServing {
         let bodyData = try! encoder.encode(payload)
         let body = String(data: bodyData, encoding: .utf8)!
         
+        print("SOCKETS OUT: \(body)")
+        
         socket.write(string: body)
     }
     
@@ -146,6 +148,7 @@ extension WSService: WebSocketDelegate {
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
         case let .text(receivedString):
+            print("SOCKETS IN: \(receivedString)")
             let payload = try! JSONDecoder().decode(WSPayload.self, from: receivedString.data(using: .utf8)!)
             self.handle(payload)
         default: break
