@@ -65,7 +65,10 @@ class WebRTCService: NSObject, WebRTCServing {
             delegate: self
         )
         
-        peerConnection.addTransceiver(of: .audio)
+        let test = peerConnection.addTransceiver(of: .audio)
+        test.direction = .sendRecv
+        test.receiver.delegate = self
+
         peerConnections[id] = peerConnection
     }
     
@@ -75,7 +78,7 @@ class WebRTCService: NSObject, WebRTCServing {
     }
     
     func createOffer(for id: Int, completion: @escaping (String?) -> Void) {
-        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        guard let peerConnection = peerConnections[id] else { return }
         
         peerConnection.offer(for: rtcMediaConstraints) { sessionDescription, error in
             peerConnection.setLocalDescription(sessionDescription!, completionHandler: { _ in
@@ -90,7 +93,7 @@ class WebRTCService: NSObject, WebRTCServing {
             createConnection(id: id)
         }
         
-        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        guard let peerConnection = peerConnections[id] else { return }
         
         let sessionDescription = RTCSessionDescription(type: .offer, sdp: sdp)
         peerConnection.setRemoteDescription(sessionDescription, completionHandler: { err in
@@ -99,7 +102,7 @@ class WebRTCService: NSObject, WebRTCServing {
     }
     
     func createAnswer(for id: Int, completion: @escaping (String?) -> Void) {
-        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        guard let peerConnection = peerConnections[id] else { return }
         
         peerConnection.answer(for: rtcMediaConstraints) { sessionDescription, error in
             peerConnection.setLocalDescription(sessionDescription!, completionHandler: { _ in
@@ -109,7 +112,7 @@ class WebRTCService: NSObject, WebRTCServing {
     }
     
     func setAnswer(for id: Int, sdp: String, completion: @escaping () -> Void) {
-        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        guard let peerConnection = peerConnections[id] else { return }
         
         let sessionDescription = RTCSessionDescription(type: .answer, sdp: sdp)
         peerConnection.setRemoteDescription(sessionDescription, completionHandler: { _ in
@@ -118,7 +121,7 @@ class WebRTCService: NSObject, WebRTCServing {
     }
     
     func setCandidate(for id: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?) {
-        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        guard let peerConnection = peerConnections[id] else { return }
         
         peerConnection.add(RTCIceCandidate(sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid))
     }
@@ -168,5 +171,11 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
         //no-op
         print("RTC: \(dataChannel)")
+    }
+}
+
+extension WebRTCService: RTCRtpReceiverDelegate {
+    func rtpReceiver(_ rtpReceiver: RTCRtpReceiver, didReceiveFirstPacketFor mediaType: RTCRtpMediaType) {
+        print("RTC: \(mediaType)")
     }
 }
