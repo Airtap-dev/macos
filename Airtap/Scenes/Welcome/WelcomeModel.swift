@@ -15,19 +15,18 @@ enum WelcomeModelEvent {
 }
 
 class WelcomeModel {
-    
     // Injectables
-    private let apiService: BackendAPIServing
+    private let apiService: APIServing
     private let authProvider: AuthProviding
     
     private(set) var eventSubject = PassthroughSubject<WelcomeModelEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     init(
-        backendService: BackendAPIServing,
+        apiService: APIServing,
         authProvider: AuthProviding
     ) {
-        self.apiService = backendService
+        self.apiService = apiService
         self.authProvider = authProvider
     }
     
@@ -36,21 +35,18 @@ class WelcomeModel {
             .createAccount(licenseKey: licenseKey, firstName: firstName, lastName: lastName)
             .sink(receiveCompletion: { [weak self] completion in
                 switch(completion) {
-                case let .failure(_): //TODO: Parse error properly
+                case .failure: //TODO: Parse error properly
                     self?.eventSubject.send(.failedToSignUp)
                 default: break
                 }
             }, receiveValue: { [weak self] response in
+                
+                print("LINK:")
+                
                 self?.authProvider.signIn(
                     accountId: response.accountId,
                     token: response.token
                 )
-                
-                self?.apiService.setIdentity(
-                    accountId: response.accountId,
-                    token: response.token
-                )
-                
                 self?.eventSubject.send(.successfullySignedUp)
             }).store(in: &cancellables)
     }

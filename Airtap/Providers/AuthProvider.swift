@@ -11,7 +11,7 @@ import Combine
 import KeychainSwift
 
 enum AuthProviderEvent {
-    case signedIn
+    case signedIn(Int, String)
     case signedOut
 }
 
@@ -34,7 +34,7 @@ class AuthProvider: AuthProviding {
     }
     
     func currentAccount() -> (Int, String)? {
-        if let accountId = keychain.get("backendAccountId"), let token = keychain.get("backendAccountToken") {
+        if let accountId = keychain.get("accountId"), let token = keychain.get("accountToken") {
             return (Int(accountId)!, token)
         }
         
@@ -42,15 +42,15 @@ class AuthProvider: AuthProviding {
     }
     
     func signIn(accountId: Int, token: String) {
-        keychain.set("\(accountId)", forKey: "backendAccountId")
-        keychain.set(token, forKey: "backendAccountToken")
+        keychain.set("\(accountId)", forKey: "accountId")
+        keychain.set(token, forKey: "accountToken")
         
-        eventSubject.send(.signedIn)
+        eventSubject.send(.signedIn(accountId, token))
     }
     
     func signOut() {
-        keychain.delete("backendAccountId")
-        keychain.delete("backendAccountToken")
+        keychain.delete("accountId")
+        keychain.delete("accountToken")
         
         eventSubject.send(.signedOut)
     }

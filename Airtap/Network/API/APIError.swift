@@ -1,5 +1,5 @@
 //
-//  BackendAPIError.swift
+//  APIError.swift
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum BackendAPIError: Int {
+enum APIError: Int {
     case internalError = 0
     case invalidBody = 1
     case invalidLicense = 2

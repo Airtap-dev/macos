@@ -11,22 +11,35 @@ import WebRTC
 import Combine
 
 enum WebRTCServiceEvent {
-    case receiveCandidate(String, Int32, String?)
+    case receiveCandidate(Int, String, Int32, String?)
 }
 
-class WebRTCService: NSObject {
+protocol WebRTCServing {
+    var eventSubject: PassthroughSubject<WebRTCServiceEvent, Never> { get }
     
-    private var peerConnection: RTCPeerConnection!
-    private var mediaConstraints: RTCMediaConstraints!
+    func createConnection(id: Int)
+    func closeConnection(id: Int)
+    func createOffer(for id: Int, completion: @escaping (String?) -> Void)
+    func setOffer(for id: Int, sdp: String, completion: @escaping () -> Void)
+    func createAnswer(for id: Int, completion: @escaping (String?) -> Void)
+    func setAnswer(for id: Int, sdp: String, completion: @escaping () -> Void)
+    func setCandidate(for id: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
+    
+}
+
+class WebRTCService: NSObject, WebRTCServing {
+    
+    private let rtcPeerConnectionFactory = RTCPeerConnectionFactory()
+    private let rtcMediaConstraints: RTCMediaConstraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
+    private let rtcConfig = RTCConfiguration()
+    
+    private var peerConnections: [Int: RTCPeerConnection] = [:]
     
     private(set) var eventSubject = PassthroughSubject<WebRTCServiceEvent, Never>()
     
     override init() {
         super.init()
-        
-        let rtcPeerConnectionFactory = RTCPeerConnectionFactory()
-        let rtcConfig = RTCConfiguration()
-        
+
         rtcConfig.iceServers = [
             RTCIceServer(
                 urlStrings: [
@@ -36,46 +49,64 @@ class WebRTCService: NSObject {
                 credential: "youhavetoberealistic"
             )
         ]
-    
-        mediaConstraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
-        peerConnection = rtcPeerConnectionFactory.peerConnection(
-            with: rtcConfig,
-            constraints: mediaConstraints,
-            delegate: self
-        )
     }
     
-    func createOffer(completion: @escaping (String?) -> Void) {
-        peerConnection.offer(for: mediaConstraints) { [weak self] sessionDescription, error in
-            self?.peerConnection.setLocalDescription(sessionDescription!, completionHandler: { _ in
+    func createConnection(id: Int) {
+        let peerConnection = rtcPeerConnectionFactory.peerConnection(
+            with: rtcConfig,
+            constraints: rtcMediaConstraints,
+            delegate: self
+        )
+        
+        peerConnections[id] = peerConnection
+    }
+    
+    func closeConnection(id: Int) {
+        peerConnections[id]?.close()
+        peerConnections.removeValue(forKey: id)
+    }
+    
+    func createOffer(for id: Int, completion: @escaping (String?) -> Void) {
+        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        
+        peerConnection.offer(for: rtcMediaConstraints) { sessionDescription, error in
+            peerConnection.setLocalDescription(sessionDescription!, completionHandler: { _ in
                 completion(sessionDescription?.sdp)
             })
         }
     }
     
-    func setOffer(_ sdp: String, completion: @escaping () -> Void) {
+    func setOffer(for id: Int, sdp: String, completion: @escaping () -> Void) {
+        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        
         let sessionDescription = RTCSessionDescription(type: .offer, sdp: sdp)
         peerConnection.setRemoteDescription(sessionDescription, completionHandler: { _ in
             completion()
         })
     }
     
-    func createAnswer(completion: @escaping (String?) -> Void) {
-        peerConnection.answer(for: mediaConstraints) { [weak self] sessionDescription, error in
-            self?.peerConnection.setLocalDescription(sessionDescription!, completionHandler: { _ in
+    func createAnswer(for id: Int, completion: @escaping (String?) -> Void) {
+        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        
+        peerConnection.answer(for: rtcMediaConstraints) { sessionDescription, error in
+            peerConnection.setLocalDescription(sessionDescription!, completionHandler: { _ in
                 completion(sessionDescription?.sdp)
             })
         }
     }
     
-    func setAnswer(_ sdp: String, completion: @escaping () -> Void) {
+    func setAnswer(for id: Int, sdp: String, completion: @escaping () -> Void) {
+        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        
         let sessionDescription = RTCSessionDescription(type: .answer, sdp: sdp)
         peerConnection.setRemoteDescription(sessionDescription, completionHandler: { _ in
             completion()
         })
     }
     
-    func setCandidate(_ sdp: String, sdpMLineIndex: Int32, sdpMid: String?) {
+    func setCandidate(for id: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?) {
+        guard let peerConnection = peerConnections[id] else { fatalError("Peer connection with ID \(id) doesn't exist.") }
+        
         peerConnection.add(RTCIceCandidate(sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid))
     }
 }
@@ -106,7 +137,9 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
-        self.eventSubject.send(.receiveCandidate(candidate.sdp, candidate.sdpMLineIndex, candidate.sdpMid))
+        if let id = peerConnections.keyForValue(peerConnection) {
+            self.eventSubject.send(.receiveCandidate(id, candidate.sdp, candidate.sdpMLineIndex, candidate.sdpMid))
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
