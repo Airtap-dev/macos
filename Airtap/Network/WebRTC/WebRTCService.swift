@@ -65,16 +65,16 @@ class WebRTCService: NSObject, WebRTCServing {
             delegate: self
         )
         
-        let trans = peerConnection.addTransceiver(of: .audio)
-        trans.direction = .sendRecv
-        trans.receiver.delegate = self
         
         let mediaStream = rtcPeerConnectionFactory.mediaStream(withStreamId: "1")
         let audioSource = rtcPeerConnectionFactory.audioSource(with: rtcMediaConstraints)
         let audioTrack = rtcPeerConnectionFactory.audioTrack(with: audioSource, trackId: "1")
 
-        peerConnection.add(audioTrack, streamIds: ["1"])
-   
+        let sender = peerConnection.add(audioTrack, streamIds: ["1"])
+ 
+        let trans = peerConnection.addTransceiver(with: audioTrack)
+        trans.direction = .sendRecv
+        
         peerConnections[id] = peerConnection
     }
     
