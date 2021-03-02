@@ -39,6 +39,8 @@
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We&apos;re using your microphone in order to make your voice heard.</string>
 	<key>LSUIElement</key>
 	<true/>
 </dict>

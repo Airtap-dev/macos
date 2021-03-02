@@ -13,7 +13,6 @@ import AVFoundation
 
 enum WebRTCServiceEvent {
     case receiveCandidate(Int, String, Int32, String?)
-    case receiveData(Data)
 }
 
 protocol WebRTCServing {
@@ -29,7 +28,6 @@ protocol WebRTCServing {
     func createAnswer(for id: Int, completion: @escaping (String?) -> Void)
     func setAnswer(for id: Int, sdp: String, completion: @escaping () -> Void)
     func setCandidate(for id: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
-    
 }
 
 class WebRTCService: NSObject, WebRTCServing {
@@ -48,8 +46,6 @@ class WebRTCService: NSObject, WebRTCServing {
     
     override init() {
         super.init()
-    
-        
         rtcConfig.iceServers = [
             RTCIceServer(
                 urlStrings: [
@@ -78,8 +74,10 @@ class WebRTCService: NSObject, WebRTCServing {
             delegate: self
         )
         
+        let audioTrack = self.createAudioTrack(id: id)
+        peerConnection.add(audioTrack, streamIds: ["stream_\(id)"])
+        
         peerConnections[id] = peerConnection
-        createMediaSenders(id: id)
     }
     
     func closeConnection(id: Int) {
@@ -145,14 +143,6 @@ class WebRTCService: NSObject, WebRTCServing {
         return audioTrack
     }
     
-    private func createMediaSenders(id: Int) {
-        let streamId = "stream_\(id)"
-        
-        // Audio
-        let audioTrack = self.createAudioTrack(id: id)
-        self.peerConnections[id]?.add(audioTrack, streamIds: [streamId])
-    }
-    
     private func setAudioEnabled(id: Int, isEnabled: Bool) {
         setTrackEnabled(RTCAudioTrack.self, id: id, isEnabled: isEnabled)
     }
@@ -165,17 +155,6 @@ extension WebRTCService {
             .forEach { $0.isEnabled = isEnabled }
     }
 }
-
-extension WebRTCService: RTCDataChannelDelegate {
-    func dataChannelDidChangeState(_ dataChannel: RTCDataChannel) {
-        debugPrint("dataChannel did change state: \(dataChannel.readyState)")
-    }
-    
-    func dataChannel(_ dataChannel: RTCDataChannel, didReceiveMessageWith buffer: RTCDataBuffer) {
-        eventSubject.send(.receiveData(buffer.data))
-    }
-}
-
 
 extension WebRTCService: RTCPeerConnectionDelegate {
     func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
@@ -221,11 +200,5 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
         //no-op
         print("RTC: \(dataChannel)")
-    }
-}
-
-extension WebRTCService: RTCRtpReceiverDelegate {
-    func rtpReceiver(_ rtpReceiver: RTCRtpReceiver, didReceiveFirstPacketFor mediaType: RTCRtpMediaType) {
-        print("RTC: \(mediaType)")
     }
 }
