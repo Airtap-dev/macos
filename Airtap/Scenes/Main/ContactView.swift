@@ -9,23 +9,21 @@
 import SwiftUI
 
 struct ContactView: View {
-    private let name: String
-    private let key: String
+    private let viewModel: ContactViewModel
     
-    init(name: String, key: String) {
-        self.name = name
-        self.key = key
+    init(viewModel: ContactViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
         HStack(spacing: 8) {
-            ContactAvatarView(initials: name.initials(limit: 2))
+            ContactAvatarView(initials: viewModel.name.initials(limit: 2))
             VStack(alignment: .leading, spacing: 4) {
-                Text(name)
+                Text(viewModel.name)
                     .lineLimit(1)
                     .font(.system(size: 14, weight: .medium, design: .default))
                 
-                KeyboardView(key: key)
+                KeyboardView(key: viewModel.key)
             }
             
             Spacer()

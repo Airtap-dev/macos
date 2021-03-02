@@ -11,5 +11,4 @@ import Foundation
 struct Config {
     static let apiEndpoint: String = "https://api.airtap.dev/"
     static let wsEndpoint: String = "wss://api.airtap.dev/ws"
-    static let rtcEndpoint: String = "turn:turn.airtap.dev:3478"
 }
