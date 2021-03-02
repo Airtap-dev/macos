@@ -50,9 +50,10 @@ class CallProvider: CallProviding {
         
         webRTCService.eventSubject
             .sink { [weak self] event in
-                switch(event) {
+                switch event {
                 case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
                     self?.handleLocalCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+                default:break
                 }
             }
             .store(in: &cancellables)
@@ -67,7 +68,6 @@ class CallProvider: CallProviding {
                 }
             }
             .store(in: &cancellables)
-        
     }
     
     
