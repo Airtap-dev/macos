@@ -14,6 +14,17 @@ struct CreateAccountResponse: Decodable {
     let token: String
 }
 
+struct GetServersResponse: Decodable {
+    let servers: [ServerDTO]
+}
+
+struct ServerDTO: Decodable {
+    let serverId: Int
+    let url: String
+    let username: String
+    let password: String
+}
+
 struct DiscoverResponse: Decodable {
     let accountId: Int
     let firstName: String

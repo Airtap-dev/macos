@@ -13,11 +13,12 @@ import AVFoundation
 
 enum WebRTCServiceEvent {
     case receiveCandidate(Int, String, Int32, String?)
-    case receiveData(Data)
 }
 
 protocol WebRTCServing {
     var eventSubject: PassthroughSubject<WebRTCServiceEvent, Never> { get }
+    
+    func updateServers(_ servers: [Server])
     
     func muteAudio(id: Int)
     func unmuteAudio(id: Int)
@@ -29,11 +30,9 @@ protocol WebRTCServing {
     func createAnswer(for id: Int, completion: @escaping (String?) -> Void)
     func setAnswer(for id: Int, sdp: String, completion: @escaping () -> Void)
     func setCandidate(for id: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
-    
 }
 
 class WebRTCService: NSObject, WebRTCServing {
-    
     private let rtcPeerConnectionFactory = RTCPeerConnectionFactory()
     private let rtcMediaConstraints: RTCMediaConstraints = RTCMediaConstraints(
         mandatoryConstraints: [
@@ -45,22 +44,24 @@ class WebRTCService: NSObject, WebRTCServing {
     private var peerConnections: [Int: RTCPeerConnection] = [:]
     
     private(set) var eventSubject = PassthroughSubject<WebRTCServiceEvent, Never>()
+    private var cancellables = Set<AnyCancellable>()
     
     override init() {
         super.init()
+        rtcConfig.sdpSemantics = .unifiedPlan
+    }
     
-        
-        rtcConfig.iceServers = [
+    func updateServers(_ servers: [Server]) {
+        rtcConfig.iceServers = servers.map { server in
             RTCIceServer(
                 urlStrings: [
-                    Config.rtcEndpoint
+                    server.url
                 ],
-                username: "ninefingers",
-                credential: "youhavetoberealistic",
+                username: server.username,
+                credential: server.password,
                 tlsCertPolicy: .insecureNoCheck
             )
-        ]
-        rtcConfig.sdpSemantics = .unifiedPlan
+        }
     }
     
     func muteAudio(id: Int) {
@@ -78,8 +79,13 @@ class WebRTCService: NSObject, WebRTCServing {
             delegate: self
         )
         
+        let audioTrack = self.createAudioTrack(id: id)
+        peerConnection.add(audioTrack, streamIds: ["stream_\(id)"])
+        
+        let stream = rtcPeerConnectionFactory.mediaStream(withStreamId: "stream_\(id)")
+        stream.addAudioTrack(audioTrack)
+    
         peerConnections[id] = peerConnection
-        createMediaSenders(id: id)
     }
     
     func closeConnection(id: Int) {
@@ -98,10 +104,13 @@ class WebRTCService: NSObject, WebRTCServing {
     }
     
     func setOffer(for id: Int, sdp: String, completion: @escaping () -> Void) {
-        if peerConnections[id]?.localDescription != nil {
-            peerConnections[id]?.close()
-            createConnection(id: id)
-        }
+//        if peerConnections[id]?.localDescription != nil {
+//            peerConnections[id]?.close()
+//            createConnection(id: id)
+//        }
+        
+        peerConnections[id] = nil
+        createConnection(id: id)
         
         guard let peerConnection = peerConnections[id] else { return }
         
@@ -145,14 +154,6 @@ class WebRTCService: NSObject, WebRTCServing {
         return audioTrack
     }
     
-    private func createMediaSenders(id: Int) {
-        let streamId = "stream_\(id)"
-        
-        // Audio
-        let audioTrack = self.createAudioTrack(id: id)
-        self.peerConnections[id]?.add(audioTrack, streamIds: [streamId])
-    }
-    
     private func setAudioEnabled(id: Int, isEnabled: Bool) {
         setTrackEnabled(RTCAudioTrack.self, id: id, isEnabled: isEnabled)
     }
@@ -165,17 +166,6 @@ extension WebRTCService {
             .forEach { $0.isEnabled = isEnabled }
     }
 }
-
-extension WebRTCService: RTCDataChannelDelegate {
-    func dataChannelDidChangeState(_ dataChannel: RTCDataChannel) {
-        debugPrint("dataChannel did change state: \(dataChannel.readyState)")
-    }
-    
-    func dataChannel(_ dataChannel: RTCDataChannel, didReceiveMessageWith buffer: RTCDataBuffer) {
-        eventSubject.send(.receiveData(buffer.data))
-    }
-}
-
 
 extension WebRTCService: RTCPeerConnectionDelegate {
     func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
@@ -198,8 +188,9 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
-        //no-op
-        print("RTC: \(newState)")
+        if newState == .disconnected, let id = peerConnections.keyForValue(peerConnection) {
+            self.closeConnection(id: id)
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
@@ -221,11 +212,5 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
         //no-op
         print("RTC: \(dataChannel)")
-    }
-}
-
-extension WebRTCService: RTCRtpReceiverDelegate {
-    func rtpReceiver(_ rtpReceiver: RTCRtpReceiver, didReceiveFirstPacketFor mediaType: RTCRtpMediaType) {
-        print("RTC: \(mediaType)")
     }
 }

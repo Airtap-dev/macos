@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol CallProviding {
-    func start(accountId: Int, token: String)
+    func start()
     func addPeer(accountId: Int)
     func removePeer(accountId: Int)
 }
@@ -18,6 +18,7 @@ protocol CallProviding {
 class CallProvider: CallProviding {
     
     private let webRTCService: WebRTCServing
+    private let apiService: APIServing
     private let wsService: WSServing
     private let persistenceProvider: PersistenceProviding
     
@@ -25,39 +26,17 @@ class CallProvider: CallProviding {
     
     init(
         webRTCService: WebRTCServing,
+        apiService: APIServing,
         wsService: WSServing,
         persistenceProvider: PersistenceProviding
     ) {
         self.webRTCService = webRTCService
+        self.apiService = apiService
         self.wsService = wsService
         self.persistenceProvider = persistenceProvider
     }
     
-    func start(accountId: Int, token: String) {
-        wsService.eventSubject
-            .sink { [weak self] event in
-                guard let self = self else { return }
-                switch(event) {
-                case let .receiveOffer(accountId, sdp):
-                    self.handleIncomingOffer(accountId: accountId, sdp: sdp)
-                case let .receiveAnswer(accountId, sdp):
-                    self.handleIncomingAnswer(accountId: accountId, sdp: sdp)
-                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
-                    self.handleRemoteCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
-                }
-            }
-            .store(in: &cancellables)
-        
-        webRTCService.eventSubject
-            .sink { [weak self] event in
-                switch event {
-                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
-                    self?.handleLocalCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
-                default:break
-                }
-            }
-            .store(in: &cancellables)
-        
+    func start() {
         persistenceProvider.eventSubject
             .sink { [weak self] event in
                 switch(event) {
@@ -68,8 +47,46 @@ class CallProvider: CallProviding {
                 }
             }
             .store(in: &cancellables)
+        
+        webRTCService.eventSubject
+            .sink { [weak self] event in
+                switch event {
+                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
+                    self?.handleLocalCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+                }
+            }
+            .store(in: &cancellables)
+        
+        wsService.eventSubject
+            .sink { [weak self] event in
+                guard let self = self else { return }
+                switch(event) {
+                case .connected:
+                    self.prepareWebRTC()
+                case let .receiveOffer(accountId, sdp):
+                    self.handleIncomingOffer(accountId: accountId, sdp: sdp)
+                case let .receiveAnswer(accountId, sdp):
+                    self.handleIncomingAnswer(accountId: accountId, sdp: sdp)
+                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
+                    self.handleRemoteCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+                }
+            }
+            .store(in: &cancellables)
     }
     
+    private func prepareWebRTC() {
+        apiService.getServers()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in
+
+            }, receiveValue: { [weak self] response in
+                self?.webRTCService.updateServers(response.servers.map {
+                    Server(id: $0.serverId, url: $0.url, username: $0.username, password: $0.password)
+                })
+                self?.persistenceProvider.start()
+                
+            }).store(in: &cancellables)
+    }
     
     func addPeer(accountId: Int) {
         webRTCService.createConnection(id: accountId)
@@ -93,7 +110,7 @@ class CallProvider: CallProviding {
     }
     
     private func handleIncomingAnswer(accountId: Int, sdp: String) {
-        webRTCService.setAnswer(for: accountId, sdp: sdp) { [weak self] in
+        webRTCService.setAnswer(for: accountId, sdp: sdp) { 
             //no-op
         }
     }

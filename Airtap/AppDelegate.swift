@@ -9,7 +9,6 @@
 import Cocoa
 import SwiftUI
 import Combine
-
 import KeychainSwift
 
 @main
@@ -22,6 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var resolver = Resolver()
     
     private var cancellables = Set<AnyCancellable>()
+
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        KeychainSwift().delete("accountId")
@@ -39,10 +39,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             .store(in: &cancellables)
-        
+    
         if let (accountId, token) = resolver.authProvider.currentAccount() {
             resolver.authProvider.signIn(accountId: accountId, token: token)
         }
+        
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -108,7 +110,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         if let button = statusBarItem.button, let buttonWindow = button.window {
             var position = buttonWindow.frame.origin
-            position.y -= (mainWindow!.frame.height + 16)
+            position.x -= (mainWindow!.frame.width / 2) - (buttonWindow.frame.width / 2)
+            position.y -= mainWindow!.frame.height
             mainWindow!.setFrameOrigin(position)
         }
         mainWindow!.makeKeyAndOrderFront(nil)
