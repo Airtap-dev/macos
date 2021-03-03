@@ -97,7 +97,9 @@ class PersistenceProvider: PersistenceProviding {
                 self?.servers.forEach {
                     self?.realm.delete($0)
                 }
+            }
                 
+            try! self?.realm.write {
                 let newServers = servers.map { (id, url, username, password) -> Server in
                     let realmServerObject = Server()
                     realmServerObject.id = id
