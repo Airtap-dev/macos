@@ -185,8 +185,9 @@ extension WebRTCService: RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
-        //no-op
-        print("RTC: \(newState)")
+        if newState == .disconnected, let id = peerConnections.keyForValue(peerConnection) {
+            self.closeConnection(id: id)
+        }
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
