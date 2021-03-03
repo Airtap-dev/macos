@@ -7,16 +7,11 @@
 //
 
 import Foundation
-import RealmSwift
 
-class Server: Object {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var url: String = ""
-    @objc dynamic var username: String = ""
-    @objc dynamic var password: String = ""
-    
-    override static func primaryKey() -> String? {
-        return "id"
-    }
+struct Server {
+    var id: Int
+    var url: String
+    var username: String
+    var password: String
 }
 

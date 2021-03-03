@@ -29,7 +29,6 @@ class MainModel: ObservableObject {
         self.persistenceProvider = persistenceProvider
         
         self.peers = self.persistenceProvider.peers
-        
         self.persistenceProvider.eventSubject
             .sink { [weak self] event in
                 switch event {
@@ -39,7 +38,6 @@ class MainModel: ObservableObject {
                     self?.peers.removeAll(where: { peer -> Bool in
                         peer.id == unloadedPeer.id
                     })
-                default: break
                 }
             }
             .store(in: &cancellables)

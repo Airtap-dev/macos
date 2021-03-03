@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private var cancellables = Set<AnyCancellable>()
 
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        KeychainSwift().delete("accountId")
 //        KeychainSwift().delete("accountToken")
@@ -38,10 +39,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             .store(in: &cancellables)
-        
+    
         if let (accountId, token) = resolver.authProvider.currentAccount() {
             resolver.authProvider.signIn(accountId: accountId, token: token)
         }
+        
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

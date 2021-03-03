@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol CallProviding {
-    func start(accountId: Int, token: String)
+    func start()
     func addPeer(accountId: Int)
     func removePeer(accountId: Int)
 }
@@ -36,19 +36,14 @@ class CallProvider: CallProviding {
         self.persistenceProvider = persistenceProvider
     }
     
-    func start(accountId: Int, token: String) {
-        wsService.eventSubject
+    func start() {
+        persistenceProvider.eventSubject
             .sink { [weak self] event in
-                guard let self = self else { return }
                 switch(event) {
-                case .connected:
-                    self.persistenceProvider.start()
-                case let .receiveOffer(accountId, sdp):
-                    self.handleIncomingOffer(accountId: accountId, sdp: sdp)
-                case let .receiveAnswer(accountId, sdp):
-                    self.handleIncomingAnswer(accountId: accountId, sdp: sdp)
-                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
-                    self.handleRemoteCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+                case let .peerLoaded(peer):
+                    self?.addPeer(accountId: peer.id)
+                case let .peerUnloaded(peer):
+                    self?.removePeer(accountId: peer.id)
                 }
             }
             .store(in: &cancellables)
@@ -62,32 +57,34 @@ class CallProvider: CallProviding {
             }
             .store(in: &cancellables)
         
-        persistenceProvider.eventSubject
-            .receive(on: DispatchQueue.main)
+        wsService.eventSubject
             .sink { [weak self] event in
+                guard let self = self else { return }
                 switch(event) {
-                case let .peerLoaded(peer):
-                    self?.addPeer(accountId: peer.id)
-                case let .peerUnloaded(peer):
-                    self?.removePeer(accountId: peer.id)
-                case let .serverListUpdated(servers):
-                    self?.webRTCService.updateServers(servers)
+                case .connected:
+                    self.prepareWebRTC()
+                case let .receiveOffer(accountId, sdp):
+                    self.handleIncomingOffer(accountId: accountId, sdp: sdp)
+                case let .receiveAnswer(accountId, sdp):
+                    self.handleIncomingAnswer(accountId: accountId, sdp: sdp)
+                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
+                    self.handleRemoteCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
                 }
             }
             .store(in: &cancellables)
-        
-        
-        self.webRTCService.updateServers(self.persistenceProvider.servers)
-        
+    }
+    
+    private func prepareWebRTC() {
         apiService.getServers()
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in
-               
+
             }, receiveValue: { [weak self] response in
-                self?.persistenceProvider.updateServerList(
-                    servers: response.servers.map { s -> (Int, String, String, String) in
-                        (s.serverId, s.url, s.username, s.password)
-                    }
-                )
+                self?.webRTCService.updateServers(response.servers.map {
+                    Server(id: $0.serverId, url: $0.url, username: $0.username, password: $0.password)
+                })
+                self?.persistenceProvider.start()
+                
             }).store(in: &cancellables)
     }
     

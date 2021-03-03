@@ -45,9 +45,7 @@ class WSService: WSServing {
             socket?.connect()
         }
     }
-    
-    
-    
+
     func sendOffer(to accountId: Int, sdp: String) {
         send(
             type: .offer,

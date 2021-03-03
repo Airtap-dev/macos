@@ -9,42 +9,27 @@
 import Foundation
 
 class Resolver {
-    let apiService: APIServing
-    let wsService: WSServing
-    let webRTCService: WebRTCServing
+    let apiService = APIService()
+    let wsService = WSService()
+    let webRTCService = WebRTCService()
+    let persistenceProvider = PersistenceProvider()
+    let authProvider = AuthProvider()
     
-    let persistenceProvider: PersistenceProviding
-    let authProvider: AuthProviding
     let callProvider: CallProviding
-    
     let linkHandler: LinkHandling
 
     init() {
-        // Services
-        let apiService = APIService()
-        let wsService = WSService()
-        let webRTCService = WebRTCService()
-        
-        // Providers
-        let persistenceProvider = PersistenceProvider()
-        let authProvider = AuthProvider()
-        let callProvider = CallProvider(
+        self.callProvider = CallProvider(
             webRTCService: webRTCService,
             apiService: apiService,
             wsService: wsService,
             persistenceProvider: persistenceProvider
         )
         
-        // Handlers
-        let linkHandler = LinkHandler(apiService: apiService, persistenceProvider: persistenceProvider)
-        
-        self.apiService = apiService
-        self.wsService = wsService
-        self.webRTCService = webRTCService
-        self.persistenceProvider = persistenceProvider
-        self.authProvider = authProvider
-        self.callProvider = callProvider
-        self.linkHandler = linkHandler
+        self.linkHandler = LinkHandler(
+            apiService: apiService,
+            persistenceProvider: persistenceProvider
+        )
     }
     
     // MARK: - For AppDelegate -
@@ -54,8 +39,9 @@ class Resolver {
     
     func start(accountId: Int, token: String) {
         apiService.setIdentity(accountId: accountId, token: token)
-        callProvider.start(accountId: accountId, token: token)
         wsService.start(accountId: accountId, token: token)
+        
+        callProvider.start()
     }
     
     // MARK: - Routing -
