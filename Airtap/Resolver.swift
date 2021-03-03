@@ -28,7 +28,12 @@ class Resolver {
         // Providers
         let persistenceProvider = PersistenceProvider()
         let authProvider = AuthProvider()
-        let callProvider = CallProvider(webRTCService: webRTCService, wsService: wsService, persistenceProvider: persistenceProvider)
+        let callProvider = CallProvider(
+            webRTCService: webRTCService,
+            apiService: apiService,
+            wsService: wsService,
+            persistenceProvider: persistenceProvider
+        )
         
         // Handlers
         let linkHandler = LinkHandler(apiService: apiService, persistenceProvider: persistenceProvider)

@@ -18,6 +18,8 @@ enum WebRTCServiceEvent {
 protocol WebRTCServing {
     var eventSubject: PassthroughSubject<WebRTCServiceEvent, Never> { get }
     
+    func updateServers(_ servers: [Server])
+    
     func muteAudio(id: Int)
     func unmuteAudio(id: Int)
     
@@ -31,7 +33,6 @@ protocol WebRTCServing {
 }
 
 class WebRTCService: NSObject, WebRTCServing {
-    
     private let rtcPeerConnectionFactory = RTCPeerConnectionFactory()
     private let rtcMediaConstraints: RTCMediaConstraints = RTCMediaConstraints(
         mandatoryConstraints: [
@@ -43,20 +44,24 @@ class WebRTCService: NSObject, WebRTCServing {
     private var peerConnections: [Int: RTCPeerConnection] = [:]
     
     private(set) var eventSubject = PassthroughSubject<WebRTCServiceEvent, Never>()
+    private var cancellables = Set<AnyCancellable>()
     
     override init() {
         super.init()
-        rtcConfig.iceServers = [
+        rtcConfig.sdpSemantics = .unifiedPlan
+    }
+    
+    func updateServers(_ servers: [Server]) {
+        rtcConfig.iceServers = servers.map { server in
             RTCIceServer(
                 urlStrings: [
-                    Config.rtcEndpoint
+                    server.url
                 ],
-                username: "ninefingers",
-                credential: "youhavetoberealistic",
-                tlsCertPolicy: .insecureNoCheck
+                username: server.username,
+                credential: server.password,
+                tlsCertPolicy: .secure
             )
-        ]
-        rtcConfig.sdpSemantics = .unifiedPlan
+        }
     }
     
     func muteAudio(id: Int) {
@@ -77,6 +82,9 @@ class WebRTCService: NSObject, WebRTCServing {
         let audioTrack = self.createAudioTrack(id: id)
         peerConnection.add(audioTrack, streamIds: ["stream_\(id)"])
         
+        let stream = rtcPeerConnectionFactory.mediaStream(withStreamId: "stream_\(id)")
+        stream.addAudioTrack(audioTrack)
+    
         peerConnections[id] = peerConnection
     }
     

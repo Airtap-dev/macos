@@ -14,6 +14,7 @@ protocol APIServing {
     func setIdentity(accountId: Int, token: String)
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError>
+    func getServers() -> Future<GetServersResponse, NetworkingError>
     func discover(code: String) -> Future<DiscoverResponse, NetworkingError>
 }
 
@@ -40,6 +41,15 @@ class APIService: APIServing {
             .post(
                 "account/create",
                 body: payload
+            )
+            .asFuture()
+    }
+    
+    func getServers() -> Future<GetServersResponse, NetworkingError> {
+        return Endpoint<GetServersResponse>(baseURL: Config.apiEndpoint)
+            .get(
+                "rtc/servers",
+                auth: basicAuth
             )
             .asFuture()
     }

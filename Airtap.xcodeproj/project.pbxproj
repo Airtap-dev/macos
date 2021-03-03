@@ -14,7 +14,12 @@
 		FA14402025ECF235000D22F4 /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14401F25ECF235000D22F4 /* Dictionary+Extensions.swift */; };
 		FA14402325ECF33B000D22F4 /* CallProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14402225ECF33B000D22F4 /* CallProvider.swift */; };
 		FA14402625ECF890000D22F4 /* PersistenceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14402525ECF890000D22F4 /* PersistenceProvider.swift */; };
+		FA1809EA25EFDE7A000EF35C /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1809E925EFDE7A000EF35C /* Server.swift */; };
 		FA46E0CD25ED4EDD003917B8 /* LinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46E0CC25ED4EDD003917B8 /* LinkHandler.swift */; };
+		FA78328B25EFBC0300A0F4EC /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328A25EFBC0300A0F4EC /* Wave.swift */; };
+		FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */; };
+		FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */; };
+		FA78329625EFD2E300A0F4EC /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */; };
 		FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119825EA4B4300B1F90B /* AppDelegate.swift */; };
 		FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119A25EA4B4300B1F90B /* MainView.swift */; };
 		FAAD119D25EA4B4500B1F90B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAAD119C25EA4B4500B1F90B /* Assets.xcassets */; };
@@ -51,7 +56,12 @@
 		FA14401F25ECF235000D22F4 /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
 		FA14402225ECF33B000D22F4 /* CallProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallProvider.swift; sourceTree = "<group>"; };
 		FA14402525ECF890000D22F4 /* PersistenceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceProvider.swift; sourceTree = "<group>"; };
+		FA1809E925EFDE7A000EF35C /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		FA46E0CC25ED4EDD003917B8 /* LinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHandler.swift; sourceTree = "<group>"; };
+		FA78328A25EFBC0300A0F4EC /* Wave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
+		FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+Extensions.swift"; sourceTree = "<group>"; };
+		FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
+		FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		FAAD119525EA4B4300B1F90B /* Airtap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airtap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAD119825EA4B4300B1F90B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAAD119A25EA4B4300B1F90B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -102,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				FA1301AE25ED22A70050A695 /* Peer.swift */,
+				FA1809E925EFDE7A000EF35C /* Server.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,6 +149,8 @@
 				FAAD11A425EA4B4500B1F90B /* Info.plist */,
 				FAAD11A525EA4B4500B1F90B /* Airtap.entitlements */,
 				FAAD119E25EA4B4500B1F90B /* Preview Content */,
+				FA78328A25EFBC0300A0F4EC /* Wave.swift */,
+				FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */,
 			);
 			path = Airtap;
 			sourceTree = "<group>";
@@ -184,6 +197,7 @@
 			children = (
 				FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */,
 				FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */,
+				FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -203,6 +217,7 @@
 				FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */,
 				FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */,
 				FA14401F25ECF235000D22F4 /* Dictionary+Extensions.swift */,
+				FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -356,8 +371,11 @@
 				FAF27FA625EC2D2A00DC04D6 /* WSService.swift in Sources */,
 				FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */,
 				FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */,
+				FA78329625EFD2E300A0F4EC /* VisualEffectView.swift in Sources */,
+				FA78328B25EFBC0300A0F4EC /* Wave.swift in Sources */,
 				FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */,
 				FAF27F6C25EBB7FF00DC04D6 /* APIService.swift in Sources */,
+				FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */,
 				FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */,
 				FAF27FB325EC3DDE00DC04D6 /* WSDTO.swift in Sources */,
 				FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */,
@@ -369,6 +387,7 @@
 				FAF27F7F25EBC5C700DC04D6 /* APIDTO.swift in Sources */,
 				FAF27F8B25EBC83100DC04D6 /* AuthProvider.swift in Sources */,
 				FA46E0CD25ED4EDD003917B8 /* LinkHandler.swift in Sources */,
+				FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */,
 				FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */,
 				FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */,
 				FA14402025ECF235000D22F4 /* Dictionary+Extensions.swift in Sources */,
@@ -378,6 +397,7 @@
 				FA14402625ECF890000D22F4 /* PersistenceProvider.swift in Sources */,
 				FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */,
 				FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */,
+				FA1809EA25EFDE7A000EF35C /* Server.swift in Sources */,
 				FA1301C625ED3E280050A695 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

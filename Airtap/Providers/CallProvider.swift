@@ -18,6 +18,7 @@ protocol CallProviding {
 class CallProvider: CallProviding {
     
     private let webRTCService: WebRTCServing
+    private let apiService: APIServing
     private let wsService: WSServing
     private let persistenceProvider: PersistenceProviding
     
@@ -25,10 +26,12 @@ class CallProvider: CallProviding {
     
     init(
         webRTCService: WebRTCServing,
+        apiService: APIServing,
         wsService: WSServing,
         persistenceProvider: PersistenceProviding
     ) {
         self.webRTCService = webRTCService
+        self.apiService = apiService
         self.wsService = wsService
         self.persistenceProvider = persistenceProvider
     }
@@ -53,7 +56,6 @@ class CallProvider: CallProviding {
                 switch event {
                 case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
                     self?.handleLocalCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
-                default:break
                 }
             }
             .store(in: &cancellables)
@@ -65,9 +67,22 @@ class CallProvider: CallProviding {
                     self?.addPeer(accountId: peer.id)
                 case let .peerUnloaded(peer):
                     self?.removePeer(accountId: peer.id)
+                case let .serverListUpdated(servers):
+                    self?.webRTCService.updateServers(servers)
                 }
             }
             .store(in: &cancellables)
+        
+        apiService.getServers()
+            .sink(receiveCompletion: { _ in
+               
+            }, receiveValue: { [weak self] response in
+                self?.persistenceProvider.updateServerList(
+                    servers: response.servers.map { s -> (Int, String, String, String) in
+                        (s.serverId, s.url, s.username, s.password)
+                    }
+                )
+            }).store(in: &cancellables)
     }
     
     

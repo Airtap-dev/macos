@@ -7,9 +7,23 @@
 //
 
 import Foundation
+import Combine
 
-class MainViewModel {
+class MainViewModel: ObservableObject {
+    private var cancellables = Set<AnyCancellable>()
+    
+    @Published private(set) var contactViewModels: [ContactViewModel] = []
+    
     init(model: MainModel) {
-        
+        model.$peers
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] peers in
+                var contactsVMs: [ContactViewModel] = []
+                peers.indices.forEach {
+                    contactsVMs.append(ContactViewModel(peer: peers[$0], key: "\($0 + 1)"))
+                }
+                self?.contactViewModels = contactsVMs
+            }
+            .store(in: &cancellables)
     }
 }

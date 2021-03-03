@@ -9,7 +9,6 @@
 import Cocoa
 import SwiftUI
 import Combine
-
 import KeychainSwift
 
 @main
@@ -108,7 +107,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         if let button = statusBarItem.button, let buttonWindow = button.window {
             var position = buttonWindow.frame.origin
-            position.y -= (mainWindow!.frame.height + 16)
+            position.x -= (mainWindow!.frame.width / 2) - (buttonWindow.frame.width / 2)
+            position.y -= mainWindow!.frame.height
             mainWindow!.setFrameOrigin(position)
         }
         mainWindow!.makeKeyAndOrderFront(nil)
