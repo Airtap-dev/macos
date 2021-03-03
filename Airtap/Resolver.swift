@@ -53,10 +53,9 @@ class Resolver {
     }
     
     func start(accountId: Int, token: String) {
-        wsService.start(accountId: accountId, token: token)
         apiService.setIdentity(accountId: accountId, token: token)
         callProvider.start(accountId: accountId, token: token)
-        persistenceProvider.start()
+        wsService.start(accountId: accountId, token: token)
     }
     
     // MARK: - Routing -

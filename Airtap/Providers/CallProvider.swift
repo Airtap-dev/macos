@@ -41,6 +41,8 @@ class CallProvider: CallProviding {
             .sink { [weak self] event in
                 guard let self = self else { return }
                 switch(event) {
+                case .connected:
+                    self.persistenceProvider.start()
                 case let .receiveOffer(accountId, sdp):
                     self.handleIncomingOffer(accountId: accountId, sdp: sdp)
                 case let .receiveAnswer(accountId, sdp):
@@ -73,6 +75,9 @@ class CallProvider: CallProviding {
             }
             .store(in: &cancellables)
         
+        
+        self.webRTCService.updateServers(self.persistenceProvider.servers)
+        
         apiService.getServers()
             .sink(receiveCompletion: { _ in
                
@@ -84,7 +89,6 @@ class CallProvider: CallProviding {
                 )
             }).store(in: &cancellables)
     }
-    
     
     func addPeer(accountId: Int) {
         webRTCService.createConnection(id: accountId)

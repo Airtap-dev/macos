@@ -59,7 +59,7 @@ class WebRTCService: NSObject, WebRTCServing {
                 ],
                 username: server.username,
                 credential: server.password,
-                tlsCertPolicy: .secure
+                tlsCertPolicy: .insecureNoCheck
             )
         }
     }

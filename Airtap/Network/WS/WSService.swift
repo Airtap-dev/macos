@@ -11,6 +11,7 @@ import Starscream
 import Combine
 
 enum WSServiceEvent {
+    case connected
     case receiveOffer(fromAccountId: Int, sdp: String)
     case receiveAnswer(fromAccountId: Int, sdp: String)
     case receiveCandidate(fromAccountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
@@ -44,6 +45,8 @@ class WSService: WSServing {
             socket?.connect()
         }
     }
+    
+    
     
     func sendOffer(to accountId: Int, sdp: String) {
         send(
@@ -147,6 +150,8 @@ class WSService: WSServing {
 extension WSService: WebSocketDelegate {
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
+        case .connected:
+            self.eventSubject.send(.connected)
         case let .text(receivedString):
             print("SOCKETS IN: \(receivedString)")
             let payload = try! JSONDecoder().decode(WSPayload.self, from: receivedString.data(using: .utf8)!)

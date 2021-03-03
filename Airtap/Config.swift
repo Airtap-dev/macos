@@ -9,7 +9,6 @@
 import Foundation
 
 struct Config {
-    static let apiEndpoint: String = "https://api.airtap.dev/"
-    static let wsEndpoint: String = "wss://api.airtap.dev/ws"
-    static let rtcEndpoint: String = "turn:turn.airtap.dev:3478"
+    static let apiEndpoint: String = "https://airtap-api.herokuapp.com"
+    static let wsEndpoint: String = "ws://airtap-api.herokuapp.com/ws"
 }
