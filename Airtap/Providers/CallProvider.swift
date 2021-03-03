@@ -63,6 +63,7 @@ class CallProvider: CallProviding {
             .store(in: &cancellables)
         
         persistenceProvider.eventSubject
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
                 switch(event) {
                 case let .peerLoaded(peer):
@@ -112,7 +113,7 @@ class CallProvider: CallProviding {
     }
     
     private func handleIncomingAnswer(accountId: Int, sdp: String) {
-        webRTCService.setAnswer(for: accountId, sdp: sdp) { [weak self] in
+        webRTCService.setAnswer(for: accountId, sdp: sdp) { 
             //no-op
         }
     }
