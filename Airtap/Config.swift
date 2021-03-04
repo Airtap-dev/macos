@@ -9,6 +9,6 @@
 import Foundation
 
 struct Config {
-    static let apiEndpoint: String = "https://api.airtap.dev/"
-    static let wsEndpoint: String = "wss://api.airtap.dev/ws"
+    static let apiEndpoint: String = "https://api-staging.airtap.dev/"
+    static let wsEndpoint: String = "wss://api-staging.airtap.dev/ws"
 }

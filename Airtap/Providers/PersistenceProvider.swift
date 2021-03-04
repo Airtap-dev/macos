@@ -20,6 +20,8 @@ protocol PersistenceProviding {
     var peers: [Peer] { get }
     
     func start()
+    func wipeAll()
+    
     func insertPeer(id: Int, firstName: String, lastName: String?)
     func deletePeer(id: Int)
 }
@@ -33,10 +35,6 @@ class PersistenceProvider: PersistenceProviding {
     
     init() {
         realm = try! Realm()
-        
-        //        try! realm.write {
-        //            realm.deleteAll()
-        //        }
     }
     
     func start() {
@@ -44,6 +42,16 @@ class PersistenceProvider: PersistenceProviding {
         self.peers = peers.map { $0 }
         self.peers.forEach {
             self.eventSubject.send(.peerLoaded($0))
+        }
+    }
+    
+    func wipeAll() {
+        self.peers.forEach {
+            self.eventSubject.send(.peerUnloaded($0))
+        }
+        
+        try! realm.write {
+            realm.deleteAll()
         }
     }
     

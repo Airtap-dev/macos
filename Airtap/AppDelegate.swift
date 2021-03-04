@@ -24,9 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-//        KeychainSwift().delete("accountId")
-//        KeychainSwift().delete("accountToken")
-        
         setupStatusBarItem()
         
         resolver.authProvider.eventSubject
@@ -43,8 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let (accountId, token) = resolver.authProvider.currentAccount() {
             resolver.authProvider.signIn(accountId: accountId, token: token)
         }
-        
-        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
