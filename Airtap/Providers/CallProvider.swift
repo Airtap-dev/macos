@@ -65,7 +65,7 @@ class CallProvider: CallProviding {
                 guard let self = self else { return }
                 switch(event) {
                 case .connected:
-                    self.prepareWebRTC()
+                    self.persistenceProvider.start()
                 case let .receiveOffer(accountId, sdp):
                     self.handleIncomingOffer(accountId: accountId, sdp: sdp)
                 case let .receiveAnswer(accountId, sdp):
@@ -75,27 +75,6 @@ class CallProvider: CallProviding {
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    private func prepareWebRTC() {
-        apiService.getServers()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                if case let .failure(error) = completion, case let .error(code) = error {
-                    if APIError(rawValue: code) == .invalidCredentials {
-                        self?.authProvider.signOut()
-                        self?.persistenceProvider.wipeAll()
-                        self?.wsService.stop()
-                        self?.apiService.dropIdentity()
-                    }
-                }
-            }, receiveValue: { [weak self] response in
-                self?.webRTCService.updateServers(response.servers.map {
-                    Server(id: $0.serverId, url: $0.url, username: $0.username, password: $0.password)
-                })
-                self?.persistenceProvider.start()
-                
-            }).store(in: &cancellables)
     }
     
     func addPeer(accountId: Int) {

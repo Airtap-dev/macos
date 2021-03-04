@@ -52,6 +52,11 @@ class WebRTCService: NSObject, WebRTCServing {
     }
     
     func updateServers(_ servers: [Server]) {
+        rtcConfig.continualGatheringPolicy = .gatherOnce
+        rtcConfig.activeResetSrtpParams = true
+        rtcConfig.allowCodecSwitching = true
+        rtcConfig.disableIPV6 = true
+        rtcConfig.enableDscp = true
         rtcConfig.iceServers = servers.map { server in
             RTCIceServer(
                 urlStrings: [
