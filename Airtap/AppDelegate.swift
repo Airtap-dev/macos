@@ -26,9 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         resolver.authProvider.eventSubject
             .sink { [weak self] event in
-                switch(event) {
+                switch event {
                 case let .signedIn(accountId, token):
-                    self?.resolver.start(accountId: accountId, token: token)
+                    self?.start(accountId: accountId, token: token)
                 case .signedOut:
                     break
                 }
@@ -40,6 +40,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    private func start(accountId: Int, token: String) {
+        resolver.start(accountId: accountId, token: token)
+        
+        resolver.apiService.getServers()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case let .failure(error) = completion, case let .error(code) = error {
+                    if APIError(rawValue: code) == .invalidCredentials {
+                        self?.resolver.authProvider.signOut()
+                        self?.resolver.persistenceProvider.wipeAll()
+                        self?.resolver.wsService.stop()
+                        self?.resolver.apiService.dropIdentity()
+                    }
+                }
+            }, receiveValue: { [weak self] response in
+                self?.resolver.webRTCService.updateServers(response.servers.map {
+                    Server(id: $0.serverId, url: $0.url, username: $0.username, password: $0.password)
+                })
+            }).store(in: &cancellables)
+    }
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }

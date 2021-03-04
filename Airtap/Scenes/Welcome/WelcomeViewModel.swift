@@ -13,7 +13,7 @@ class WelcomeViewModel: ObservableObject {
     
     private let model: WelcomeModel
     
-    @Published var licenseKey: String = "ac8a47fc-3a1c-4bfc-8c54-56b1f51ee7dd"
+    @Published var licenseKey: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     
