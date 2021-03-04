@@ -12,6 +12,7 @@ import TinyHTTP
 
 protocol APIServing {
     func setIdentity(accountId: Int, token: String)
+    func dropIdentity()
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError>
     func getServers() -> Future<GetServersResponse, NetworkingError>
@@ -26,6 +27,10 @@ class APIService: APIServing {
         if let authString = "\(accountId):\(token)".data(using: .utf8)?.base64EncodedString() {
             basicAuth = "Basic \(authString)"
         }
+    }
+    
+    func dropIdentity() {
+        basicAuth = nil
     }
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError> {

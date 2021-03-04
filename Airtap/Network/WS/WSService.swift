@@ -21,6 +21,8 @@ protocol WSServing {
     var eventSubject: PassthroughSubject<WSServiceEvent, Never> { get }
     
     func start(accountId: Int, token: String)
+    func stop()
+    
     func sendOffer(to accountId: Int, sdp: String)
     func sendAnswer(to accountId: Int, sdp: String)
     func sendCandidate(to accountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
@@ -44,6 +46,10 @@ class WSService: WSServing {
             socket?.delegate = self
             socket?.connect()
         }
+    }
+    
+    func stop() {
+        socket?.disconnect()
     }
 
     func sendOffer(to accountId: Int, sdp: String) {

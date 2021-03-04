@@ -85,6 +85,8 @@ class CallProvider: CallProviding {
                     if APIError(rawValue: code) == .invalidCredentials {
                         self?.authProvider.signOut()
                         self?.persistenceProvider.wipeAll()
+                        self?.wsService.stop()
+                        self?.apiService.dropIdentity()
                     }
                 }
             }, receiveValue: { [weak self] response in
