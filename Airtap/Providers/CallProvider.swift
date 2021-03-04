@@ -20,6 +20,7 @@ class CallProvider: CallProviding {
     private let webRTCService: WebRTCServing
     private let apiService: APIServing
     private let wsService: WSServing
+    private let authProvider: AuthProviding
     private let persistenceProvider: PersistenceProviding
     
     private var cancellables = Set<AnyCancellable>()
@@ -28,11 +29,13 @@ class CallProvider: CallProviding {
         webRTCService: WebRTCServing,
         apiService: APIServing,
         wsService: WSServing,
+        authProvider: AuthProviding,
         persistenceProvider: PersistenceProviding
     ) {
         self.webRTCService = webRTCService
         self.apiService = apiService
         self.wsService = wsService
+        self.authProvider = authProvider
         self.persistenceProvider = persistenceProvider
     }
     
@@ -77,8 +80,13 @@ class CallProvider: CallProviding {
     private func prepareWebRTC() {
         apiService.getServers()
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in
-
+            .sink(receiveCompletion: { [weak self] completion in
+                if case let .failure(error) = completion, case let .error(code) = error {
+                    if APIError(rawValue: code) == .invalidCredentials {
+                        self?.authProvider.signOut()
+                        self?.persistenceProvider.wipeAll()
+                    }
+                }
             }, receiveValue: { [weak self] response in
                 self?.webRTCService.updateServers(response.servers.map {
                     Server(id: $0.serverId, url: $0.url, username: $0.username, password: $0.password)

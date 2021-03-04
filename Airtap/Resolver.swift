@@ -23,6 +23,7 @@ class Resolver {
             webRTCService: webRTCService,
             apiService: apiService,
             wsService: wsService,
+            authProvider: authProvider,
             persistenceProvider: persistenceProvider
         )
         
