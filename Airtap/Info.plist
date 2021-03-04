@@ -40,7 +40,7 @@
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>We're using your microphone in order to make your voice heard.</string>
+	<string>We use your microphone to make your voice heard.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSServices</key>
