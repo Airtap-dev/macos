@@ -19,10 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem: NSStatusItem!
     
     private lazy var resolver = Resolver()
-    
     private var cancellables = Set<AnyCancellable>()
-
-
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setupStatusBarItem()
         
