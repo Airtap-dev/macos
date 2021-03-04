@@ -41,6 +41,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func start(accountId: Int, token: String) {
+        resolver.start(accountId: accountId, token: token)
+        
         resolver.apiService.getServers()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -53,7 +55,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     }
                 }
             }, receiveValue: { [weak self] response in
-                self?.resolver.start(accountId: accountId, token: token)
                 self?.resolver.webRTCService.updateServers(response.servers.map {
                     Server(id: $0.serverId, url: $0.url, username: $0.username, password: $0.password)
                 })
