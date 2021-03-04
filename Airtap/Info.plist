@@ -22,7 +22,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
+			<string>Viewer</string>
 			<key>CFBundleURLName</key>
 			<string>com.airtap.client</string>
 			<key>CFBundleURLSchemes</key>
@@ -30,6 +30,7 @@
 				<string>airtap</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
