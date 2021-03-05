@@ -91,9 +91,3 @@ extension Color {
     static let gradientColor1 = Color(red: 0.97, green: 0.00, blue: 0.30).opacity(0.5)
     static let gradientColor2 = Color(red: 1.00, green: 0.40, blue: 0.11).opacity(0.5)
 }
-
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        Resolver().main()
-    }
-}

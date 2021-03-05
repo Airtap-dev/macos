@@ -11,14 +11,15 @@ import WebRTC
 import Combine
 import AVFoundation
 
-enum WebRTCServiceEvent {
+enum WebRTCServiceEvent: Equatable {
+    case ready
     case receiveCandidate(Int, String, Int32, String?)
 }
 
 protocol WebRTCServing {
     var eventSubject: PassthroughSubject<WebRTCServiceEvent, Never> { get }
     
-    func updateServers(_ servers: [Server])
+    func setServerList(_ servers: [Server])
     
     func muteAudio(id: Int)
     func unmuteAudio(id: Int)
@@ -33,6 +34,8 @@ protocol WebRTCServing {
 }
 
 class WebRTCService: NSObject, WebRTCServing {
+    private let authProvider: AuthProviding
+    
     private let rtcPeerConnectionFactory = RTCPeerConnectionFactory()
     private let rtcMediaConstraints: RTCMediaConstraints = RTCMediaConstraints(
         mandatoryConstraints: [
@@ -46,17 +49,27 @@ class WebRTCService: NSObject, WebRTCServing {
     private(set) var eventSubject = PassthroughSubject<WebRTCServiceEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    override init() {
+    init(authProvider: AuthProviding) {
+        self.authProvider = authProvider
         super.init()
-        rtcConfig.sdpSemantics = .unifiedPlan
+        
+        self.authProvider.eventSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                if case .signedOut = event {
+                    self?.peerConnections.forEach {
+                        $0.value.close()
+                    }
+                    self?.peerConnections = [:]
+                    self?.rtcConfig.iceServers = []
+                }
+            }
+            .store(in: &cancellables)
     }
     
-    func updateServers(_ servers: [Server]) {
-        rtcConfig.continualGatheringPolicy = .gatherOnce
-        rtcConfig.activeResetSrtpParams = true
-        rtcConfig.allowCodecSwitching = true
+    func setServerList(_ servers: [Server]) {
         rtcConfig.disableIPV6 = true
-        rtcConfig.enableDscp = true
+        rtcConfig.sdpSemantics = .unifiedPlan
         rtcConfig.iceServers = servers.map { server in
             RTCIceServer(
                 urlStrings: [
@@ -67,6 +80,8 @@ class WebRTCService: NSObject, WebRTCServing {
                 tlsCertPolicy: .insecureNoCheck
             )
         }
+        
+        eventSubject.send(.ready)
     }
     
     func muteAudio(id: Int) {

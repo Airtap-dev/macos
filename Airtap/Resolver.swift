@@ -9,16 +9,23 @@
 import Foundation
 
 class Resolver {
-    let apiService = APIService()
-    let wsService = WSService()
-    let webRTCService = WebRTCService()
-    let persistenceProvider = PersistenceProvider()
-    let authProvider = AuthProvider()
+    let apiService: APIServing
+    let wsService: WSServing
+    let webRTCService: WebRTCServing
     
+    let authProvider: AuthProviding
+    let persistenceProvider: PersistenceProviding
     let callProvider: CallProviding
+    
     let linkHandler: LinkHandling
 
-    init() {
+    init(authProvider: AuthProviding) {
+        self.apiService = APIService(authProvider: authProvider)
+        self.wsService = WSService(authProvider: authProvider)
+        self.webRTCService = WebRTCService(authProvider: authProvider)
+        
+        self.authProvider = authProvider
+        self.persistenceProvider = PersistenceProvider(authProvider: authProvider)
         self.callProvider = CallProvider(
             webRTCService: webRTCService,
             apiService: apiService,
@@ -31,18 +38,6 @@ class Resolver {
             apiService: apiService,
             persistenceProvider: persistenceProvider
         )
-    }
-    
-    // MARK: - For AppDelegate -
-    func isAuthorised() -> Bool {
-        authProvider.currentAccount() != nil
-    }
-    
-    func start(accountId: Int, token: String) {
-        apiService.setIdentity(accountId: accountId, token: token)
-        wsService.start(accountId: accountId, token: token)
-        
-        callProvider.start()
     }
     
     // MARK: - Routing -
