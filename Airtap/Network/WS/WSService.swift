@@ -10,8 +10,8 @@ import Foundation
 import Starscream
 import Combine
 
-enum WSServiceEvent {
-    case connected
+enum WSServiceEvent: Equatable {
+    case ready
     case receiveOffer(fromAccountId: Int, sdp: String)
     case receiveAnswer(fromAccountId: Int, sdp: String)
     case receiveCandidate(fromAccountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
@@ -19,26 +19,43 @@ enum WSServiceEvent {
 
 protocol WSServing {
     var eventSubject: PassthroughSubject<WSServiceEvent, Never> { get }
-    
-    func start(accountId: Int, token: String)
-    func stop()
-    
+
     func sendOffer(to accountId: Int, sdp: String)
     func sendAnswer(to accountId: Int, sdp: String)
     func sendCandidate(to accountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
 }
 
 class WSService: WSServing {
+    private let authProvider: AuthProviding
     
     private(set) var eventSubject = PassthroughSubject<WSServiceEvent, Never>()
-    
+    private var cancellables = Set<AnyCancellable>()
+        
+    private var authString: String?
     private var socket: WebSocket?
     private var nonce: Int = 0
     
-    init() { }
+    init(authProvider: AuthProviding) {
+        self.authProvider = authProvider
+        
+        self.authProvider.eventSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                switch event {
+                case let .signedIn(accountId, token):
+                    self?.start(accountId: accountId, token: token)
+                case .signedOut:
+                    self?.authString = nil
+                    self?.socket?.disconnect()
+                    self?.socket = nil
+                }
+            }
+            .store(in: &cancellables)
+    }
     
-    func start(accountId: Int, token: String) {
+    private func start(accountId: Int, token: String) {
         if let authString = "\(accountId):\(token)".data(using: .utf8)?.base64EncodedString() {
+            self.authString = authString
             var request = URLRequest(url: URL(string: Config.wsEndpoint)!)
             request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
             request.timeoutInterval = 5
@@ -48,7 +65,7 @@ class WSService: WSServing {
         }
     }
     
-    func stop() {
+    private func stop() {
         socket?.disconnect()
     }
 
@@ -155,7 +172,7 @@ extension WSService: WebSocketDelegate {
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
         case .connected:
-            self.eventSubject.send(.connected)
+            self.eventSubject.send(.ready)
         case let .text(receivedString):
             print("SOCKETS IN: \(receivedString)")
             let payload = try! JSONDecoder().decode(WSPayload.self, from: receivedString.data(using: .utf8)!)

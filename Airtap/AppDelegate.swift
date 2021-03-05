@@ -17,48 +17,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var welcomeWindow: NSWindow?
     var mainWindow: NSWindow?
     var statusBarItem: NSStatusItem!
+
+    private let authProvider = AuthProvider()
+    private var resolver: Resolver!
     
-    private lazy var resolver = Resolver()
     private var cancellables = Set<AnyCancellable>()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setupStatusBarItem()
         
-        resolver.authProvider.eventSubject
-            .sink { [weak self] event in
-                switch event {
-                case let .signedIn(accountId, token):
-                    self?.start(accountId: accountId, token: token)
-                case .signedOut:
-                    break
-                }
-            }
-            .store(in: &cancellables)
-    
-        if let (accountId, token) = resolver.authProvider.currentAccount() {
-            resolver.authProvider.signIn(accountId: accountId, token: token)
-        }
-    }
-
-    private func start(accountId: Int, token: String) {
-        resolver.start(accountId: accountId, token: token)
-        
-        resolver.apiService.getServers()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                if case let .failure(error) = completion, case let .error(code) = error {
-                    if APIError(rawValue: code) == .invalidCredentials {
-                        self?.resolver.authProvider.signOut()
-                        self?.resolver.persistenceProvider.wipeAll()
-                        self?.resolver.wsService.stop()
-                        self?.resolver.apiService.dropIdentity()
-                    }
-                }
-            }, receiveValue: { [weak self] response in
-                self?.resolver.webRTCService.updateServers(response.servers.map {
-                    Server(id: $0.serverId, url: $0.url, username: $0.username, password: $0.password)
-                })
-            }).store(in: &cancellables)
+        self.resolver = Resolver(authProvider: authProvider)
+        self.authProvider.load()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -79,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc
     private func didClickStatusBarItem() {
-        if resolver.isAuthorised() {
+        if authProvider.isAuthorised {
             if mainWindow?.isVisible == true {
                 mainWindow?.close()
             } else {

@@ -38,6 +38,7 @@ class MainModel: ObservableObject {
                     self?.peers.removeAll(where: { peer -> Bool in
                         peer.id == unloadedPeer.id
                     })
+                default: break
                 }
             }
             .store(in: &cancellables)

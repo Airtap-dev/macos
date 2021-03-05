@@ -10,7 +10,8 @@ import Foundation
 import Combine
 import RealmSwift
 
-enum PersistenceProviderEvent {
+enum PersistenceProviderEvent: Equatable {
+    case ready
     case peerLoaded(Peer)
     case peerUnloaded(Peer)
 }
@@ -19,33 +20,47 @@ protocol PersistenceProviding {
     var eventSubject: PassthroughSubject<PersistenceProviderEvent, Never> { get }
     var peers: [Peer] { get }
     
-    func start()
-    func wipeAll()
-    
     func insertPeer(id: Int, firstName: String, lastName: String?)
     func deletePeer(id: Int)
 }
 
 class PersistenceProvider: PersistenceProviding {
-    
-    private(set) var eventSubject = PassthroughSubject<PersistenceProviderEvent, Never>()
-    private(set) var peers: [Peer] = []
-    
+    private let authProvider: AuthProviding
     private let realm: Realm
     
-    init() {
+    private(set) var eventSubject = PassthroughSubject<PersistenceProviderEvent, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    private(set) var peers: [Peer] = []
+
+    init(authProvider: AuthProviding) {
+        self.authProvider = authProvider
         realm = try! Realm()
+        
+        self.authProvider.eventSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                switch event {
+                case .signedIn:
+                    self?.loadPersistence()
+                case .signedOut:
+                    self?.destroyPersistence()
+                }
+            }
+            .store(in: &cancellables)
     }
     
-    func start() {
+    deinit {
+        cancellables.removeAll()
+    }
+    
+    private func loadPersistence() {
         let peers = self.realm.objects(Peer.self)
         self.peers = peers.map { $0 }
-        self.peers.forEach {
-            self.eventSubject.send(.peerLoaded($0))
-        }
+        eventSubject.send(.ready)
     }
     
-    func wipeAll() {
+    private func destroyPersistence() {
         self.peers.forEach {
             self.eventSubject.send(.peerUnloaded($0))
         }

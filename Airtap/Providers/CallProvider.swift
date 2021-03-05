@@ -10,7 +10,6 @@ import Foundation
 import Combine
 
 protocol CallProviding {
-    func start()
     func addPeer(accountId: Int)
     func removePeer(accountId: Int)
 }
@@ -23,6 +22,7 @@ class CallProvider: CallProviding {
     private let authProvider: AuthProviding
     private let persistenceProvider: PersistenceProviding
     
+    private var dependencyCancellables = Set<AnyCancellable>()
     private var cancellables = Set<AnyCancellable>()
     
     init(
@@ -37,9 +37,115 @@ class CallProvider: CallProviding {
         self.wsService = wsService
         self.authProvider = authProvider
         self.persistenceProvider = persistenceProvider
+        
+        Publishers.CombineLatest(
+            // Transport
+            Publishers.CombineLatest3(
+                webRTCService.eventSubject,
+                wsService.eventSubject,
+                apiService.eventSubject
+            ),
+            // Local Data
+            Publishers.CombineLatest(
+                authProvider.eventSubject,
+                persistenceProvider.eventSubject
+            )
+        )
+        .receive(on: DispatchQueue.main)
+        .sink(receiveValue: { [weak self] (transport, local) in
+            let (webRTCEvent, wsEvent, apiEvent) = transport
+            let (authEvent, persistenceEvent) = local
+            
+            if (
+                webRTCEvent == .ready &&
+                wsEvent == .ready &&
+                apiEvent == .identitySet &&
+                persistenceEvent == .ready
+            ) {
+                if case .signedIn(_, _) = authEvent {
+                    self?.start()
+                }
+            }
+        })
+        .store(in: &cancellables)
+        
+        apiService.eventSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                if case .identitySet = event {
+                    self?.fetchRemoteServers()
+                }
+            }
+            .store(in: &cancellables)
+        
+        authProvider.eventSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                if case .signedOut = event {
+                    self?.stop()
+                }
+            }
+            .store(in: &cancellables)
     }
     
-    func start() {
+    deinit {
+        cancellables.removeAll()
+        dependencyCancellables.removeAll()
+    }
+    
+    private func fetchRemoteServers() {
+        apiService.getServers()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                if case let .failure(error) = completion, case let .error(code) = error {
+                    if APIError(rawValue: code) == .invalidCredentials {
+                        self?.authProvider.signOut()
+                    }
+                }
+            }, receiveValue: { [weak self] response in
+                let servers = response.servers.map {
+                    Server(
+                        id: $0.serverId,
+                        url: $0.url,
+                        username: $0.username,
+                        password: $0.password
+                    )
+                }
+                self?.webRTCService.setServerList(servers)
+            }).store(in: &cancellables)
+    }
+    
+    private func start() {
+        webRTCService.eventSubject
+            .sink { [weak self] event in
+                switch event {
+                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
+                    self?.handleLocalCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+                default: break
+                }
+            }
+            .store(in: &dependencyCancellables)
+        
+        wsService.eventSubject
+            .sink { [weak self] event in
+                guard let self = self else { return }
+                switch(event) {
+                case let .receiveOffer(accountId, sdp):
+                    self.handleIncomingOffer(accountId: accountId, sdp: sdp)
+                case let .receiveAnswer(accountId, sdp):
+                    self.handleIncomingAnswer(accountId: accountId, sdp: sdp)
+                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
+                    self.handleRemoteCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+                default: break
+                }
+            }
+            .store(in: &dependencyCancellables)
+        
+        
+        persistenceProvider.peers.forEach {
+            addPeer(accountId: $0.id)
+        }
+        
         persistenceProvider.eventSubject
             .sink { [weak self] event in
                 switch(event) {
@@ -47,34 +153,14 @@ class CallProvider: CallProviding {
                     self?.addPeer(accountId: peer.id)
                 case let .peerUnloaded(peer):
                     self?.removePeer(accountId: peer.id)
+                default: break
                 }
             }
-            .store(in: &cancellables)
-        
-        webRTCService.eventSubject
-            .sink { [weak self] event in
-                switch event {
-                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
-                    self?.handleLocalCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
-                }
-            }
-            .store(in: &cancellables)
-        
-        wsService.eventSubject
-            .sink { [weak self] event in
-                guard let self = self else { return }
-                switch(event) {
-                case .connected:
-                    self.persistenceProvider.start()
-                case let .receiveOffer(accountId, sdp):
-                    self.handleIncomingOffer(accountId: accountId, sdp: sdp)
-                case let .receiveAnswer(accountId, sdp):
-                    self.handleIncomingAnswer(accountId: accountId, sdp: sdp)
-                case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
-                    self.handleRemoteCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
-                }
-            }
-            .store(in: &cancellables)
+            .store(in: &dependencyCancellables)
+    }
+    
+    private func stop() {
+        dependencyCancellables.removeAll()
     }
     
     func addPeer(accountId: Int) {

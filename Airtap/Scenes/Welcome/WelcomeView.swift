@@ -54,9 +54,3 @@ struct WelcomeTextFieldStyle: TextFieldStyle {
             .shadow(color: Color.black.opacity(0.2), radius: 1)
     }
 }
-
-struct WelcomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        Resolver().welcome()
-    }
-}

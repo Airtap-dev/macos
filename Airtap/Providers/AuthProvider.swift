@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import KeychainSwift
 
-enum AuthProviderEvent {
+enum AuthProviderEvent: Equatable {
     case signedIn(Int, String)
     case signedOut
 }
@@ -18,7 +18,9 @@ enum AuthProviderEvent {
 protocol AuthProviding {
     var eventSubject: PassthroughSubject<AuthProviderEvent, Never> { get }
     
-    func currentAccount() -> (Int, String)?
+    var isAuthorised: Bool { get }
+    
+    func load()
     func signIn(accountId: Int, token: String)
     func signOut()
 }
@@ -33,12 +35,17 @@ class AuthProvider: AuthProviding {
         self.keychain = KeychainSwift()
     }
     
-    func currentAccount() -> (Int, String)? {
-        if let accountId = keychain.get("accountId"), let token = keychain.get("accountToken") {
-            return (Int(accountId)!, token)
+    var isAuthorised: Bool {
+        if let _ = keychain.get("accountId"), let _ = keychain.get("accountToken") {
+            return true
         }
-        
-        return nil
+        return false
+    }
+    
+    func load(){
+        if let accountId = keychain.get("accountId"), let token = keychain.get("accountToken") {
+            signIn(accountId: Int(accountId)!, token: token)
+        }
     }
     
     func signIn(accountId: Int, token: String) {
