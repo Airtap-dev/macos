@@ -69,15 +69,20 @@ class CallProvider: CallProviding {
         })
         .store(in: &cancellables)
         
+        apiService.eventSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                if case .identitySet = event {
+                    self?.fetchRemoteServers()
+                }
+            }
+            .store(in: &cancellables)
+        
         authProvider.eventSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
-                switch event {
-                case .signedIn:
-                    self?.fetchRemoteServers()
-                case .signedOut:
+                if case .signedOut = event {
                     self?.stop()
-                default: break
                 }
             }
             .store(in: &cancellables)
