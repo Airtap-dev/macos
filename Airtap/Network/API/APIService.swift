@@ -10,9 +10,13 @@ import Foundation
 import Combine
 import TinyHTTP
 
+enum APIServiceEvent: Equatable {
+    case identitySet
+    case identityRemoved
+}
+
 protocol APIServing {
-    func setIdentity(accountId: Int, token: String)
-    func dropIdentity()
+    var eventSubject: PassthroughSubject<APIServiceEvent, Never> { get }
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError>
     func getServers() -> Future<GetServersResponse, NetworkingError>
@@ -20,17 +24,39 @@ protocol APIServing {
 }
 
 class APIService: APIServing {
+    private let authProvider: AuthProviding
+    
+    private(set) var eventSubject = PassthroughSubject<APIServiceEvent, Never>()
+    private var cancellables = Set<AnyCancellable>()
     
     private var basicAuth: String?
     
-    func setIdentity(accountId: Int, token: String) {
+    init(authProvider: AuthProviding) {
+        self.authProvider = authProvider
+        
+        self.authProvider.eventSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                switch event {
+                case let .signedIn(accountId, token):
+                    self?.setIdentity(accountId: accountId, token: token)
+                case .signedOut:
+                    self?.dropIdentity()
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func setIdentity(accountId: Int, token: String) {
         if let authString = "\(accountId):\(token)".data(using: .utf8)?.base64EncodedString() {
             basicAuth = "Basic \(authString)"
         }
+        eventSubject.send(.identitySet)
     }
     
-    func dropIdentity() {
+    private func dropIdentity() {
         basicAuth = nil
+        eventSubject.send(.identityRemoved)
     }
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError> {
