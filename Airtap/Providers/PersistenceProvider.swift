@@ -57,9 +57,7 @@ class PersistenceProvider: PersistenceProviding {
     private func loadPersistence() {
         let peers = self.realm.objects(Peer.self)
         self.peers = peers.map { $0 }
-        self.peers.forEach {
-            self.eventSubject.send(.peerLoaded($0))
-        }
+        eventSubject.send(.ready)
     }
     
     private func destroyPersistence() {
