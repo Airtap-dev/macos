@@ -73,7 +73,7 @@ class CallProvider: CallProviding {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
                 if case .identitySet = event {
-                    self?.fetchRemoteServers()
+                    self?.startSession()
                 }
             }
             .store(in: &cancellables)
@@ -93,8 +93,8 @@ class CallProvider: CallProviding {
         dependencyCancellables.removeAll()
     }
     
-    private func fetchRemoteServers() {
-        apiService.getServers()
+    private func startSession() {
+        apiService.startSession()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 if case let .failure(error) = completion, case let .error(code) = error {
@@ -103,9 +103,8 @@ class CallProvider: CallProviding {
                     }
                 }
             }, receiveValue: { [weak self] response in
-                let servers = response.servers.map {
+                let servers = response.turnCredentials.map {
                     Server(
-                        id: $0.serverId,
                         url: $0.url,
                         username: $0.username,
                         password: $0.password

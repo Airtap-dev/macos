@@ -14,12 +14,14 @@ struct CreateAccountResponse: Decodable {
     let token: String
 }
 
-struct GetServersResponse: Decodable {
-    let servers: [ServerDTO]
+struct StartSessionResponse: Decodable {
+    let accountId: Int
+    let firstName: String
+    let lastName: String?
+    let turnCredentials: [TurnCredentialsDTO]
 }
 
-struct ServerDTO: Decodable {
-    let serverId: Int
+struct TurnCredentialsDTO: Decodable {
     let url: String
     let username: String
     let password: String
