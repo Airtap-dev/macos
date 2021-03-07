@@ -19,7 +19,7 @@ protocol APIServing {
     var eventSubject: PassthroughSubject<APIServiceEvent, Never> { get }
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError>
-    func getServers() -> Future<GetServersResponse, NetworkingError>
+    func startSession() -> Future<StartSessionResponse, NetworkingError>
     func discover(code: String) -> Future<DiscoverResponse, NetworkingError>
 }
 
@@ -76,10 +76,10 @@ class APIService: APIServing {
             .asFuture()
     }
     
-    func getServers() -> Future<GetServersResponse, NetworkingError> {
-        return Endpoint<GetServersResponse>(baseURL: Config.apiEndpoint)
+    func startSession() -> Future<StartSessionResponse, NetworkingError> {
+        return Endpoint<StartSessionResponse>(baseURL: Config.apiEndpoint)
             .get(
-                "rtc/servers",
+                "account/start",
                 auth: basicAuth
             )
             .asFuture()
