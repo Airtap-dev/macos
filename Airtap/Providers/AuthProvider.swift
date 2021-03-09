@@ -20,6 +20,8 @@ protocol AuthProviding {
     
     var isAuthorised: Bool { get }
     
+    var accountId: Int? { get }
+    
     func load()
     func signIn(accountId: Int, token: String)
     func signOut()
@@ -30,6 +32,8 @@ class AuthProvider: AuthProviding {
     private let keychain: KeychainSwift
     
     private(set) var eventSubject = PassthroughSubject<AuthProviderEvent, Never>()
+    
+    private(set) var accountId: Int?
     
     init() {
         self.keychain = KeychainSwift()
@@ -52,12 +56,14 @@ class AuthProvider: AuthProviding {
         keychain.set("\(accountId)", forKey: "accountId")
         keychain.set(token, forKey: "accountToken")
         
+        self.accountId = accountId
         eventSubject.send(.signedIn(accountId, token))
     }
     
     func signOut() {
         keychain.delete("accountId")
         keychain.delete("accountToken")
+        self.accountId = nil
         
         eventSubject.send(.signedOut)
     }
