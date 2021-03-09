@@ -15,14 +15,16 @@ protocol LinkHandling {
 
 class LinkHandler: LinkHandling {
     
+    private let authProvider: AuthProviding
     private let apiService: APIServing
     private let persistenceProvider: PersistenceProviding
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(apiService: APIServing, persistenceProvider: PersistenceProviding) {
+    init(authProvider: AuthProviding, apiService: APIServing, persistenceProvider: PersistenceProviding) {
         self.apiService = apiService
         self.persistenceProvider = persistenceProvider
+        self.authProvider = authProvider
     }
     
     func handleURL(url: URL) {
@@ -40,11 +42,13 @@ class LinkHandler: LinkHandling {
             .sink(receiveCompletion: { _ in
                 // no-op
             }, receiveValue: { [weak self] response in
-                self?.persistenceProvider.insertPeer(
-                    id: response.accountId,
-                    firstName: response.firstName,
-                    lastName: response.lastName
-                )
+                if let selfAccountId = self?.authProvider.accountId, response.accountId != selfAccountId {
+                    self?.persistenceProvider.insertPeer(
+                        id: response.accountId,
+                        firstName: response.firstName,
+                        lastName: response.lastName
+                    )
+                }
             }).store(in: &cancellables)
     }
 }

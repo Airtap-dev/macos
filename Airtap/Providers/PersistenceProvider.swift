@@ -49,7 +49,7 @@ class PersistenceProvider: PersistenceProviding {
             }
             .store(in: &cancellables)
     }
-    
+
     deinit {
         cancellables.removeAll()
     }
