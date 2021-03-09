@@ -14,6 +14,7 @@ class Resolver {
     let webRTCService: WebRTCServing
     
     let authProvider: AuthProviding
+    let keyboardProvider: KeyboardProviding
     let persistenceProvider: PersistenceProviding
     let callProvider: CallProviding
     
@@ -25,13 +26,15 @@ class Resolver {
         self.webRTCService = WebRTCService(authProvider: authProvider)
         
         self.authProvider = authProvider
+        self.keyboardProvider = KeyboardProvider()
         self.persistenceProvider = PersistenceProvider(authProvider: authProvider)
         self.callProvider = CallProvider(
             webRTCService: webRTCService,
             apiService: apiService,
             wsService: wsService,
             authProvider: authProvider,
-            persistenceProvider: persistenceProvider
+            persistenceProvider: persistenceProvider,
+            keyboardProvider: keyboardProvider
         )
         
         self.linkHandler = LinkHandler(
