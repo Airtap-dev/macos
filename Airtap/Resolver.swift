@@ -35,6 +35,7 @@ class Resolver {
         )
         
         self.linkHandler = LinkHandler(
+            authProvider: authProvider,
             apiService: apiService,
             persistenceProvider: persistenceProvider
         )
