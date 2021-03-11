@@ -106,6 +106,7 @@ class WebRTCService: NSObject, WebRTCServing {
         stream.addAudioTrack(audioTrack)
     
         peerConnections[id] = peerConnection
+        muteAudio(id: id)
     }
     
     func closeConnection(id: Int) {

@@ -21,6 +21,7 @@ class CallProvider: CallProviding {
     private let wsService: WSServing
     private let authProvider: AuthProviding
     private let persistenceProvider: PersistenceProviding
+    private let keyboardProvider: KeyboardProviding
     
     private var dependencyCancellables = Set<AnyCancellable>()
     private var cancellables = Set<AnyCancellable>()
@@ -30,13 +31,15 @@ class CallProvider: CallProviding {
         apiService: APIServing,
         wsService: WSServing,
         authProvider: AuthProviding,
-        persistenceProvider: PersistenceProviding
+        persistenceProvider: PersistenceProviding,
+        keyboardProvider: KeyboardProviding
     ) {
         self.webRTCService = webRTCService
         self.apiService = apiService
         self.wsService = wsService
         self.authProvider = authProvider
         self.persistenceProvider = persistenceProvider
+        self.keyboardProvider = keyboardProvider
         
         Publishers.CombineLatest(
             // Transport
@@ -86,6 +89,8 @@ class CallProvider: CallProviding {
                 }
             }
             .store(in: &cancellables)
+        
+        
     }
     
     deinit {
@@ -153,6 +158,23 @@ class CallProvider: CallProviding {
                 case let .peerUnloaded(peer):
                     self?.removePeer(accountId: peer.id)
                 default: break
+                }
+            }
+            .store(in: &dependencyCancellables)
+        
+        keyboardProvider.eventSubject
+            .sink { [weak self] event in
+                switch event {
+                case let .keyDown(index):
+                    if self?.persistenceProvider.peers.indices.contains(index) == true,
+                        let peerId = self?.persistenceProvider.peers[index].id {
+                        self?.webRTCService.unmuteAudio(id: peerId)
+                    }
+                case let .keyUp(index):
+                    if self?.persistenceProvider.peers.indices.contains(index) == true,
+                        let peerId = self?.persistenceProvider.peers[index].id {
+                        self?.webRTCService.muteAudio(id: peerId)
+                    }
                 }
             }
             .store(in: &dependencyCancellables)

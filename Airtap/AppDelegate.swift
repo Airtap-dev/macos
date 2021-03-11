@@ -11,6 +11,8 @@ import SwiftUI
 import Combine
 import KeychainSwift
 
+import HotKey
+
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -22,12 +24,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var resolver: Resolver!
     
     private var cancellables = Set<AnyCancellable>()
+    private var hotKey: HotKey!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setupStatusBarItem()
         
         self.resolver = Resolver(authProvider: authProvider)
         self.authProvider.load()
+
+        hotKey = HotKey(key: .one, modifiers: [.option])
+        hotKey.keyDownHandler = {
+          print("Pressed at \(Date())")
+        }
+        
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
