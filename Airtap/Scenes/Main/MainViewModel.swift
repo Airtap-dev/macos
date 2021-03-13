@@ -14,6 +14,9 @@ class MainViewModel: ObservableObject {
 
     @Published private(set) var shouldShowOnboarding: Bool = false
     @Published private(set) var accountOwnerInitials: String = ""
+    @Published private(set) var currentPeerInitials: String = ""
+    @Published private(set) var isAccountOwnerSpeaking: Bool = false
+    @Published private(set) var currentPeer: Peer?
     @Published private(set) var contactViewModels: [ContactViewModel] = []
     
     private var cancellables = Set<AnyCancellable>()
@@ -32,8 +35,13 @@ class MainViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] account in
                 guard let account = account else { return }
-                let accountFullName: String = account.lastName == nil ? account.firstName : account.firstName + " " + account.lastName!
+                
+                let accountFullName: String = account.lastName == nil ?
+                    account.firstName :
+                    account.firstName + " " + account.lastName!
+                
                 self?.accountOwnerInitials = accountFullName.initials(limit: 2)
+                self?.isAccountOwnerSpeaking = account.isSpeaking
             }
             .store(in: &cancellables)
         
@@ -45,6 +53,20 @@ class MainViewModel: ObservableObject {
                     contactsVMs.append(ContactViewModel(peer: peers[$0], key: "\($0 + 1)"))
                 }
                 self?.contactViewModels = contactsVMs
+                
+                if let currentPeerIndex = peers.firstIndex(where: { $0.isSpeaking }) {
+                    let currentPeer =  peers[currentPeerIndex]
+                    
+                    let currentPeerFullName: String = currentPeer.lastName == nil ?
+                        currentPeer.firstName :
+                        currentPeer.firstName + " " + currentPeer.lastName!
+                    
+                    self?.currentPeer = currentPeer
+                    self?.currentPeerInitials = currentPeerFullName.initials(limit: 2)
+                } else {
+                    self?.currentPeer = nil
+                    self?.currentPeerInitials = ""
+                }
             }
             .store(in: &cancellables)
     }

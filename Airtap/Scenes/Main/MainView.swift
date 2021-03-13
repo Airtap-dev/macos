@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct MainView: View {
-    
     @State private var phase = 0.0
-    
     @ObservedObject private var viewModel: MainViewModel
     
     init(viewModel: MainViewModel) {
@@ -21,22 +19,37 @@ struct MainView: View {
     var waves: some View {
         ZStack {
             ForEach(0..<2) { i in
-                WaveView(strength: 8, frequency: 16, phase: self.phase + Double(8 * i) / 2)
-                    .stroke(
-                        AngularGradient(
-                            gradient: Gradient(
-                                colors: [
-                                    i % 2 == 0 ? Theme.Colors.waveGradientStart : Theme.Colors.waveGradientEnd,
-                                    i % 2 == 0 ? Theme.Colors.waveGradientEnd : Theme.Colors.waveGradientStart,
-                                ]
-                            ),
-                            center: .center,
-                            startAngle: .degrees(270),
-                            endAngle: .degrees(0)
+                WaveView(
+                    strength: (viewModel.isAccountOwnerSpeaking || viewModel.currentPeer != nil) ? 9 : 3,
+                    frequency: 16,
+                    phase: self.phase + Double(8 * i) / 2
+                )
+                .stroke(
+                    AngularGradient(
+                        gradient: Gradient(
+                            colors: (viewModel.isAccountOwnerSpeaking || viewModel.currentPeer != nil) ? [
+                                i % 2 == 0 ?
+                                    Theme.Colors.waveGradientStart :
+                                    Theme.Colors.waveGradientEnd,
+                                i % 2 == 0 ?
+                                    Theme.Colors.waveGradientEnd :
+                                    Theme.Colors.waveGradientStart,
+                            ] : [
+                                i % 2 == 0 ?
+                                    Theme.Colors.waveGradientMutedStart :
+                                    Theme.Colors.waveGradientMutedEnd,
+                                i % 2 == 0 ?
+                                    Theme.Colors.waveGradientMutedEnd :
+                                    Theme.Colors.waveGradientMutedStart,
+                            ]
                         ),
-                        lineWidth: 2
-                    )
-                    .frame(height: 44)
+                        center: .center,
+                        startAngle: .degrees(270),
+                        endAngle: .degrees(0)
+                    ),
+                    lineWidth: 2
+                )
+                .frame(height: 32)
             }
         }
         .onAppear {
@@ -78,22 +91,46 @@ struct MainView: View {
                 Divider()
             }
             
-            
             VStack(spacing: 16) {
                 ZStack {
                     waves
+                    
                     HStack {
                         ContactAvatarView(initials: viewModel.accountOwnerInitials, size: .medium)
                     }
+                    .padding(.leading, (viewModel.isAccountOwnerSpeaking && viewModel.currentPeer != nil) ? 40 : 0)
+                    .opacity(viewModel.isAccountOwnerSpeaking ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.2))
+                    
+                    HStack {
+                        ContactAvatarView(initials: viewModel.currentPeerInitials, size: .medium)
+                    }
+                    .padding(.trailing, (viewModel.isAccountOwnerSpeaking && viewModel.currentPeer != nil) ? 40 : 0)
+                    .opacity(viewModel.currentPeer != nil ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.2))
                 }
                 HStack {
-                    Text("Alex is speaking...")
-                        .foregroundColor(Theme.Colors.mainText)
-                        .font(.system(size: 14, weight: .medium))
+                    Group {
+                        if (!viewModel.isAccountOwnerSpeaking && viewModel.currentPeer == nil) {
+                            Text(Lang.noOneSpeaking)
+                        } else {
+                            if (viewModel.isAccountOwnerSpeaking && viewModel.currentPeer != nil) {
+                                Text(String(format: Lang.youAndPeerSpeaking, viewModel.currentPeer?.firstName ?? ""))
+                            } else {
+                                if viewModel.isAccountOwnerSpeaking {
+                                    Text(String(format: Lang.youSpeaking))
+                                } else {
+                                    Text(String(format: Lang.peerSpeaking, viewModel.currentPeer?.firstName ?? ""))
+                                }
+                            }
+                        }
+                    }
+                    .foregroundColor(Theme.Colors.mainText)
+                    .font(.system(size: 14, weight: .medium))
                 }
             }
-            
             .padding(.top, 16)
+            
             VStack {
                 ForEach(viewModel.contactViewModels.indices, id: \.self) { index in
                     ContactView(viewModel: viewModel.contactViewModels[index])

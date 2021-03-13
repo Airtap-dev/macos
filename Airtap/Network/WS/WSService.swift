@@ -58,7 +58,7 @@ class WSService: WSServing {
     private func start(accountId: Int, token: String) {
         if let authString = "\(accountId):\(token)".data(using: .utf8)?.base64EncodedString() {
             self.authString = authString
-            runSocket()
+            connectIfAuthorised()
         }
     }
     

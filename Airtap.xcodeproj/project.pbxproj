@@ -20,10 +20,9 @@
 		FA50161E25FCE5CE0010A0C0 /* Lang.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50161D25FCE5CE0010A0C0 /* Lang.swift */; };
 		FA50162025FCE6B50010A0C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA50162225FCE6B50010A0C0 /* Localizable.strings */; };
 		FA50162525FCE9CC0010A0C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162425FCE9CC0010A0C0 /* Account.swift */; };
-		FA78328B25EFBC0300A0F4EC /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328A25EFBC0300A0F4EC /* Wave.swift */; };
+		FA50162E25FD06B10010A0C0 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162D25FD06B10010A0C0 /* WaveView.swift */; };
 		FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */; };
 		FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */; };
-		FA78329625EFD2E300A0F4EC /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */; };
 		FAA0582A25F828A100797A76 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = FAA0582925F828A100797A76 /* HotKey */; };
 		FAA0582D25F829C900797A76 /* KeyboardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA0582C25F829C900797A76 /* KeyboardProvider.swift */; };
 		FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119825EA4B4300B1F90B /* AppDelegate.swift */; };
@@ -67,10 +66,9 @@
 		FA50161D25FCE5CE0010A0C0 /* Lang.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lang.swift; sourceTree = "<group>"; };
 		FA50162125FCE6B50010A0C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA50162425FCE9CC0010A0C0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		FA78328A25EFBC0300A0F4EC /* Wave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
+		FA50162D25FD06B10010A0C0 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+Extensions.swift"; sourceTree = "<group>"; };
 		FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
-		FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		FAA0582C25F829C900797A76 /* KeyboardProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardProvider.swift; sourceTree = "<group>"; };
 		FAAD119525EA4B4300B1F90B /* Airtap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airtap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAD119825EA4B4300B1F90B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,9 +166,6 @@
 				FAAD119C25EA4B4500B1F90B /* Assets.xcassets */,
 				FAAD11A125EA4B4500B1F90B /* Main.storyboard */,
 				FAAD11A425EA4B4500B1F90B /* Info.plist */,
-				FAAD119E25EA4B4500B1F90B /* Preview Content */,
-				FA78328A25EFBC0300A0F4EC /* Wave.swift */,
-				FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */,
 			);
 			path = Airtap;
 			sourceTree = "<group>";
@@ -209,7 +204,7 @@
 		FAF27F5225EA567100DC04D6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FA78328A25EFBC0300A0F4EC /* Wave.swift */,
+				FA50162D25FD06B10010A0C0 /* WaveView.swift */,
 				FA50161A25FCE34D0010A0C0 /* Contact */,
 			);
 			name = Views;
@@ -387,7 +382,6 @@
 				FAF27FA625EC2D2A00DC04D6 /* WSService.swift in Sources */,
 				FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */,
 				FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */,
-				FA78328B25EFBC0300A0F4EC /* Wave.swift in Sources */,
 				FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */,
 				FAF27F6C25EBB7FF00DC04D6 /* APIService.swift in Sources */,
 				FA50161E25FCE5CE0010A0C0 /* Lang.swift in Sources */,
@@ -395,6 +389,7 @@
 				FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */,
 				FAF27FB325EC3DDE00DC04D6 /* WSDTO.swift in Sources */,
 				FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */,
+				FA50162E25FD06B10010A0C0 /* WaveView.swift in Sources */,
 				FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */,
 				FAF27F5525EA568E00DC04D6 /* KeyboardView.swift in Sources */,
 				FA50162525FCE9CC0010A0C0 /* Account.swift in Sources */,

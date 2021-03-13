@@ -17,5 +17,7 @@ struct Theme {
         static let keyboardKeyContent = Color("color.keyboardKeyContent")
         static let waveGradientStart = Color("color.waveGradientStart")
         static let waveGradientEnd = Color("color.waveGradientEnd")
+        static let waveGradientMutedStart = Color("color.waveGradientMutedStart")
+        static let waveGradientMutedEnd = Color("color.waveGradientMutedEnd")
     }
 }

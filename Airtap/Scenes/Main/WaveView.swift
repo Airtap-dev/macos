@@ -1,5 +1,5 @@
 //
-//  Wave.swift
+//  WaveView.swift
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 03.03.2021.

@@ -7,3 +7,9 @@
 */
 
 "removePeer" = "Remove Peer";
+
+"noOneSpeaking" = "Enjoy the silience";
+"youSpeaking" = "You are speaking";
+"youAndPeerSpeaking" = "You & %@ are speaking";
+"peerSpeaking" = "%@ is speaking";
+
