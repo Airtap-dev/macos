@@ -10,10 +10,10 @@ import Cocoa
 import SwiftUI
 import Combine
 import KeychainSwift
+import Sparkle
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
     var statusBarItem: NSStatusItem!
     var popover: NSPopover!
     var mainView: MainView!
@@ -39,6 +39,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             .store(in: &cancellables)
+        
+        let updater = SUUpdater.shared()
+        updater?.feedURL = URL(string: Config.sparkleEndpoint)
+        updater?.checkForUpdatesInBackground()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -93,7 +97,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         welcomeWindow?.makeKeyAndOrderFront(nil)
         welcomeWindow?.center()
-        
     }
 }
 
