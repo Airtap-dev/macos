@@ -26,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var resolver: Resolver!
     
     private var cancellables = Set<AnyCancellable>()
+    private var hotKey: HotKey!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         self.resolver = Resolver(authProvider: authProvider)
@@ -33,6 +34,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         setupStatusBarItem()
         self.authProvider.load()
+
+        hotKey = HotKey(key: .one, modifiers: [.option])
+        hotKey.keyDownHandler = {
+          print("Pressed at \(Date())")
+        }
+        
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

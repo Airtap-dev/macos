@@ -77,6 +77,10 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     
     func insertPeer(id: Int, firstName: String, lastName: String?) {
         DispatchQueue.main.async { [weak self] in
+            if let _ = self?.realm.object(ofType: PeerDBO.self, forPrimaryKey: id) {
+                return
+            }
+            
             let peerDBO = PeerDBO()
             peerDBO.id = id
             peerDBO.firstName = firstName

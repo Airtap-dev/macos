@@ -96,6 +96,8 @@ class CallProvider: CallProviding, ObservableObject {
                 }
             }
             .store(in: &cancellables)
+        
+        
     }
     
     deinit {
