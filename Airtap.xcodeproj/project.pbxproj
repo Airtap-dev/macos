@@ -16,17 +16,68 @@
 		FA14402625ECF890000D22F4 /* PersistenceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14402525ECF890000D22F4 /* PersistenceProvider.swift */; };
 		FA1809EA25EFDE7A000EF35C /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1809E925EFDE7A000EF35C /* Server.swift */; };
 		FA46E0CD25ED4EDD003917B8 /* LinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46E0CC25ED4EDD003917B8 /* LinkHandler.swift */; };
-		FA78328B25EFBC0300A0F4EC /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328A25EFBC0300A0F4EC /* Wave.swift */; };
+		FA50161225FCDE370010A0C0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50161125FCDE370010A0C0 /* Theme.swift */; };
+		FA50161E25FCE5CE0010A0C0 /* Lang.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50161D25FCE5CE0010A0C0 /* Lang.swift */; };
+		FA50162025FCE6B50010A0C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA50162225FCE6B50010A0C0 /* Localizable.strings */; };
+		FA50162525FCE9CC0010A0C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162425FCE9CC0010A0C0 /* Account.swift */; };
+		FA50162E25FD06B10010A0C0 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162D25FD06B10010A0C0 /* WaveView.swift */; };
+		FA50163225FD225D0010A0C0 /* MainWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50163125FD225D0010A0C0 /* MainWireframe.swift */; };
+		FA50163625FD2DAA0010A0C0 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = FA50163525FD2DAA0010A0C0 /* Sparkle */; };
+		FA50165A25FD55A20010A0C0 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1301AE25ED22A70050A695 /* Peer.swift */; };
+		FA50165B25FD55A20010A0C0 /* WSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FA525EC2D2A00DC04D6 /* WSService.swift */; };
+		FA50165C25FD55A20010A0C0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119A25EA4B4300B1F90B /* MainView.swift */; };
+		FA50165D25FD55A20010A0C0 /* WebRTCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FAE25EC313F00DC04D6 /* WebRTCService.swift */; };
+		FA50165E25FD55A20010A0C0 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7725EBBDB400DC04D6 /* WelcomeViewModel.swift */; };
+		FA50165F25FD55A20010A0C0 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6B25EBB7FF00DC04D6 /* APIService.swift */; };
+		FA50166025FD55A20010A0C0 /* Lang.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50161D25FCE5CE0010A0C0 /* Lang.swift */; };
+		FA50166125FD55A20010A0C0 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */; };
+		FA50166225FD55A20010A0C0 /* WelcomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7A25EBC11800DC04D6 /* WelcomeModel.swift */; };
+		FA50166325FD55A20010A0C0 /* WSDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FB225EC3DDE00DC04D6 /* WSDTO.swift */; };
+		FA50166425FD55A20010A0C0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */; };
+		FA50166525FD55A20010A0C0 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162D25FD06B10010A0C0 /* WaveView.swift */; };
+		FA50166625FD55A20010A0C0 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */; };
+		FA50166725FD55A20010A0C0 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5425EA568E00DC04D6 /* KeyboardView.swift */; };
+		FA50166825FD55A20010A0C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162425FCE9CC0010A0C0 /* Account.swift */; };
+		FA50166925FD55A20010A0C0 /* ContactAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */; };
+		FA50166A25FD55A20010A0C0 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */; };
+		FA50166B25FD55A20010A0C0 /* CallProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14402225ECF33B000D22F4 /* CallProvider.swift */; };
+		FA50166C25FD55A20010A0C0 /* APIDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7E25EBC5C700DC04D6 /* APIDTO.swift */; };
+		FA50166D25FD55A20010A0C0 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8A25EBC83100DC04D6 /* AuthProvider.swift */; };
+		FA50166E25FD55A20010A0C0 /* LinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46E0CC25ED4EDD003917B8 /* LinkHandler.swift */; };
+		FA50166F25FD55A20010A0C0 /* MainWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50163125FD225D0010A0C0 /* MainWireframe.swift */; };
+		FA50167025FD55A20010A0C0 /* NSBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */; };
+		FA50167125FD55A20010A0C0 /* KeyboardKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5825EA56AD00DC04D6 /* KeyboardKeyView.swift */; };
+		FA50167225FD55A20010A0C0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6E25EBBAC800DC04D6 /* Config.swift */; };
+		FA50167325FD55A20010A0C0 /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14401F25ECF235000D22F4 /* Dictionary+Extensions.swift */; };
+		FA50167425FD55A20010A0C0 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F8D25EBCBD100DC04D6 /* Resolver.swift */; };
+		FA50167525FD55A20010A0C0 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F9025EBCDA300DC04D6 /* MainModel.swift */; };
+		FA50167625FD55A20010A0C0 /* NSTextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */; };
+		FA50167725FD55A20010A0C0 /* PersistenceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA14402525ECF890000D22F4 /* PersistenceProvider.swift */; };
+		FA50167825FD55A20010A0C0 /* KeyboardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA0582C25F829C900797A76 /* KeyboardProvider.swift */; };
+		FA50167925FD55A20010A0C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119825EA4B4300B1F90B /* AppDelegate.swift */; };
+		FA50167A25FD55A20010A0C0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */; };
+		FA50167B25FD55A20010A0C0 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1809E925EFDE7A000EF35C /* Server.swift */; };
+		FA50167C25FD55A20010A0C0 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1301C525ED3E280050A695 /* APIError.swift */; };
+		FA50167D25FD55A20010A0C0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50161125FCDE370010A0C0 /* Theme.swift */; };
+		FA50167F25FD55A20010A0C0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA50165425FD55A20010A0C0 /* RealmSwift */; };
+		FA50168025FD55A20010A0C0 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = FA50165725FD55A20010A0C0 /* Sparkle */; };
+		FA50168125FD55A20010A0C0 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA50164C25FD55A20010A0C0 /* KeychainSwift */; };
+		FA50168225FD55A20010A0C0 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = FA50165025FD55A20010A0C0 /* WebRTC */; };
+		FA50168325FD55A20010A0C0 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = FA50164A25FD55A20010A0C0 /* TinyHTTP */; };
+		FA50168425FD55A20010A0C0 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = FA50164E25FD55A20010A0C0 /* Starscream */; };
+		FA50168525FD55A20010A0C0 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA50165225FD55A20010A0C0 /* Realm */; };
+		FA50168625FD55A20010A0C0 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = FA50165525FD55A20010A0C0 /* HotKey */; };
+		FA50168925FD55A20010A0C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA50162225FCE6B50010A0C0 /* Localizable.strings */; };
+		FA50168A25FD55A20010A0C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAAD119C25EA4B4500B1F90B /* Assets.xcassets */; };
+		FA50169F25FD57690010A0C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA50169E25FD57690010A0C0 /* Main.storyboard */; };
+		FA5016A025FD57690010A0C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA50169E25FD57690010A0C0 /* Main.storyboard */; };
 		FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */; };
 		FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */; };
-		FA78329625EFD2E300A0F4EC /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */; };
 		FAA0582A25F828A100797A76 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = FAA0582925F828A100797A76 /* HotKey */; };
 		FAA0582D25F829C900797A76 /* KeyboardProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA0582C25F829C900797A76 /* KeyboardProvider.swift */; };
 		FAAD119925EA4B4300B1F90B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119825EA4B4300B1F90B /* AppDelegate.swift */; };
 		FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD119A25EA4B4300B1F90B /* MainView.swift */; };
 		FAAD119D25EA4B4500B1F90B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAAD119C25EA4B4500B1F90B /* Assets.xcassets */; };
-		FAAD11A025EA4B4500B1F90B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAAD119F25EA4B4500B1F90B /* Preview Assets.xcassets */; };
-		FAAD11A325EA4B4500B1F90B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAAD11A125EA4B4500B1F90B /* Main.storyboard */; };
 		FAF27F4F25EA561900DC04D6 /* ContactAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */; };
 		FAF27F5525EA568E00DC04D6 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5425EA568E00DC04D6 /* KeyboardView.swift */; };
 		FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5825EA56AD00DC04D6 /* KeyboardKeyView.swift */; };
@@ -60,17 +111,22 @@
 		FA14402525ECF890000D22F4 /* PersistenceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceProvider.swift; sourceTree = "<group>"; };
 		FA1809E925EFDE7A000EF35C /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		FA46E0CC25ED4EDD003917B8 /* LinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHandler.swift; sourceTree = "<group>"; };
-		FA78328A25EFBC0300A0F4EC /* Wave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
+		FA50161125FCDE370010A0C0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		FA50161D25FCE5CE0010A0C0 /* Lang.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lang.swift; sourceTree = "<group>"; };
+		FA50162125FCE6B50010A0C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA50162425FCE9CC0010A0C0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		FA50162D25FD06B10010A0C0 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		FA50163125FD225D0010A0C0 /* MainWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWireframe.swift; sourceTree = "<group>"; };
+		FA50164225FD4A250010A0C0 /* Airtap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Airtap.entitlements; sourceTree = "<group>"; };
+		FA50168E25FD55A20010A0C0 /* Airtap Staging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Airtap Staging.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA50169E25FD57690010A0C0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+Extensions.swift"; sourceTree = "<group>"; };
 		FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
-		FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		FAA0582C25F829C900797A76 /* KeyboardProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardProvider.swift; sourceTree = "<group>"; };
-		FAAD119525EA4B4300B1F90B /* Airtap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airtap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAAD119525EA4B4300B1F90B /* Airtap Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Airtap Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAD119825EA4B4300B1F90B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAAD119A25EA4B4300B1F90B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FAAD119C25EA4B4500B1F90B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FAAD119F25EA4B4500B1F90B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FAAD11A225EA4B4500B1F90B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAAD11A425EA4B4500B1F90B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAvatarView.swift; sourceTree = "<group>"; };
 		FAF27F5425EA568E00DC04D6 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
@@ -94,11 +150,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FA50167E25FD55A20010A0C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA50167F25FD55A20010A0C0 /* RealmSwift in Frameworks */,
+				FA50168025FD55A20010A0C0 /* Sparkle in Frameworks */,
+				FA50168125FD55A20010A0C0 /* KeychainSwift in Frameworks */,
+				FA50168225FD55A20010A0C0 /* WebRTC in Frameworks */,
+				FA50168325FD55A20010A0C0 /* TinyHTTP in Frameworks */,
+				FA50168425FD55A20010A0C0 /* Starscream in Frameworks */,
+				FA50168525FD55A20010A0C0 /* Realm in Frameworks */,
+				FA50168625FD55A20010A0C0 /* HotKey in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAAD119225EA4B4300B1F90B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FA1301A925ED228B0050A695 /* RealmSwift in Frameworks */,
+				FA50163625FD2DAA0010A0C0 /* Sparkle in Frameworks */,
 				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
 				FAF27FAB25EC30FD00DC04D6 /* WebRTC in Frameworks */,
 				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
@@ -116,8 +188,19 @@
 			children = (
 				FA1301AE25ED22A70050A695 /* Peer.swift */,
 				FA1809E925EFDE7A000EF35C /* Server.swift */,
+				FA50162425FCE9CC0010A0C0 /* Account.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		FA50161A25FCE34D0010A0C0 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */,
+				FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */,
+				FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */,
+			);
+			name = Contact;
 			sourceTree = "<group>";
 		};
 		FAAD118C25EA4B4300B1F90B = {
@@ -125,13 +208,15 @@
 			children = (
 				FAAD119725EA4B4300B1F90B /* Airtap */,
 				FAAD119625EA4B4300B1F90B /* Products */,
+				FA50162225FCE6B50010A0C0 /* Localizable.strings */,
 			);
 			sourceTree = "<group>";
 		};
 		FAAD119625EA4B4300B1F90B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FAAD119525EA4B4300B1F90B /* Airtap.app */,
+				FAAD119525EA4B4300B1F90B /* Airtap Production.app */,
+				FA50168E25FD55A20010A0C0 /* Airtap Staging.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,6 +224,7 @@
 		FAAD119725EA4B4300B1F90B /* Airtap */ = {
 			isa = PBXGroup;
 			children = (
+				FA50164225FD4A250010A0C0 /* Airtap.entitlements */,
 				FAAD119825EA4B4300B1F90B /* AppDelegate.swift */,
 				FAF27F6E25EBBAC800DC04D6 /* Config.swift */,
 				FAF27F8D25EBCBD100DC04D6 /* Resolver.swift */,
@@ -148,21 +234,10 @@
 				FAAD11B125EA4D6700B1F90B /* Scenes */,
 				FAF27F5E25EA574D00DC04D6 /* Extensions */,
 				FAAD119C25EA4B4500B1F90B /* Assets.xcassets */,
-				FAAD11A125EA4B4500B1F90B /* Main.storyboard */,
+				FA50169E25FD57690010A0C0 /* Main.storyboard */,
 				FAAD11A425EA4B4500B1F90B /* Info.plist */,
-				FAAD119E25EA4B4500B1F90B /* Preview Content */,
-				FA78328A25EFBC0300A0F4EC /* Wave.swift */,
-				FA78329525EFD2E300A0F4EC /* VisualEffectView.swift */,
 			);
 			path = Airtap;
-			sourceTree = "<group>";
-		};
-		FAAD119E25EA4B4500B1F90B /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				FAAD119F25EA4B4500B1F90B /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		FAAD11B125EA4D6700B1F90B /* Scenes */ = {
@@ -171,6 +246,8 @@
 				FAF27F7225EBBD4C00DC04D6 /* Welcome */,
 				FAAD11B225EA4D6C00B1F90B /* Main */,
 				FAF27F5125EA566500DC04D6 /* Common */,
+				FA50161125FCDE370010A0C0 /* Theme.swift */,
+				FA50161D25FCE5CE0010A0C0 /* Lang.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -181,6 +258,7 @@
 				FAF27F5225EA567100DC04D6 /* Views */,
 				FAAD119A25EA4B4300B1F90B /* MainView.swift */,
 				FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */,
+				FA50163125FD225D0010A0C0 /* MainWireframe.swift */,
 				FAF27F9025EBCDA300DC04D6 /* MainModel.swift */,
 			);
 			path = Main;
@@ -197,9 +275,8 @@
 		FAF27F5225EA567100DC04D6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FAF27F4E25EA561900DC04D6 /* ContactAvatarView.swift */,
-				FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */,
-				FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */,
+				FA50162D25FD06B10010A0C0 /* WaveView.swift */,
+				FA50161A25FCE34D0010A0C0 /* Contact */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -286,9 +363,36 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FAAD119425EA4B4300B1F90B /* Airtap */ = {
+		FA50164925FD55A20010A0C0 /* Airtap Staging */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FAAD11A825EA4B4500B1F90B /* Build configuration list for PBXNativeTarget "Airtap" */;
+			buildConfigurationList = FA50168B25FD55A20010A0C0 /* Build configuration list for PBXNativeTarget "Airtap Staging" */;
+			buildPhases = (
+				FA50165925FD55A20010A0C0 /* Sources */,
+				FA50167E25FD55A20010A0C0 /* Frameworks */,
+				FA50168725FD55A20010A0C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Airtap Staging";
+			packageProductDependencies = (
+				FA50164A25FD55A20010A0C0 /* TinyHTTP */,
+				FA50164C25FD55A20010A0C0 /* KeychainSwift */,
+				FA50164E25FD55A20010A0C0 /* Starscream */,
+				FA50165025FD55A20010A0C0 /* WebRTC */,
+				FA50165225FD55A20010A0C0 /* Realm */,
+				FA50165425FD55A20010A0C0 /* RealmSwift */,
+				FA50165525FD55A20010A0C0 /* HotKey */,
+				FA50165725FD55A20010A0C0 /* Sparkle */,
+			);
+			productName = Airtap;
+			productReference = FA50168E25FD55A20010A0C0 /* Airtap Staging.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FAAD119425EA4B4300B1F90B /* Airtap Production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAAD11A825EA4B4500B1F90B /* Build configuration list for PBXNativeTarget "Airtap Production" */;
 			buildPhases = (
 				FAAD119125EA4B4300B1F90B /* Sources */,
 				FAAD119225EA4B4300B1F90B /* Frameworks */,
@@ -298,7 +402,7 @@
 			);
 			dependencies = (
 			);
-			name = Airtap;
+			name = "Airtap Production";
 			packageProductDependencies = (
 				FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */,
 				FAF27F8625EBC7D500DC04D6 /* KeychainSwift */,
@@ -307,9 +411,10 @@
 				FA1301A625ED228B0050A695 /* Realm */,
 				FA1301A825ED228B0050A695 /* RealmSwift */,
 				FAA0582925F828A100797A76 /* HotKey */,
+				FA50163525FD2DAA0010A0C0 /* Sparkle */,
 			);
 			productName = Airtap;
-			productReference = FAAD119525EA4B4300B1F90B /* Airtap.app */;
+			productReference = FAAD119525EA4B4300B1F90B /* Airtap Production.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -344,23 +449,35 @@
 				FAF27FA925EC30FD00DC04D6 /* XCRemoteSwiftPackageReference "WebRTC" */,
 				FA1301A525ED228B0050A695 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				FAA0582825F828A100797A76 /* XCRemoteSwiftPackageReference "HotKey" */,
+				FA50163425FD2DAA0010A0C0 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = FAAD119625EA4B4300B1F90B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FAAD119425EA4B4300B1F90B /* Airtap */,
+				FAAD119425EA4B4300B1F90B /* Airtap Production */,
+				FA50164925FD55A20010A0C0 /* Airtap Staging */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FA50168725FD55A20010A0C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA5016A025FD57690010A0C0 /* Main.storyboard in Resources */,
+				FA50168925FD55A20010A0C0 /* Localizable.strings in Resources */,
+				FA50168A25FD55A20010A0C0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAAD119325EA4B4300B1F90B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAAD11A325EA4B4500B1F90B /* Main.storyboard in Resources */,
-				FAAD11A025EA4B4500B1F90B /* Preview Assets.xcassets in Resources */,
+				FA50169F25FD57690010A0C0 /* Main.storyboard in Resources */,
+				FA50162025FCE6B50010A0C0 /* Localizable.strings in Resources */,
 				FAAD119D25EA4B4500B1F90B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,6 +485,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FA50165925FD55A20010A0C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA50165A25FD55A20010A0C0 /* Peer.swift in Sources */,
+				FA50165B25FD55A20010A0C0 /* WSService.swift in Sources */,
+				FA50165C25FD55A20010A0C0 /* MainView.swift in Sources */,
+				FA50165D25FD55A20010A0C0 /* WebRTCService.swift in Sources */,
+				FA50165E25FD55A20010A0C0 /* WelcomeViewModel.swift in Sources */,
+				FA50165F25FD55A20010A0C0 /* APIService.swift in Sources */,
+				FA50166025FD55A20010A0C0 /* Lang.swift in Sources */,
+				FA50166125FD55A20010A0C0 /* ContactViewModel.swift in Sources */,
+				FA50166225FD55A20010A0C0 /* WelcomeModel.swift in Sources */,
+				FA50166325FD55A20010A0C0 /* WSDTO.swift in Sources */,
+				FA50166425FD55A20010A0C0 /* String+Extensions.swift in Sources */,
+				FA50166525FD55A20010A0C0 /* WaveView.swift in Sources */,
+				FA50166625FD55A20010A0C0 /* ContactView.swift in Sources */,
+				FA50166725FD55A20010A0C0 /* KeyboardView.swift in Sources */,
+				FA50166825FD55A20010A0C0 /* Account.swift in Sources */,
+				FA50166925FD55A20010A0C0 /* ContactAvatarView.swift in Sources */,
+				FA50166A25FD55A20010A0C0 /* WelcomeView.swift in Sources */,
+				FA50166B25FD55A20010A0C0 /* CallProvider.swift in Sources */,
+				FA50166C25FD55A20010A0C0 /* APIDTO.swift in Sources */,
+				FA50166D25FD55A20010A0C0 /* AuthProvider.swift in Sources */,
+				FA50166E25FD55A20010A0C0 /* LinkHandler.swift in Sources */,
+				FA50166F25FD55A20010A0C0 /* MainWireframe.swift in Sources */,
+				FA50167025FD55A20010A0C0 /* NSBezierPath+Extensions.swift in Sources */,
+				FA50167125FD55A20010A0C0 /* KeyboardKeyView.swift in Sources */,
+				FA50167225FD55A20010A0C0 /* Config.swift in Sources */,
+				FA50167325FD55A20010A0C0 /* Dictionary+Extensions.swift in Sources */,
+				FA50167425FD55A20010A0C0 /* Resolver.swift in Sources */,
+				FA50167525FD55A20010A0C0 /* MainModel.swift in Sources */,
+				FA50167625FD55A20010A0C0 /* NSTextField+Extensions.swift in Sources */,
+				FA50167725FD55A20010A0C0 /* PersistenceProvider.swift in Sources */,
+				FA50167825FD55A20010A0C0 /* KeyboardProvider.swift in Sources */,
+				FA50167925FD55A20010A0C0 /* AppDelegate.swift in Sources */,
+				FA50167A25FD55A20010A0C0 /* MainViewModel.swift in Sources */,
+				FA50167B25FD55A20010A0C0 /* Server.swift in Sources */,
+				FA50167C25FD55A20010A0C0 /* APIError.swift in Sources */,
+				FA50167D25FD55A20010A0C0 /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAAD119125EA4B4300B1F90B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,22 +536,24 @@
 				FAF27FA625EC2D2A00DC04D6 /* WSService.swift in Sources */,
 				FAAD119B25EA4B4300B1F90B /* MainView.swift in Sources */,
 				FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */,
-				FA78329625EFD2E300A0F4EC /* VisualEffectView.swift in Sources */,
-				FA78328B25EFBC0300A0F4EC /* Wave.swift in Sources */,
 				FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */,
 				FAF27F6C25EBB7FF00DC04D6 /* APIService.swift in Sources */,
+				FA50161E25FCE5CE0010A0C0 /* Lang.swift in Sources */,
 				FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */,
 				FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */,
 				FAF27FB325EC3DDE00DC04D6 /* WSDTO.swift in Sources */,
 				FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */,
+				FA50162E25FD06B10010A0C0 /* WaveView.swift in Sources */,
 				FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */,
 				FAF27F5525EA568E00DC04D6 /* KeyboardView.swift in Sources */,
+				FA50162525FCE9CC0010A0C0 /* Account.swift in Sources */,
 				FAF27F4F25EA561900DC04D6 /* ContactAvatarView.swift in Sources */,
 				FAF27F7425EBBD6B00DC04D6 /* WelcomeView.swift in Sources */,
 				FA14402325ECF33B000D22F4 /* CallProvider.swift in Sources */,
 				FAF27F7F25EBC5C700DC04D6 /* APIDTO.swift in Sources */,
 				FAF27F8B25EBC83100DC04D6 /* AuthProvider.swift in Sources */,
 				FA46E0CD25ED4EDD003917B8 /* LinkHandler.swift in Sources */,
+				FA50163225FD225D0010A0C0 /* MainWireframe.swift in Sources */,
 				FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */,
 				FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */,
 				FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */,
@@ -405,27 +567,78 @@
 				FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */,
 				FA1809EA25EFDE7A000EF35C /* Server.swift in Sources */,
 				FA1301C625ED3E280050A695 /* APIError.swift in Sources */,
+				FA50161225FCDE370010A0C0 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FAAD11A125EA4B4500B1F90B /* Main.storyboard */ = {
+		FA50162225FCE6B50010A0C0 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FAAD11A225EA4B4500B1F90B /* Base */,
+				FA50162125FCE6B50010A0C0 /* en */,
 			);
-			name = Main.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FA50168C25FD55A20010A0C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = C49XK357YP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Airtap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.client;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FA50168D25FD55A20010A0C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = C49XK357YP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Airtap/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.client;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		FAAD11A625EA4B4500B1F90B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -473,7 +686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -487,6 +700,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -528,9 +742,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -541,11 +756,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Airtap/Preview Content\"";
-				DEVELOPMENT_TEAM = 6VJL86G6WU;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = C49XK357YP;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -554,6 +769,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -564,11 +780,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Airtap/Preview Content\"";
-				DEVELOPMENT_TEAM = 6VJL86G6WU;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = C49XK357YP;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -577,6 +793,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.airtap.client;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -586,6 +803,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FA50168B25FD55A20010A0C0 /* Build configuration list for PBXNativeTarget "Airtap Staging" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA50168C25FD55A20010A0C0 /* Debug */,
+				FA50168D25FD55A20010A0C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FAAD119025EA4B4300B1F90B /* Build configuration list for PBXProject "Airtap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -595,7 +821,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FAAD11A825EA4B4500B1F90B /* Build configuration list for PBXNativeTarget "Airtap" */ = {
+		FAAD11A825EA4B4500B1F90B /* Build configuration list for PBXNativeTarget "Airtap Production" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FAAD11A925EA4B4500B1F90B /* Debug */,
@@ -613,6 +839,70 @@
 			requirement = {
 				kind = exactVersion;
 				version = 10.7.0;
+			};
+		};
+		FA50163425FD2DAA0010A0C0 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 1.26.0;
+			};
+		};
+		FA50164B25FD55A20010A0C0 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Airtap-dev/airtap-swift-http-client.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		FA50164D25FD55A20010A0C0 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 19.0.0;
+			};
+		};
+		FA50164F25FD55A20010A0C0 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				kind = exactVersion;
+				version = 4.0.4;
+			};
+		};
+		FA50165125FD55A20010A0C0 /* XCRemoteSwiftPackageReference "WebRTC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexpiezo/WebRTC.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.1.31567;
+			};
+		};
+		FA50165325FD55A20010A0C0 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.7.0;
+			};
+		};
+		FA50165625FD55A20010A0C0 /* XCRemoteSwiftPackageReference "HotKey" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/HotKey";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
+		FA50165825FD55A20010A0C0 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 1.26.0;
 			};
 		};
 		FAA0582825F828A100797A76 /* XCRemoteSwiftPackageReference "HotKey" */ = {
@@ -667,6 +957,51 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA1301A525ED228B0050A695 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
+		};
+		FA50163525FD2DAA0010A0C0 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50163425FD2DAA0010A0C0 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+		FA50164A25FD55A20010A0C0 /* TinyHTTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50164B25FD55A20010A0C0 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */;
+			productName = TinyHTTP;
+		};
+		FA50164C25FD55A20010A0C0 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50164D25FD55A20010A0C0 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+		FA50164E25FD55A20010A0C0 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50164F25FD55A20010A0C0 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+		FA50165025FD55A20010A0C0 /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50165125FD55A20010A0C0 /* XCRemoteSwiftPackageReference "WebRTC" */;
+			productName = WebRTC;
+		};
+		FA50165225FD55A20010A0C0 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50165325FD55A20010A0C0 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		FA50165425FD55A20010A0C0 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50165325FD55A20010A0C0 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+		FA50165525FD55A20010A0C0 /* HotKey */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50165625FD55A20010A0C0 /* XCRemoteSwiftPackageReference "HotKey" */;
+			productName = HotKey;
+		};
+		FA50165725FD55A20010A0C0 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA50165825FD55A20010A0C0 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
 		};
 		FAA0582925F828A100797A76 /* HotKey */ = {
 			isa = XCSwiftPackageProductDependency;

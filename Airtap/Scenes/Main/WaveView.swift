@@ -1,5 +1,5 @@
 //
-//  Wave.swift
+//  WaveView.swift
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 03.03.2021.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Wave: Shape {
+struct WaveView: Shape {
     var animatableData: Double {
         get { phase }
         set { self.phase = newValue }

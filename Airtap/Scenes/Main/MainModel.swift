@@ -6,18 +6,19 @@
 //  Copyright © 2021 Airtap OÜ. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 class MainModel: ObservableObject {
-
     private let authProvider: AuthProviding
     private let callProvider: CallProviding
     private let persistenceProvider: PersistenceProviding
     
     private var cancellables = Set<AnyCancellable>()
     
-    @Published private(set) var peers: [Peer]
+    @Published private(set) var isAuthorised: Bool = false
+    @Published private(set) var account: Account?
+    @Published private(set) var peers: [Peer] = []
     
     init(
         authProvider: AuthProviding,
@@ -27,20 +28,35 @@ class MainModel: ObservableObject {
         self.authProvider = authProvider
         self.callProvider = callProvider
         self.persistenceProvider = persistenceProvider
-        
-        self.peers = self.persistenceProvider.peers
-        self.persistenceProvider.eventSubject
-            .sink { [weak self] event in
-                switch event {
-                case let .peerLoaded(loadedPeer):
-                    self?.peers.append(loadedPeer)
-                case let .peerUnloaded(unloadedPeer):
-                    self?.peers.removeAll(where: { peer -> Bool in
-                        peer.id == unloadedPeer.id
-                    })
-                default: break
-                }
+    
+        self.authProvider.isAuthorisedPublisher
+            .sink { [weak self] isAuthorised in
+                self?.isAuthorised = isAuthorised
             }
             .store(in: &cancellables)
+        
+        self.callProvider.accountPublisher
+            .sink { [weak self] account in
+                self?.account = account
+            }
+            .store(in: &cancellables)
+        
+        self.persistenceProvider.peersPublisher
+            .sink { [weak self] peers in
+                self?.peers = peers
+            }
+            .store(in: &cancellables)
+    }
+    
+    func removePeer(_ index: Int) {
+        persistenceProvider.deletePeer(id: peers[index].id)
+    }
+    
+    func copyShareableLink() {
+        if let shareableLink = account?.shareableLink {
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([.string], owner: nil)
+            pasteboard.setString(shareableLink, forType: .string)
+        }
     }
 }

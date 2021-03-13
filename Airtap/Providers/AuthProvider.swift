@@ -18,34 +18,30 @@ enum AuthProviderEvent: Equatable {
 protocol AuthProviding {
     var eventSubject: PassthroughSubject<AuthProviderEvent, Never> { get }
     
-    var isAuthorised: Bool { get }
-    
     var accountId: Int? { get }
+    var isAuthorised: Bool { get }
+    var isAuthorisedPublished: Published<Bool> { get }
+    var isAuthorisedPublisher: Published<Bool>.Publisher { get }
     
     func load()
     func signIn(accountId: Int, token: String)
     func signOut()
 }
 
-class AuthProvider: AuthProviding {
-    
+class AuthProvider: AuthProviding, ObservableObject {
     private let keychain: KeychainSwift
+
+    private(set) var accountId: Int?
+    @Published private(set) var isAuthorised: Bool = false
+    var isAuthorisedPublished: Published<Bool> { _isAuthorised }
+    var isAuthorisedPublisher: Published<Bool>.Publisher { $isAuthorised }
     
     private(set) var eventSubject = PassthroughSubject<AuthProviderEvent, Never>()
-    
-    private(set) var accountId: Int?
     
     init() {
         self.keychain = KeychainSwift()
     }
-    
-    var isAuthorised: Bool {
-        if let _ = keychain.get("accountId"), let _ = keychain.get("accountToken") {
-            return true
-        }
-        return false
-    }
-    
+
     func load(){
         if let accountId = keychain.get("accountId"), let token = keychain.get("accountToken") {
             signIn(accountId: Int(accountId)!, token: token)
@@ -57,14 +53,16 @@ class AuthProvider: AuthProviding {
         keychain.set(token, forKey: "accountToken")
         
         self.accountId = accountId
+        self.isAuthorised = true
         eventSubject.send(.signedIn(accountId, token))
     }
     
     func signOut() {
         keychain.delete("accountId")
         keychain.delete("accountToken")
-        self.accountId = nil
         
+        self.accountId = nil
+        self.isAuthorised = false
         eventSubject.send(.signedOut)
     }
 }

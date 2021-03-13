@@ -8,11 +8,27 @@
 
 import SwiftUI
 
+enum ContactAvatarViewSize {
+    case small
+    case medium
+}
+
 struct ContactAvatarView: View {
     private let initials: String
+    private let circleSize: CGFloat
+    private let fontSize: CGFloat
     
-    init(initials: String) {
+    init(initials: String, size: ContactAvatarViewSize) {
         self.initials = initials
+        
+        switch size {
+        case .small:
+            self.circleSize = 32
+            self.fontSize = 12
+        case .medium:
+            self.circleSize = 48
+            self.fontSize = 18
+        }
     }
     
     var body: some View {
@@ -30,11 +46,11 @@ struct ContactAvatarView: View {
                         endPoint: .bottom
                     )
                 )
-                .frame(width: 44, height: 44)
+                .frame(width: circleSize, height: circleSize)
             
             Text(initials)
                 .font(
-                    .system(size: 18, weight: .medium, design: .rounded)
+                    .system(size: fontSize, weight: .regular, design: .rounded)
                 )
                 .foregroundColor(.white)
         }

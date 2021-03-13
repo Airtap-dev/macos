@@ -13,6 +13,7 @@ enum WSPayloadType: String, Codable {
     case offer = "offer"
     case answer = "answer"
     case candidate = "candidate"
+    case info = "info"
 }
 
 struct WSPayloadOffer: Codable {
@@ -29,25 +30,37 @@ struct WSPayloadCandidate: Codable {
     let sdpMid: String?
 }
 
+enum WSPayloadInfoType: String, Codable {
+    case micOn = "mic_on"
+    case micOff = "mic_off"
+}
+
+struct WSPayloadInfo: Codable {
+    let type: WSPayloadInfoType
+}
+
 struct WSPayloadContent: Codable {
     var toAccountId: Int?
     var fromAccountId: Int?
     var offer: WSPayloadOffer?
     var answer: WSPayloadAnswer?
     var candidate: WSPayloadCandidate?
+    var info: WSPayloadInfo?
     
     init(
         toAccountId: Int? = nil,
         fromAccountId: Int? = nil,
         offer: WSPayloadOffer? = nil,
         answer: WSPayloadAnswer? = nil,
-        candidate: WSPayloadCandidate? = nil
+        candidate: WSPayloadCandidate? = nil,
+        info: WSPayloadInfo? = nil
     ) {
         self.toAccountId = toAccountId
         self.fromAccountId = fromAccountId
         self.offer = offer
         self.answer = answer
         self.candidate = candidate
+        self.info = info
     }
 }
 

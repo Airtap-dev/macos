@@ -56,7 +56,7 @@ class Resolver {
     func main() -> MainView {
         let m = MainModel(authProvider: authProvider, callProvider: callProvider, persistenceProvider: persistenceProvider)
         let vm = MainViewModel(model: m)
-        let v = MainView(viewModel: vm)
+        let v = MainView(viewModel: vm, wireframe: MainWireframe(self))
         
         return v
     }

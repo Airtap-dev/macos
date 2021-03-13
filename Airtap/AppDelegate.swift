@@ -10,37 +10,43 @@ import Cocoa
 import SwiftUI
 import Combine
 import KeychainSwift
-
-import HotKey
+import Sparkle
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-    var welcomeWindow: NSWindow?
-    var mainWindow: NSWindow?
     var statusBarItem: NSStatusItem!
-
+    var popover: NSPopover!
+    var mainView: MainView!
+    var welcomeWindow: NSWindow?
+    
     private let authProvider = AuthProvider()
     private var resolver: Resolver!
     
     private var cancellables = Set<AnyCancellable>()
-    private var hotKey: HotKey!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        self.resolver = Resolver(authProvider: authProvider)
+        self.mainView = resolver.main()
+        
         setupStatusBarItem()
         
-        self.resolver = Resolver(authProvider: authProvider)
         self.authProvider.load()
-
-        hotKey = HotKey(key: .one, modifiers: [.option])
-        hotKey.keyDownHandler = {
-          print("Pressed at \(Date())")
-        }
+        self.authProvider.eventSubject
+            .sink { [weak self] event in
+                if case .signedIn = event {
+                    self?.welcomeWindow?.close()
+                    self?.welcomeWindow = nil
+                }
+            }
+            .store(in: &cancellables)
         
+        let updater = SUUpdater.shared()
+        updater?.feedURL = URL(string: Config.sparkleEndpoint)
+        updater?.checkForUpdatesInBackground()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        self.resolver.callProvider.prepareToQuit()
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -52,61 +58,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let statusBar = NSStatusBar.system
         statusBarItem = statusBar.statusItem(withLength: NSStatusItem.squareLength)
         statusBarItem.button?.action = #selector(didClickStatusBarItem)
-        statusBarItem.button?.title = "🎙"
+        statusBarItem.button?.image = NSImage(named: "statusBarIcon")!
+        
+        let mainViewController = NSViewController()
+        mainViewController.view = NSHostingView(rootView: mainView)
+        self.popover = NSPopover()
+        self.popover.contentViewController = mainViewController
+        self.popover.animates = false
     }
     
     @objc
     private func didClickStatusBarItem() {
-        if authProvider.isAuthorised {
-            if mainWindow?.isVisible == true {
-                mainWindow?.close()
-            } else {
-                buildMainWindow()
-            }
+        if self.popover.isShown {
+            self.popover.performClose(nil)
         } else {
-            if welcomeWindow?.isVisible == true {
-                welcomeWindow?.close()
-            } else {
-                buildWelcomeWindow()
+            if let button = self.statusBarItem.button {
+                self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
             }
         }
     }
     
-    private func buildWelcomeWindow() {
-        welcomeWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable],
-            backing: .buffered,
-            defer: false
-        )
-        welcomeWindow!.isReleasedWhenClosed = false
-        welcomeWindow!.center()
-        welcomeWindow!.setFrameAutosaveName("Sign In")
-        welcomeWindow!.contentView = NSHostingView(rootView: resolver.welcome())
-        welcomeWindow!.makeKeyAndOrderFront(nil)
-    }
-    
-    private func buildMainWindow() {
-        mainWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.borderless],
-            backing: .buffered,
-            defer: false
-        )
-        mainWindow!.isReleasedWhenClosed = false
-        mainWindow!.contentView = NSHostingView(rootView: resolver.main())
-        mainWindow!.contentView?.layer?.cornerRadius = 5
-        mainWindow!.contentView?.layer?.masksToBounds = true
-        mainWindow!.isOpaque = false
-        mainWindow!.backgroundColor = .clear
-
-        if let button = statusBarItem.button, let buttonWindow = button.window {
-            var position = buttonWindow.frame.origin
-            position.x -= (mainWindow!.frame.width / 2) - (buttonWindow.frame.width / 2)
-            position.y -= mainWindow!.frame.height
-            mainWindow!.setFrameOrigin(position)
+    func openWelcomeWindow() {
+        if welcomeWindow == nil {
+            welcomeWindow = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
+                styleMask: [
+                    .titled,
+                    .closable,
+                    .fullSizeContentView
+                ],
+                backing: .buffered,
+                defer: false
+            )
+            welcomeWindow?.toolbar?.isVisible = false
+            welcomeWindow?.isReleasedWhenClosed = false
+            welcomeWindow?.titlebarAppearsTransparent = true
+            welcomeWindow?.contentView = NSHostingView(rootView: resolver.welcome())
         }
-        mainWindow!.makeKeyAndOrderFront(nil)
+        welcomeWindow?.makeKeyAndOrderFront(nil)
+        welcomeWindow?.center()
     }
 }
 
