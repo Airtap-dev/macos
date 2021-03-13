@@ -11,39 +11,38 @@ import SwiftUI
 import Combine
 import KeychainSwift
 
-import HotKey
-
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
+    var statusBarItem: NSStatusItem!
+    var popover: NSPopover!
+    var mainView: MainView!
     var welcomeWindow: NSWindow?
     
-    var mainView: MainView!
-    let popover = NSPopover()
-    var statusBarItem: NSStatusItem!
-
     private let authProvider = AuthProvider()
     private var resolver: Resolver!
     
     private var cancellables = Set<AnyCancellable>()
-    private var hotKey: HotKey!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         self.resolver = Resolver(authProvider: authProvider)
         self.mainView = resolver.main()
         
         setupStatusBarItem()
-        self.authProvider.load()
-
-        hotKey = HotKey(key: .one, modifiers: [.option])
-        hotKey.keyDownHandler = {
-          print("Pressed at \(Date())")
-        }
         
+        self.authProvider.load()
+        self.authProvider.eventSubject
+            .sink { [weak self] event in
+                if case .signedIn = event {
+                    self?.welcomeWindow?.close()
+                    self?.welcomeWindow = nil
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        self.resolver.callProvider.prepareToQuit()
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -59,6 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let mainViewController = NSViewController()
         mainViewController.view = NSHostingView(rootView: mainView)
+        self.popover = NSPopover()
         self.popover.contentViewController = mainViewController
         self.popover.animates = false
     }
@@ -74,41 +74,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    private func buildWelcomeWindow() {
-        welcomeWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable],
-            backing: .buffered,
-            defer: false
-        )
-        welcomeWindow!.isReleasedWhenClosed = false
-        welcomeWindow!.center()
-        welcomeWindow!.setFrameAutosaveName("Sign In")
-        welcomeWindow!.contentView = NSHostingView(rootView: resolver.welcome())
-        welcomeWindow!.makeKeyAndOrderFront(nil)
+    func openWelcomeWindow() {
+        if welcomeWindow == nil {
+            welcomeWindow = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
+                styleMask: [
+                    .titled,
+                    .closable,
+                    .fullSizeContentView
+                ],
+                backing: .buffered,
+                defer: false
+            )
+            welcomeWindow?.toolbar?.isVisible = false
+            welcomeWindow?.isReleasedWhenClosed = false
+            welcomeWindow?.titlebarAppearsTransparent = true
+            welcomeWindow?.contentView = NSHostingView(rootView: resolver.welcome())
+        }
+        welcomeWindow?.makeKeyAndOrderFront(nil)
+        welcomeWindow?.center()
+        
     }
-    
-//    private func buildMainWindow() {
-//        mainWindow = NSWindow(
-//            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-//            styleMask: [.borderless],
-//            backing: .buffered,
-//            defer: false
-//        )
-//        mainWindow!.isReleasedWhenClosed = false
-//        mainWindow!.contentView = NSHostingView(rootView: resolver.main())
-//        mainWindow!.contentView?.layer?.cornerRadius = 5
-//        mainWindow!.contentView?.layer?.masksToBounds = true
-//        mainWindow!.isOpaque = false
-//        mainWindow!.backgroundColor = .clear
-//
-//        if let button = statusBarItem.button, let buttonWindow = button.window {
-//            var position = buttonWindow.frame.origin
-//            position.x -= (mainWindow!.frame.width / 2) - (buttonWindow.frame.width / 2)
-//            position.y -= mainWindow!.frame.height
-//            mainWindow!.setFrameOrigin(position)
-//        }
-//        mainWindow!.makeKeyAndOrderFront(nil)
-//    }
 }
 

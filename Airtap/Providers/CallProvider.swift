@@ -16,6 +16,8 @@ protocol CallProviding {
     
     func addPeer(accountId: Int)
     func removePeer(accountId: Int)
+    
+    func prepareToQuit()
 }
 
 class CallProvider: CallProviding, ObservableObject {
@@ -96,8 +98,6 @@ class CallProvider: CallProviding, ObservableObject {
                 }
             }
             .store(in: &cancellables)
-        
-        
     }
     
     deinit {
@@ -214,6 +214,12 @@ class CallProvider: CallProviding, ObservableObject {
         webRTCService.closeConnection(id: accountId)
     }
     
+    func prepareToQuit() {
+        persistenceProvider.peers.forEach {
+            webRTCService.closeConnection(id: $0.id)
+        }
+    }
+    
     private func handleIncomingOffer(accountId: Int, sdp: String) {
         webRTCService.setOffer(for: accountId, sdp: sdp) { [weak self] in
             self?.webRTCService.createAnswer(for: accountId) { [weak self] sdp in
@@ -240,9 +246,9 @@ class CallProvider: CallProviding, ObservableObject {
     private func handleRemoteInfo(accountId: Int, type: WSPayloadInfoType) {
         switch type {
         case .micOn:
-            break
+            persistenceProvider.markPeerAsSpeaking(for: accountId, isSpeaking: true)
         case .micOff:
-            break
+            persistenceProvider.markPeerAsSpeaking(for: accountId, isSpeaking: false)
         }
     }
     

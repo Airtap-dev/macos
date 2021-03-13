@@ -14,7 +14,6 @@ protocol LinkHandling {
 }
 
 class LinkHandler: LinkHandling {
-    
     private let authProvider: AuthProviding
     private let apiService: APIServing
     private let persistenceProvider: PersistenceProviding

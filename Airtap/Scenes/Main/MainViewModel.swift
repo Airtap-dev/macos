@@ -74,4 +74,8 @@ class MainViewModel: ObservableObject {
     func removePeer(_ index: Int) {
         model.removePeer(index)
     }
+    
+    func copyShareableLink() {
+        model.copyShareableLink()
+    }
 }

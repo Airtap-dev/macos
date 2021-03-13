@@ -19,5 +19,6 @@ struct Theme {
         static let waveGradientEnd = Color("color.waveGradientEnd")
         static let waveGradientMutedStart = Color("color.waveGradientMutedStart")
         static let waveGradientMutedEnd = Color("color.waveGradientMutedEnd")
+        static let textFieldBackground = Color("color.textFieldBackground")
     }
 }

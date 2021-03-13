@@ -21,6 +21,7 @@
 		FA50162025FCE6B50010A0C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA50162225FCE6B50010A0C0 /* Localizable.strings */; };
 		FA50162525FCE9CC0010A0C0 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162425FCE9CC0010A0C0 /* Account.swift */; };
 		FA50162E25FD06B10010A0C0 /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50162D25FD06B10010A0C0 /* WaveView.swift */; };
+		FA50163225FD225D0010A0C0 /* MainWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50163125FD225D0010A0C0 /* MainWireframe.swift */; };
 		FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */; };
 		FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */; };
 		FAA0582A25F828A100797A76 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = FAA0582925F828A100797A76 /* HotKey */; };
@@ -67,6 +68,7 @@
 		FA50162125FCE6B50010A0C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA50162425FCE9CC0010A0C0 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		FA50162D25FD06B10010A0C0 /* WaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
+		FA50163125FD225D0010A0C0 /* MainWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWireframe.swift; sourceTree = "<group>"; };
 		FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+Extensions.swift"; sourceTree = "<group>"; };
 		FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
 		FAA0582C25F829C900797A76 /* KeyboardProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardProvider.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				FAF27F5225EA567100DC04D6 /* Views */,
 				FAAD119A25EA4B4300B1F90B /* MainView.swift */,
 				FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */,
+				FA50163125FD225D0010A0C0 /* MainWireframe.swift */,
 				FAF27F9025EBCDA300DC04D6 /* MainModel.swift */,
 			);
 			path = Main;
@@ -399,6 +402,7 @@
 				FAF27F7F25EBC5C700DC04D6 /* APIDTO.swift in Sources */,
 				FAF27F8B25EBC83100DC04D6 /* AuthProvider.swift in Sources */,
 				FA46E0CD25ED4EDD003917B8 /* LinkHandler.swift in Sources */,
+				FA50163225FD225D0010A0C0 /* MainWireframe.swift in Sources */,
 				FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */,
 				FAF27F5925EA56AD00DC04D6 /* KeyboardKeyView.swift in Sources */,
 				FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */,

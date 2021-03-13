@@ -51,4 +51,12 @@ class MainModel: ObservableObject {
     func removePeer(_ index: Int) {
         persistenceProvider.deletePeer(id: peers[index].id)
     }
+    
+    func copyShareableLink() {
+        if let shareableLink = account?.shareableLink {
+            let pasteboard = NSPasteboard.general
+            pasteboard.declareTypes([.string], owner: nil)
+            pasteboard.setString(shareableLink, forType: .string)
+        }
+    }
 }

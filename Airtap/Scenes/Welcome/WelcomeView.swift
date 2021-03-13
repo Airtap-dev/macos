@@ -25,9 +25,9 @@ struct WelcomeView: View {
                 .padding(.bottom, 16)
             
             Group {
-                TextField("License Key", text: Binding<String>(get: { viewModel.licenseKey }, set: { viewModel.licenseKey = $0 }))
-                TextField("First Name", text: Binding<String>(get: { viewModel.firstName }, set: { viewModel.firstName = $0 }))
-                TextField("Last Name", text: Binding<String>(get: { viewModel.lastName }, set: { viewModel.lastName = $0 }))
+                TextField(Lang.licenseKey, text: Binding<String>(get: { viewModel.licenseKey }, set: { viewModel.licenseKey = $0 }))
+                TextField(Lang.firstName, text: Binding<String>(get: { viewModel.firstName }, set: { viewModel.firstName = $0 }))
+                TextField(Lang.lastName, text: Binding<String>(get: { viewModel.lastName }, set: { viewModel.lastName = $0 }))
             }
             .textFieldStyle(WelcomeTextFieldStyle())
             .frame(width: 300)
@@ -35,7 +35,7 @@ struct WelcomeView: View {
             Button(action: {
                 viewModel.signUp()
             }, label: {
-                Text("Sign Up")
+                Text(Lang.signUp)
             })
             .padding(.top, 16)
         }
@@ -49,7 +49,7 @@ struct WelcomeTextFieldStyle: TextFieldStyle {
             .textFieldStyle(PlainTextFieldStyle())
             .font(.system(size: 14, weight: .regular, design: .rounded))
             .padding(8)
-            .background(Color.white)
+            .background(Theme.Colors.textFieldBackground)
             .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
             .shadow(color: Color.black.opacity(0.2), radius: 1)
     }

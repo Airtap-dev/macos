@@ -9,6 +9,14 @@
 import Foundation
 
 struct Lang {
+    static let activationPrompt = "activationPrompt".localized
+    static let activateApp = "activateApp".localized
+    
+    static let licenseKey = "licenseKey".localized
+    static let firstName = "firstName".localized
+    static let lastName = "lastName".localized
+    static let signUp = "signUp".localized
+    
     static let removePeer = "removePeer".localized
     
     static let noOneSpeaking = "noOneSpeaking".localized
