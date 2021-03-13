@@ -18,21 +18,27 @@ enum PersistenceProviderEvent: Equatable {
 
 protocol PersistenceProviding {
     var eventSubject: PassthroughSubject<PersistenceProviderEvent, Never> { get }
+    
     var peers: [Peer] { get }
+    var peersPublished: Published<[Peer]> { get }
+    var peersPublisher: Published<[Peer]>.Publisher { get }
     
     func insertPeer(id: Int, firstName: String, lastName: String?)
     func deletePeer(id: Int)
+    func markPeerAsSpeaking(for id: Int, isSpeaking: Bool)
 }
 
-class PersistenceProvider: PersistenceProviding {
+class PersistenceProvider: PersistenceProviding, ObservableObject {
     private let authProvider: AuthProviding
     private let realm: Realm
     
     private(set) var eventSubject = PassthroughSubject<PersistenceProviderEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    private(set) var peers: [Peer] = []
-
+    @Published private(set) var peers: [Peer] = []
+    var peersPublished: Published<[Peer]> { _peers }
+    var peersPublisher: Published<[Peer]>.Publisher { $peers }
+    
     init(authProvider: AuthProviding) {
         self.authProvider = authProvider
         realm = try! Realm()
@@ -49,14 +55,13 @@ class PersistenceProvider: PersistenceProviding {
             }
             .store(in: &cancellables)
     }
-
+    
     deinit {
         cancellables.removeAll()
     }
     
     private func loadPersistence() {
-        let peers = self.realm.objects(Peer.self)
-        self.peers = peers.map { $0 }
+        self.peers = self.realm.objects(PeerDBO.self).map { $0.toPeer() }
         eventSubject.send(.ready)
     }
     
@@ -72,35 +77,41 @@ class PersistenceProvider: PersistenceProviding {
     
     func insertPeer(id: Int, firstName: String, lastName: String?) {
         DispatchQueue.main.async { [weak self] in
-            let peer = Peer()
-            peer.id = id
-            peer.firstName = firstName
-            peer.lastName = lastName
+            let peerDBO = PeerDBO()
+            peerDBO.id = id
+            peerDBO.firstName = firstName
+            peerDBO.lastName = lastName
             
             try! self?.realm.write {
-                self?.realm.add(peer)
+                self?.realm.add(peerDBO)
             }
             
-            self?.peers.append(peer)
-            self?.eventSubject.send(.peerLoaded(peer))
+            self?.peers.append(peerDBO.toPeer())
+            self?.eventSubject.send(.peerLoaded(peerDBO.toPeer()))
         }
     }
     
     func deletePeer(id: Int) {
         DispatchQueue.main.async { [weak self] in
-            if let peer = self?.realm.objects(Peer.self).filter("id == \(id)").first {
-                try! self?.realm.write {
-                    self?.realm.delete(peer)
+            guard let self = self else { return  }
+            if let peerDBO = self.realm.objects(PeerDBO.self).filter("id == \(id)").first {
+                try! self.realm.write {
+                    self.realm.delete(peerDBO)
                 }
                 
-                self?.peers.removeAll { p -> Bool in
-                    p.id == id
+                if let indexToDelete = self.peers.firstIndex(where: { $0.id == id }) {
+                    let peerToDelete = self.peers[indexToDelete]
+                    self.peers.remove(at: indexToDelete)
+                    self.eventSubject.send(.peerUnloaded(peerToDelete))
                 }
-                
-                self?.eventSubject.send(.peerUnloaded(peer))
             }
         }
     }
     
+    func markPeerAsSpeaking(for id: Int, isSpeaking: Bool) {
+        if let index = self.peers.firstIndex(where: { $0.id == id }) {
+            self.peers[index].isSpeaking = isSpeaking
+        }
+    }
 }
 

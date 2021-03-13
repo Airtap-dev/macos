@@ -19,6 +19,7 @@ struct StartSessionResponse: Decodable {
     let firstName: String
     let lastName: String?
     let turnCredentials: [TurnCredentialsDTO]
+    let shareableLink: String
 }
 
 struct TurnCredentialsDTO: Decodable {

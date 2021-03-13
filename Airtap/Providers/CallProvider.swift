@@ -10,18 +10,25 @@ import Foundation
 import Combine
 
 protocol CallProviding {
+    var account: Account? { get }
+    var accountPublished: Published<Account?> { get }
+    var accountPublisher: Published<Account?>.Publisher { get }
+    
     func addPeer(accountId: Int)
     func removePeer(accountId: Int)
 }
 
-class CallProvider: CallProviding {
-    
+class CallProvider: CallProviding, ObservableObject {
     private let webRTCService: WebRTCServing
     private let apiService: APIServing
     private let wsService: WSServing
     private let authProvider: AuthProviding
     private let persistenceProvider: PersistenceProviding
     private let keyboardProvider: KeyboardProviding
+    
+    @Published private(set) var account: Account?
+    var accountPublished: Published<Account?> { _account }
+    var accountPublisher: Published<Account?>.Publisher { $account }
     
     private var dependencyCancellables = Set<AnyCancellable>()
     private var cancellables = Set<AnyCancellable>()
@@ -89,8 +96,6 @@ class CallProvider: CallProviding {
                 }
             }
             .store(in: &cancellables)
-        
-        
     }
     
     deinit {
@@ -108,14 +113,19 @@ class CallProvider: CallProviding {
                     }
                 }
             }, receiveValue: { [weak self] response in
-                let servers = response.turnCredentials.map {
+                self?.account = Account(
+                    id: response.accountId,
+                    firstName: response.firstName,
+                    lastName: response.lastName,
+                    shareableLink: response.shareableLink
+                )
+                self?.webRTCService.setServerList(response.turnCredentials.map {
                     Server(
                         url: $0.url,
                         username: $0.username,
                         password: $0.password
                     )
-                }
-                self?.webRTCService.setServerList(servers)
+                })
             }).store(in: &cancellables)
     }
     
@@ -140,6 +150,8 @@ class CallProvider: CallProviding {
                     self.handleIncomingAnswer(accountId: accountId, sdp: sdp)
                 case let .receiveCandidate(accountId, sdp, sdpMLineIndex, sdpMid):
                     self.handleRemoteCandidate(accountId: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+                case let .receiveInfo(accountId, type):
+                    self.handleRemoteInfo(accountId: accountId, type: type)
                 default: break
                 }
             }
@@ -168,11 +180,15 @@ class CallProvider: CallProviding {
                 case let .keyDown(index):
                     if self?.persistenceProvider.peers.indices.contains(index) == true,
                         let peerId = self?.persistenceProvider.peers[index].id {
+                        self?.account?.isSpeaking = true
+                        self?.wsService.sendInfo(to: peerId, type: .micOn)
                         self?.webRTCService.unmuteAudio(id: peerId)
                     }
                 case let .keyUp(index):
                     if self?.persistenceProvider.peers.indices.contains(index) == true,
                         let peerId = self?.persistenceProvider.peers[index].id {
+                        self?.account?.isSpeaking = false
+                        self?.wsService.sendInfo(to: peerId, type: .micOff)
                         self?.webRTCService.muteAudio(id: peerId)
                     }
                 }
@@ -219,5 +235,13 @@ class CallProvider: CallProviding {
         wsService.sendCandidate(to: accountId, sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
     }
     
+    private func handleRemoteInfo(accountId: Int, type: WSPayloadInfoType) {
+        switch type {
+        case .micOn:
+            break
+        case .micOff:
+            break
+        }
+    }
     
 }

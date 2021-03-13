@@ -18,4 +18,12 @@ extension String {
         
         return limit == nil ? initials : String(initials.prefix(limit!))
     }
+    
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+    
+    public func localized(with arguments: [CVarArg]) -> String {
+        return String(format: self.localized, locale: nil, arguments: arguments)
+    }
 }

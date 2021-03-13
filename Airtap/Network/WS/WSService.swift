@@ -15,6 +15,7 @@ enum WSServiceEvent: Equatable {
     case receiveOffer(fromAccountId: Int, sdp: String)
     case receiveAnswer(fromAccountId: Int, sdp: String)
     case receiveCandidate(fromAccountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
+    case receiveInfo(fromAccountId: Int, type: WSPayloadInfoType)
 }
 
 protocol WSServing {
@@ -23,6 +24,7 @@ protocol WSServing {
     func sendOffer(to accountId: Int, sdp: String)
     func sendAnswer(to accountId: Int, sdp: String)
     func sendCandidate(to accountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?)
+    func sendInfo(to accountId: Int, type: WSPayloadInfoType)
 }
 
 class WSService: WSServing {
@@ -56,13 +58,19 @@ class WSService: WSServing {
     private func start(accountId: Int, token: String) {
         if let authString = "\(accountId):\(token)".data(using: .utf8)?.base64EncodedString() {
             self.authString = authString
-            var request = URLRequest(url: URL(string: Config.wsEndpoint)!)
-            request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
-            request.timeoutInterval = 5
-            socket = WebSocket(request: request)
-            socket?.delegate = self
-            socket?.connect()
+            runSocket()
         }
+    }
+    
+    private func connectIfAuthorised() {
+        guard let authString = authString else { return }
+        
+        var request = URLRequest(url: URL(string: Config.wsEndpoint)!)
+        request.setValue("Basic \(authString)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = 5
+        socket = WebSocket(request: request)
+        socket?.delegate = self
+        socket?.connect()
     }
     
     private func stop() {
@@ -95,6 +103,16 @@ class WSService: WSServing {
             content: WSPayloadContent(
                 toAccountId: accountId,
                 candidate: WSPayloadCandidate(sdp: sdp, sdpMLineIndex: sdpMLineIndex, sdpMid: sdpMid)
+            )
+        )
+    }
+    
+    func sendInfo(to accountId: Int, type: WSPayloadInfoType) {
+        send(
+            type: .info,
+            content: WSPayloadContent(
+                toAccountId: accountId,
+                info: WSPayloadInfo(type: type)
             )
         )
     }
@@ -164,6 +182,16 @@ class WSService: WSServing {
                     )
                 )
             }
+        case .info:
+            if let info = message.payload?.info {
+                self.sendAck(nonce: message.nonce)
+                self.eventSubject.send(
+                    .receiveInfo(
+                        fromAccountId: accountId,
+                        type: info.type
+                    )
+                )
+            }
         }
     }
 }
@@ -171,6 +199,8 @@ class WSService: WSServing {
 extension WSService: WebSocketDelegate {
     func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
+        case .disconnected:
+            self.connectIfAuthorised()
         case .connected:
             self.eventSubject.send(.ready)
         case let .text(receivedString):

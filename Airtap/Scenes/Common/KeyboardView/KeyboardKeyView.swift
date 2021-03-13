@@ -18,22 +18,13 @@ struct KeyboardKeyView: View {
     var body: some View {
         HStack {
             Text(symbol)
-                .font(.system(size: 10, weight: .medium, design: .default))
+                .font(.system(size: 8, weight: .medium, design: .default))
                 .frame(minWidth: 12)
-                .foregroundColor(.keyContent)
+                .foregroundColor(Theme.Colors.keyboardKeyContent)
                 .padding(2)
         }
-        .background(Color.keyBackground)
-        .cornerRadius(5)
-        .overlay(
-            RoundedRectangle(cornerRadius: 3)
-                .stroke(Color.keyBorder, lineWidth: 1)
-        )
+        .background(Theme.Colors.keyboardKeyBackground)
+        .cornerRadius(3)
+        .shadow(color: Theme.Colors.keyboardKeyShadow, radius: 3, x: 0, y: 0)
     }
-}
-
-private extension Color {
-    static let keyContent = Color(red: 0.67, green: 0.67, blue: 0.67)
-    static let keyBackground = Color(red: 0.93, green: 0.93, blue: 0.93)
-    static let keyBorder = Color(red: 0.87, green: 0.87, blue: 0.87)
 }

@@ -10,12 +10,34 @@ import Foundation
 import Combine
 
 class MainViewModel: ObservableObject {
-    private var cancellables = Set<AnyCancellable>()
-    
+    private var model: MainModel
+
+    @Published private(set) var shouldShowOnboarding: Bool = false
+    @Published private(set) var accountOwnerInitials: String = ""
     @Published private(set) var contactViewModels: [ContactViewModel] = []
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(model: MainModel) {
-        model.$peers
+        self.model = model
+        
+        self.model.$isAuthorised
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAuthorised in
+                self?.shouldShowOnboarding = !isAuthorised
+            }
+            .store(in: &cancellables)
+        
+        self.model.$account
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] account in
+                guard let account = account else { return }
+                let accountFullName: String = account.lastName == nil ? account.firstName : account.firstName + " " + account.lastName!
+                self?.accountOwnerInitials = accountFullName.initials(limit: 2)
+            }
+            .store(in: &cancellables)
+        
+        self.model.$peers
             .receive(on: DispatchQueue.main)
             .sink { [weak self] peers in
                 var contactsVMs: [ContactViewModel] = []
@@ -25,5 +47,9 @@ class MainViewModel: ObservableObject {
                 self?.contactViewModels = contactsVMs
             }
             .store(in: &cancellables)
+    }
+    
+    func removePeer(_ index: Int) {
+        model.removePeer(index)
     }
 }

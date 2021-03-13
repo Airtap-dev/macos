@@ -9,12 +9,23 @@
 import Foundation
 import RealmSwift
 
-class Peer: Object {
+struct Peer: Identifiable, Hashable {
+    var id: Int
+    var firstName: String
+    var lastName: String?
+    var isSpeaking: Bool = false
+}
+
+class PeerDBO: Object, Identifiable {
     @objc dynamic var id: Int = 0
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String? = nil
     
     override static func primaryKey() -> String? {
         return "id"
+    }
+    
+    func toPeer() -> Peer {
+        Peer(id: id, firstName: firstName, lastName: lastName)
     }
 }

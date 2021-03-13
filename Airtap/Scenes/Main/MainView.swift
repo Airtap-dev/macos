@@ -21,13 +21,13 @@ struct MainView: View {
     var waves: some View {
         ZStack {
             ForEach(0..<2) { i in
-                Wave(strength: 8, frequency: 16, phase: self.phase + Double(8 * i) / 2)
+                WaveView(strength: 8, frequency: 16, phase: self.phase + Double(8 * i) / 2)
                     .stroke(
                         AngularGradient(
                             gradient: Gradient(
                                 colors: [
-                                    i % 2 == 0 ? .gradientColor1 : .gradientColor2,
-                                    i % 2 == 0 ? .gradientColor2 : .gradientColor1,
+                                    i % 2 == 0 ? Theme.Colors.waveGradientStart : Theme.Colors.waveGradientEnd,
+                                    i % 2 == 0 ? Theme.Colors.waveGradientEnd : Theme.Colors.waveGradientStart,
                                 ]
                             ),
                             center: .center,
@@ -47,43 +47,72 @@ struct MainView: View {
     }
     
     var body: some View {
-        
-        ZStack {
-            VisualEffectView(
-                material: .hudWindow,
-                blendingMode: .behindWindow
-            )
-            VStack(spacing: 8) {
-                VStack(spacing: 16) {
-                    ZStack {
-                        waves
-                        HStack {
-                            ContactAvatarView(initials: "AL")
-                        }
+        VStack(spacing: 8) {
+            
+            VStack(spacing: 0) {
+                HStack {
+                    Image("logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 22)
+                        .padding(.vertical, 12)
+                        .padding(.leading, 12)
+                    
+                    Spacer()
+                    
+                    Button {
+                        print("fdf")
+                    } label: {
+                        Image("link")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(Theme.Colors.copyLinkButton)
+                            .frame(height: 16)
+                        
                     }
-                    HStack {
-                        Text("Alex is speaking...")
-                            .font(.system(size: 14, weight: .medium))
-                    }
+                    .buttonStyle(LinkButtonStyle())
+                    .padding(.vertical, 12)
+                    .padding(.trailing, 16)
                 }
                 
-                .padding(.top, 16)
-                VStack {
-                    ForEach(viewModel.contactViewModels, id: \.self) { vm in
-                        ContactView(viewModel: vm)
-                    }
-                }
-                .padding()
-                
-                Spacer()
+                Divider()
             }
-            .background(Color.white.opacity(0.5))
+            
+            
+            VStack(spacing: 16) {
+                ZStack {
+                    waves
+                    HStack {
+                        ContactAvatarView(initials: viewModel.accountOwnerInitials, size: .medium)
+                    }
+                }
+                HStack {
+                    Text("Alex is speaking...")
+                        .foregroundColor(Theme.Colors.mainText)
+                        .font(.system(size: 14, weight: .medium))
+                }
+            }
+            
+            .padding(.top, 16)
+            VStack {
+                ForEach(viewModel.contactViewModels.indices, id: \.self) { index in
+                    ContactView(viewModel: viewModel.contactViewModels[index])
+                        .background(Color.clear)
+                        .contextMenu {
+                            Button {
+                                self.viewModel.removePeer(index)
+                            } label: {
+                                Text(Lang.removePeer)
+                            }
+                        }
+                }
+            }
+            .padding()
+            
+            Spacer()
         }
         .frame(width: 250)
         .cornerRadius(8)
-        .padding()
-        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 0)
-        
     }
 }
 

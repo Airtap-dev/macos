@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Wave: Shape {
+struct WaveView: Shape {
     var animatableData: Double {
         get { phase }
         set { self.phase = newValue }

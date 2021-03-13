@@ -42,12 +42,16 @@ class LinkHandler: LinkHandling {
             .sink(receiveCompletion: { _ in
                 // no-op
             }, receiveValue: { [weak self] response in
-                if let selfAccountId = self?.authProvider.accountId, response.accountId != selfAccountId {
-                    self?.persistenceProvider.insertPeer(
-                        id: response.accountId,
-                        firstName: response.firstName,
-                        lastName: response.lastName
-                    )
+                guard let self = self else { return }
+                
+                if let selfAccountId = self.authProvider.accountId, response.accountId != selfAccountId {
+                    if self.persistenceProvider.peers.count < 6 {
+                        self.persistenceProvider.insertPeer(
+                            id: response.accountId,
+                            firstName: response.firstName,
+                            lastName: response.lastName
+                        )
+                    }
                 }
             }).store(in: &cancellables)
     }

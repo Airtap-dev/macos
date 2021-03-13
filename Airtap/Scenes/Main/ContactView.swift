@@ -17,11 +17,12 @@ struct ContactView: View {
     
     var body: some View {
         HStack(spacing: 8) {
-            ContactAvatarView(initials: viewModel.name.initials(limit: 2))
+            ContactAvatarView(initials: viewModel.name.initials(limit: 2), size: .small)
             VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.name)
+                    .font(.system(size: 12, weight: .regular, design: .default))
+                    .foregroundColor(Theme.Colors.mainText)
                     .lineLimit(1)
-                    .font(.system(size: 14, weight: .medium, design: .default))
                 
                 KeyboardView(key: viewModel.key)
             }
