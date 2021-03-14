@@ -11,7 +11,7 @@ import SwiftUI
 struct KeyboardView: View {
     private var keys: [String]
     
-    init(_ prefix: [String] = ["⇧", "⌥"], key: String) {
+    init(_ prefix: [String] = ["⌥"], key: String) {
         self.keys = prefix
         self.keys.append(key)
     }

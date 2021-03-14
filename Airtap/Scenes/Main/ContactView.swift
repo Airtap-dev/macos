@@ -9,30 +9,41 @@
 import SwiftUI
 
 struct ContactView: View {
-    private let name: String
-    private let key: String
+    private let viewModel: ContactViewModel
+    private let muteAction: () -> Void
     
-    init(name: String, key: String) {
-        self.name = name
-        self.key = key
+    init(viewModel: ContactViewModel, muteAction: @escaping () -> Void) {
+        self.viewModel = viewModel
+        self.muteAction = muteAction
     }
     
     var body: some View {
         HStack(spacing: 8) {
-            ContactAvatarView(initials: name.initials(limit: 2))
+            ContactAvatarView(initials: viewModel.name.initials(limit: 2), size: .small)
             VStack(alignment: .leading, spacing: 4) {
-                Text(name)
+                Text(viewModel.name)
+                    .font(.system(size: 12, weight: .regular, design: .default))
+                    .foregroundColor(Theme.Colors.mainText)
                     .lineLimit(1)
-                    .font(.system(size: 14, weight: .medium, design: .default))
                 
-                KeyboardView(key: key)
+                KeyboardView(key: viewModel.key)
             }
             
             Spacer()
             
-            Circle()
-                .fill(Color.online)
-                .frame(width: 10, height: 10)
+            Button {
+                muteAction()
+            } label: {
+                Image(viewModel.isMuted ? "micOff" : "micOn")
+                    .resizable()
+                    .antialiased(true)
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(viewModel.isMuted ? Theme.Colors.micOff : Theme.Colors.micOn)
+                    .frame(height: 12)
+            }
+            .buttonStyle(LinkButtonStyle())
+            
+            
         }
     }
 }
