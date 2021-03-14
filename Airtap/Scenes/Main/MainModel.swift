@@ -52,7 +52,12 @@ class MainModel: ObservableObject {
         persistenceProvider.deletePeer(id: peers[index].id)
     }
     
+    func toggleMutePeer(_ index: Int) {
+        callProvider.toggleMutePeer(accountId: peers[index].id)
+    }
+    
     func copyShareableLink() {
+        Analytics.track(.copyLink)
         if let shareableLink = account?.shareableLink {
             let pasteboard = NSPasteboard.general
             pasteboard.declareTypes([.string], owner: nil)

@@ -17,6 +17,8 @@ struct Lang {
     static let lastName = "lastName".localized
     static let signUp = "signUp".localized
     
+    static let mutePeer = "mutePeer".localized
+    static let unmutePeer = "unmutePeer".localized
     static let removePeer = "removePeer".localized
     
     static let noOneSpeaking = "noOneSpeaking".localized

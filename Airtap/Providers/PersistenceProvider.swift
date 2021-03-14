@@ -26,6 +26,7 @@ protocol PersistenceProviding {
     func insertPeer(id: Int, firstName: String, lastName: String?)
     func deletePeer(id: Int)
     func markPeerAsSpeaking(for id: Int, isSpeaking: Bool)
+    func markPeerAsMuted(for id: Int, isMuted: Bool)
 }
 
 class PersistenceProvider: PersistenceProviding, ObservableObject {
@@ -76,6 +77,8 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func insertPeer(id: Int, firstName: String, lastName: String?) {
+        Analytics.track(.addPeer)
+        
         DispatchQueue.main.async { [weak self] in
             if let _ = self?.realm.object(ofType: PeerDBO.self, forPrimaryKey: id) {
                 return
@@ -96,6 +99,8 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func deletePeer(id: Int) {
+        Analytics.track(.deletePeer)
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return  }
             if let peerDBO = self.realm.objects(PeerDBO.self).filter("id == \(id)").first {
@@ -115,6 +120,13 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     func markPeerAsSpeaking(for id: Int, isSpeaking: Bool) {
         if let index = self.peers.firstIndex(where: { $0.id == id }) {
             self.peers[index].isSpeaking = isSpeaking
+        }
+    }
+    
+    func markPeerAsMuted(for id: Int, isMuted: Bool) {
+        if let index = self.peers.firstIndex(where: { $0.id == id }) {
+            Analytics.track(isMuted ? .mutePeer : .unmutePeer)
+            self.peers[index].isMuted = isMuted
         }
     }
 }

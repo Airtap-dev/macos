@@ -21,6 +21,8 @@ protocol WebRTCServing {
     
     func setServerList(_ servers: [Server])
     
+    func muteMic(id: Int)
+    func unmuteMic(id: Int)
     func muteAudio(id: Int)
     func unmuteAudio(id: Int)
     
@@ -84,12 +86,20 @@ class WebRTCService: NSObject, WebRTCServing {
         eventSubject.send(.ready)
     }
     
+    func muteMic(id: Int) {
+        self.toggleMic(id: id, isEnabled: false)
+    }
+    
+    func unmuteMic(id: Int) {
+        self.toggleMic(id: id, isEnabled: true)
+    }
+    
     func muteAudio(id: Int) {
-        self.setAudioEnabled(id: id, isEnabled: false)
+        self.toggleAudio(id: id, isEnabled: false)
     }
     
     func unmuteAudio(id: Int) {
-        self.setAudioEnabled(id: id, isEnabled: true)
+        self.toggleAudio(id: id, isEnabled: true)
     }
     
     func createConnection(id: Int) {
@@ -109,7 +119,7 @@ class WebRTCService: NSObject, WebRTCServing {
         stream.addAudioTrack(audioTrack)
     
         peerConnections[id] = peerConnection
-        muteAudio(id: id)
+        muteMic(id: id)
     }
     
     func closeConnection(id: Int) {
@@ -174,15 +184,15 @@ class WebRTCService: NSObject, WebRTCServing {
         return audioTrack
     }
     
-    private func setAudioEnabled(id: Int, isEnabled: Bool) {
-        setTrackEnabled(RTCAudioTrack.self, id: id, isEnabled: isEnabled)
-    }
-}
-
-extension WebRTCService {
-    private func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, id: Int, isEnabled: Bool) {
+    private func toggleMic(id: Int, isEnabled: Bool) {
         peerConnections[id]?.transceivers
-            .compactMap { return $0.sender.track as? T }
+            .compactMap { return $0.sender.track as? RTCAudioTrack }
+            .forEach { $0.isEnabled = isEnabled }
+    }
+    
+    private func toggleAudio(id: Int, isEnabled: Bool) {
+        peerConnections[id]?.transceivers
+            .compactMap { return $0.receiver.track as? RTCAudioTrack }
             .forEach { $0.isEnabled = isEnabled }
     }
 }

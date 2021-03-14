@@ -55,7 +55,11 @@
 	</array>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>https://update.airtap.dev/macos.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>GoDT4+r1mmDCvYN+LFo1L+4/BDvbsz0Qy1jYZKH6ET4=</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>7200</integer>
 </dict>
 </plist>
