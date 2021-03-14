@@ -11,9 +11,11 @@ import Foundation
 struct ContactViewModel: Hashable {
     var name: String
     var key: String
+    var isMuted: Bool
     
     init(peer: Peer, key: String) {
         self.name = peer.lastName == nil ? peer.firstName : peer.firstName + " " + peer.lastName!
         self.key = key
+        self.isMuted = peer.isMuted
     }
 }

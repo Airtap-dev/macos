@@ -10,9 +10,11 @@ import SwiftUI
 
 struct ContactView: View {
     private let viewModel: ContactViewModel
+    private let muteAction: () -> Void
     
-    init(viewModel: ContactViewModel) {
+    init(viewModel: ContactViewModel, muteAction: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.muteAction = muteAction
     }
     
     var body: some View {
@@ -29,9 +31,19 @@ struct ContactView: View {
             
             Spacer()
             
-            Circle()
-                .fill(Color.online)
-                .frame(width: 10, height: 10)
+            Button {
+                muteAction()
+            } label: {
+                Image(viewModel.isMuted ? "micOff" : "micOn")
+                    .resizable()
+                    .antialiased(true)
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(viewModel.isMuted ? Theme.Colors.micOff : Theme.Colors.micOn)
+                    .frame(height: 12)
+            }
+            .buttonStyle(LinkButtonStyle())
+            
+            
         }
     }
 }

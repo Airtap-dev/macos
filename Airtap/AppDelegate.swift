@@ -11,9 +11,12 @@ import SwiftUI
 import Combine
 import KeychainSwift
 import Sparkle
+import Sentry
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+    var updater: SUUpdater?
+    
     var statusBarItem: NSStatusItem!
     var popover: NSPopover!
     var mainView: MainView!
@@ -33,16 +36,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.authProvider.load()
         self.authProvider.eventSubject
             .sink { [weak self] event in
-                if case .signedIn = event {
+                if case let .signedIn(accountId, _) = event {
+                    Analytics.start(accountId: accountId)
                     self?.welcomeWindow?.close()
                     self?.welcomeWindow = nil
                 }
             }
             .store(in: &cancellables)
         
-        let updater = SUUpdater.shared()
-        updater?.feedURL = URL(string: Config.sparkleEndpoint)
+        setupUpdates()
+        setupLogReports()
+    }
+    
+    private func setupUpdates() {
+        #if !STAGING
+        updater = SUUpdater.shared()
         updater?.checkForUpdatesInBackground()
+        #endif
+    }
+    
+    private func setupLogReports() {
+        #if !DEBUG
+        SentrySDK.start { options in
+            options.dsn = Config.sentryEndpoint
+            options.environment = Config.env
+        }
+        #endif
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

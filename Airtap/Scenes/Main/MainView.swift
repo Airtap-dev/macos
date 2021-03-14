@@ -141,15 +141,22 @@ struct MainView: View {
     var peerList: some View {
         VStack(spacing: 12) {
             ForEach(viewModel.contactViewModels.indices, id: \.self) { index in
-                ContactView(viewModel: viewModel.contactViewModels[index])
-                    .background(Color.clear)
-                    .contextMenu {
-                        Button {
-                            self.viewModel.removePeer(index)
-                        } label: {
-                            Text(Lang.removePeer)
-                        }
+                ContactView(viewModel: viewModel.contactViewModels[index], muteAction: {
+                    self.viewModel.toggleMutePeer(index)
+                })
+                .background(Color.clear)
+                .contextMenu {
+                    Button {
+                        self.viewModel.toggleMutePeer(index)
+                    } label: {
+                        Text(viewModel.contactViewModels[index].isMuted ? Lang.unmutePeer : Lang.mutePeer)
                     }
+                    Button {
+                        self.viewModel.removePeer(index)
+                    } label: {
+                        Text(Lang.removePeer)
+                    }
+                }
             }
         }
         .padding()

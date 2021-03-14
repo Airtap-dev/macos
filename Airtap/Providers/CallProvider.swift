@@ -16,6 +16,7 @@ protocol CallProviding {
     
     func addPeer(accountId: Int)
     func removePeer(accountId: Int)
+    func toggleMutePeer(accountId: Int)
     
     func prepareToQuit()
 }
@@ -184,14 +185,14 @@ class CallProvider: CallProviding, ObservableObject {
                         let peerId = self?.persistenceProvider.peers[index].id {
                         self?.account?.isSpeaking = true
                         self?.wsService.sendInfo(to: peerId, type: .micOn)
-                        self?.webRTCService.unmuteAudio(id: peerId)
+                        self?.webRTCService.unmuteMic(id: peerId)
                     }
                 case let .keyUp(index):
                     if self?.persistenceProvider.peers.indices.contains(index) == true,
                         let peerId = self?.persistenceProvider.peers[index].id {
                         self?.account?.isSpeaking = false
                         self?.wsService.sendInfo(to: peerId, type: .micOff)
-                        self?.webRTCService.muteAudio(id: peerId)
+                        self?.webRTCService.muteMic(id: peerId)
                     }
                 }
             }
@@ -212,6 +213,14 @@ class CallProvider: CallProviding, ObservableObject {
     
     func removePeer(accountId: Int) {
         webRTCService.closeConnection(id: accountId)
+    }
+    
+    func toggleMutePeer(accountId: Int) {
+        if let index = persistenceProvider.peers.firstIndex(where: { $0.id == accountId }) {
+            let newValue = !persistenceProvider.peers[index].isMuted
+            persistenceProvider.markPeerAsMuted(for: accountId, isMuted: newValue)
+            newValue ? webRTCService.muteAudio(id: accountId) : webRTCService.unmuteAudio(id: accountId)
+        }
     }
     
     func prepareToQuit() {

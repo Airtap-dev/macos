@@ -14,6 +14,7 @@ struct Peer: Identifiable, Hashable {
     var firstName: String
     var lastName: String?
     var isSpeaking: Bool = false
+    var isMuted: Bool = false
 }
 
 class PeerDBO: Object, Identifiable {

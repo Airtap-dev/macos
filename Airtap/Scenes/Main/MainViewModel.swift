@@ -75,7 +75,12 @@ class MainViewModel: ObservableObject {
         model.removePeer(index)
     }
     
+    func toggleMutePeer(_ index: Int) {
+        model.toggleMutePeer(index)
+    }
+    
     func copyShareableLink() {
         model.copyShareableLink()
     }
+    
 }
