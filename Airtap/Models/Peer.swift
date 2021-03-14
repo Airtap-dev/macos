@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 01.03.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -15,6 +15,7 @@ struct Peer: Identifiable, Hashable {
     var lastName: String?
     var isSpeaking: Bool = false
     var isMuted: Bool = false
+    var isOnline: Bool = false
 }
 
 class PeerDBO: Object, Identifiable {

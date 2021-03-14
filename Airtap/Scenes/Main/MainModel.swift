@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import SwiftUI
@@ -23,7 +23,8 @@ class MainModel: ObservableObject {
     init(
         authProvider: AuthProviding,
         callProvider: CallProviding,
-        persistenceProvider: PersistenceProviding
+        persistenceProvider: PersistenceProviding,
+        logProvider: LogProviding
     ) {
         self.authProvider = authProvider
         self.callProvider = callProvider

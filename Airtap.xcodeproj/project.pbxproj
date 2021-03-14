@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BB074F326A358AC009B0228 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5016C125FE15290010A0C0 /* Analytics.swift */; };
+		8BB074F526A35A39009B0228 /* LogProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB074F426A35A39009B0228 /* LogProvider.swift */; };
+		8BB074F626A35A39009B0228 /* LogProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB074F426A35A39009B0228 /* LogProvider.swift */; };
+		C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = C6413E8E269F62C3000AB257 /* TinyHTTP */; };
+		C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = C6842F4A26513EE6002008E2 /* WebRTC */; };
 		FA1301A725ED228B0050A695 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA1301A625ED228B0050A695 /* Realm */; };
 		FA1301A925ED228B0050A695 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA1301A825ED228B0050A695 /* RealmSwift */; };
 		FA1301AF25ED22A70050A695 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1301AE25ED22A70050A695 /* Peer.swift */; };
@@ -73,8 +78,6 @@
 		FA5016A025FD57690010A0C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA50169E25FD57690010A0C0 /* Main.storyboard */; };
 		FA5016AF25FE10680010A0C0 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = FA5016AE25FE10680010A0C0 /* Sentry */; };
 		FA5016B425FE10720010A0C0 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = FA5016B325FE10720010A0C0 /* Sentry */; };
-		FA5016B925FE13BF0010A0C0 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = FA5016B825FE13BF0010A0C0 /* Amplitude */; };
-		FA5016BD25FE13C70010A0C0 /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = FA5016BC25FE13C70010A0C0 /* Amplitude */; };
 		FA5016C225FE15290010A0C0 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5016C125FE15290010A0C0 /* Analytics.swift */; };
 		FA78328E25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78328D25EFBD0E00A0F4EC /* NSBezierPath+Extensions.swift */; };
 		FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA78329125EFCB8800A0F4EC /* ContactViewModel.swift */; };
@@ -89,7 +92,6 @@
 		FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */; };
 		FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */; };
 		FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */; };
-		FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */; };
 		FAF27F6C25EBB7FF00DC04D6 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6B25EBB7FF00DC04D6 /* APIService.swift */; };
 		FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6E25EBBAC800DC04D6 /* Config.swift */; };
 		FAF27F7425EBBD6B00DC04D6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */; };
@@ -103,12 +105,12 @@
 		FAF27F9725EBD71300DC04D6 /* NSTextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F9625EBD71300DC04D6 /* NSTextField+Extensions.swift */; };
 		FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27FA025EC2D0100DC04D6 /* Starscream */; };
 		FAF27FA625EC2D2A00DC04D6 /* WSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FA525EC2D2A00DC04D6 /* WSService.swift */; };
-		FAF27FAB25EC30FD00DC04D6 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27FAA25EC30FD00DC04D6 /* WebRTC */; };
 		FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FAE25EC313F00DC04D6 /* WebRTCService.swift */; };
 		FAF27FB325EC3DDE00DC04D6 /* WSDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27FB225EC3DDE00DC04D6 /* WSDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8BB074F426A35A39009B0228 /* LogProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogProvider.swift; sourceTree = "<group>"; };
 		FA1301AE25ED22A70050A695 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		FA1301C525ED3E280050A695 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		FA14401F25ECF235000D22F4 /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
@@ -168,7 +170,6 @@
 				FA50168325FD55A20010A0C0 /* TinyHTTP in Frameworks */,
 				FA50168425FD55A20010A0C0 /* Starscream in Frameworks */,
 				FA50168525FD55A20010A0C0 /* Realm in Frameworks */,
-				FA5016BD25FE13C70010A0C0 /* Amplitude in Frameworks */,
 				FA50168625FD55A20010A0C0 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,11 +182,10 @@
 				FA50163625FD2DAA0010A0C0 /* Sparkle in Frameworks */,
 				FA5016AF25FE10680010A0C0 /* Sentry in Frameworks */,
 				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
-				FAF27FAB25EC30FD00DC04D6 /* WebRTC in Frameworks */,
-				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
+				C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */,
 				FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */,
+				C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */,
 				FA1301A725ED228B0050A695 /* Realm in Frameworks */,
-				FA5016B925FE13BF0010A0C0 /* Amplitude in Frameworks */,
 				FAA0582A25F828A100797A76 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,6 +356,7 @@
 				FA14402225ECF33B000D22F4 /* CallProvider.swift */,
 				FA14402525ECF890000D22F4 /* PersistenceProvider.swift */,
 				FAA0582C25F829C900797A76 /* KeyboardProvider.swift */,
+				8BB074F426A35A39009B0228 /* LogProvider.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -413,7 +414,6 @@
 				FA50165525FD55A20010A0C0 /* HotKey */,
 				FA50165725FD55A20010A0C0 /* Sparkle */,
 				FA5016B325FE10720010A0C0 /* Sentry */,
-				FA5016BC25FE13C70010A0C0 /* Amplitude */,
 			);
 			productName = Airtap;
 			productReference = FA50168E25FD55A20010A0C0 /* Airtap (Staging).app */;
@@ -426,6 +426,7 @@
 				FAAD119125EA4B4300B1F90B /* Sources */,
 				FAAD119225EA4B4300B1F90B /* Frameworks */,
 				FAAD119325EA4B4300B1F90B /* Resources */,
+				C6842F4C26513FAA002008E2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -433,16 +434,15 @@
 			);
 			name = "Airtap (Production)";
 			packageProductDependencies = (
-				FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */,
 				FAF27F8625EBC7D500DC04D6 /* KeychainSwift */,
 				FAF27FA025EC2D0100DC04D6 /* Starscream */,
-				FAF27FAA25EC30FD00DC04D6 /* WebRTC */,
 				FA1301A625ED228B0050A695 /* Realm */,
 				FA1301A825ED228B0050A695 /* RealmSwift */,
 				FAA0582925F828A100797A76 /* HotKey */,
 				FA50163525FD2DAA0010A0C0 /* Sparkle */,
 				FA5016AE25FE10680010A0C0 /* Sentry */,
-				FA5016B825FE13BF0010A0C0 /* Amplitude */,
+				C6842F4A26513EE6002008E2 /* WebRTC */,
+				C6413E8E269F62C3000AB257 /* TinyHTTP */,
 			);
 			productName = Airtap;
 			productReference = FAAD119525EA4B4300B1F90B /* Airtap (Production).app */;
@@ -456,8 +456,8 @@
 			attributes = {
 				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
-				ORGANIZATIONNAME = "Airtap OÜ";
+				LastUpgradeCheck = 1250;
+				ORGANIZATIONNAME = "Airtap Ltd";
 				TargetAttributes = {
 					FAAD119425EA4B4300B1F90B = {
 						CreatedOnToolsVersion = 12.4;
@@ -474,15 +474,14 @@
 			);
 			mainGroup = FAAD118C25EA4B4300B1F90B;
 			packageReferences = (
-				FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */,
 				FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				FAF27F9F25EC2D0100DC04D6 /* XCRemoteSwiftPackageReference "Starscream" */,
-				FAF27FA925EC30FD00DC04D6 /* XCRemoteSwiftPackageReference "WebRTC" */,
 				FA1301A525ED228B0050A695 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				FAA0582825F828A100797A76 /* XCRemoteSwiftPackageReference "HotKey" */,
 				FA50163425FD2DAA0010A0C0 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				FA5016AD25FE10680010A0C0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
-				FA5016B725FE13BF0010A0C0 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
+				C6842F4926513EE6002008E2 /* XCRemoteSwiftPackageReference "airtap-webrtc-swift" */,
+				C6413E8D269F62C3000AB257 /* XCRemoteSwiftPackageReference "swift-http-client" */,
 			);
 			productRefGroup = FAAD119625EA4B4300B1F90B /* Products */;
 			projectDirPath = "";
@@ -517,6 +516,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C6842F4C26513FAA002008E2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find \"${CODESIGNING_FOLDER_PATH}\" -name '*.framework' -print0 | while read -d $'\\0' framework \ndo \n    codesign --force --deep --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" --preserve-metadata=identifier,entitlements --timestamp=none \"${framework}\" \ndone\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FA50165925FD55A20010A0C0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -528,6 +547,7 @@
 				FA50165D25FD55A20010A0C0 /* WebRTCService.swift in Sources */,
 				FA50165E25FD55A20010A0C0 /* WelcomeViewModel.swift in Sources */,
 				FA50165F25FD55A20010A0C0 /* APIService.swift in Sources */,
+				8BB074F626A35A39009B0228 /* LogProvider.swift in Sources */,
 				FA50166025FD55A20010A0C0 /* Lang.swift in Sources */,
 				FA50166125FD55A20010A0C0 /* ContactViewModel.swift in Sources */,
 				FA50166225FD55A20010A0C0 /* WelcomeModel.swift in Sources */,
@@ -550,6 +570,7 @@
 				FA50167325FD55A20010A0C0 /* Dictionary+Extensions.swift in Sources */,
 				FA50167425FD55A20010A0C0 /* Resolver.swift in Sources */,
 				FA50167525FD55A20010A0C0 /* MainModel.swift in Sources */,
+				8BB074F326A358AC009B0228 /* Analytics.swift in Sources */,
 				FA50167625FD55A20010A0C0 /* NSTextField+Extensions.swift in Sources */,
 				FA50167725FD55A20010A0C0 /* PersistenceProvider.swift in Sources */,
 				FA50167825FD55A20010A0C0 /* KeyboardProvider.swift in Sources */,
@@ -571,6 +592,7 @@
 				FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */,
 				FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */,
 				FAF27F6C25EBB7FF00DC04D6 /* APIService.swift in Sources */,
+				8BB074F526A35A39009B0228 /* LogProvider.swift in Sources */,
 				FA50161E25FCE5CE0010A0C0 /* Lang.swift in Sources */,
 				FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */,
 				FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */,
@@ -624,10 +646,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -649,10 +672,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -672,7 +696,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = x86_64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -734,7 +758,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = x86_64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -791,10 +815,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -815,10 +840,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Airtap/Airtap.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -867,6 +893,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C6413E8D269F62C3000AB257 /* XCRemoteSwiftPackageReference "swift-http-client" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alxdrlitreev/swift-http-client.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		C6842F4926513EE6002008E2 /* XCRemoteSwiftPackageReference "airtap-webrtc-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Airtap-dev/airtap-webrtc-swift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		FA1301A525ED228B0050A695 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa.git";
@@ -947,28 +989,12 @@
 				version = 6.2.1;
 			};
 		};
-		FA5016B725FE13BF0010A0C0 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
-			requirement = {
-				kind = exactVersion;
-				version = 8.0.0;
-			};
-		};
 		FAA0582825F828A100797A76 /* XCRemoteSwiftPackageReference "HotKey" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/soffes/HotKey";
 			requirement = {
 				kind = exactVersion;
 				version = 0.1.3;
-			};
-		};
-		FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Airtap-dev/airtap-swift-http-client.git";
-			requirement = {
-				branch = main;
-				kind = branch;
 			};
 		};
 		FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
@@ -987,17 +1013,19 @@
 				version = 4.0.4;
 			};
 		};
-		FAF27FA925EC30FD00DC04D6 /* XCRemoteSwiftPackageReference "WebRTC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alexpiezo/WebRTC.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.1.31567;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C6413E8E269F62C3000AB257 /* TinyHTTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C6413E8D269F62C3000AB257 /* XCRemoteSwiftPackageReference "swift-http-client" */;
+			productName = TinyHTTP;
+		};
+		C6842F4A26513EE6002008E2 /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C6842F4926513EE6002008E2 /* XCRemoteSwiftPackageReference "airtap-webrtc-swift" */;
+			productName = WebRTC;
+		};
 		FA1301A625ED228B0050A695 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA1301A525ED228B0050A695 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
@@ -1063,25 +1091,10 @@
 			package = FA5016AD25FE10680010A0C0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = Sentry;
 		};
-		FA5016B825FE13BF0010A0C0 /* Amplitude */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA5016B725FE13BF0010A0C0 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
-			productName = Amplitude;
-		};
-		FA5016BC25FE13C70010A0C0 /* Amplitude */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA5016B725FE13BF0010A0C0 /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
-			productName = Amplitude;
-		};
 		FAA0582925F828A100797A76 /* HotKey */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAA0582825F828A100797A76 /* XCRemoteSwiftPackageReference "HotKey" */;
 			productName = HotKey;
-		};
-		FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */;
-			productName = TinyHTTP;
 		};
 		FAF27F8625EBC7D500DC04D6 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1092,11 +1105,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FAF27F9F25EC2D0100DC04D6 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
-		};
-		FAF27FAA25EC30FD00DC04D6 /* WebRTC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FAF27FA925EC30FD00DC04D6 /* XCRemoteSwiftPackageReference "WebRTC" */;
-			productName = WebRTC;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

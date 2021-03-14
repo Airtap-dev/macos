@@ -3,7 +3,7 @@
   Airtap
 
   Created by Aleksandr Litreev on 13.03.2021.
-  Copyright © 2021 Airtap OÜ. All rights reserved.
+  Copyright © 2021 Airtap Ltd. All rights reserved.
 */
 
 "activationPrompt" = "Please, activate your app to get started.";
@@ -14,7 +14,9 @@
 "lastName" = "Last Name";
 "signUp" = "Sign Up";
 
-"removePeer" = "Remove Peer";
+"mutePeer" = "Mute";
+"unmutePeer" = "Unmute";
+"removePeer" = "Remove";
 
 "noOneSpeaking" = "Enjoy the silience";
 "youSpeaking" = "You are speaking";

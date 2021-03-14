@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -51,7 +51,7 @@ class WebRTCService: NSObject, WebRTCServing {
     private(set) var eventSubject = PassthroughSubject<WebRTCServiceEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    init(authProvider: AuthProviding) {
+    init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
         super.init()
         

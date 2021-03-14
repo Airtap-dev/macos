@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 27.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -21,7 +21,7 @@ class MainViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(model: MainModel) {
+    init(model: MainModel, logProvider: LogProviding) {
         self.model = model
         
         self.model.$isAuthorised

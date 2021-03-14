@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 27.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import SwiftUI
@@ -34,16 +34,14 @@ struct ContactView: View {
             Button {
                 muteAction()
             } label: {
-                Image(viewModel.isMuted ? "micOff" : "micOn")
+                Image(viewModel.isMuted ? "muted" : "unmuted")
                     .resizable()
                     .antialiased(true)
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(viewModel.isMuted ? Theme.Colors.micOff : Theme.Colors.micOn)
+                    .foregroundColor(viewModel.isMuted ? Theme.Colors.iconMuted : Theme.Colors.iconUnmuted)
                     .frame(height: 12)
             }
             .buttonStyle(LinkButtonStyle())
-            
-            
         }
     }
 }

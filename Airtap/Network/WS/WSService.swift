@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -29,7 +29,8 @@ protocol WSServing {
 
 class WSService: WSServing {
     private let authProvider: AuthProviding
-    
+    private let logProvider: LogProviding
+    private let persistenceProvider: PersistenceProviding
     private(set) var eventSubject = PassthroughSubject<WSServiceEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
         
@@ -37,8 +38,10 @@ class WSService: WSServing {
     private var socket: WebSocket?
     private var nonce: Int = 0
     
-    init(authProvider: AuthProviding) {
+    init(authProvider: AuthProviding, persistenceProvider: PersistenceProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
+        self.logProvider = logProvider
+        self.persistenceProvider = persistenceProvider
         
         self.authProvider.eventSubject
             .receive(on: DispatchQueue.main)
@@ -78,6 +81,7 @@ class WSService: WSServing {
     }
 
     func sendOffer(to accountId: Int, sdp: String) {
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending an offer to account \(accountId)")
         send(
             type: .offer,
             content: WSPayloadContent(
@@ -88,6 +92,7 @@ class WSService: WSServing {
     }
     
     func sendAnswer(to accountId: Int, sdp: String) {
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending an answer to account \(accountId)")
         send(
             type: .answer,
             content: WSPayloadContent(
@@ -98,6 +103,7 @@ class WSService: WSServing {
     }
     
     func sendCandidate(to accountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?) {
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending a candidate to account \(accountId)")
         send(
             type: .candidate,
             content: WSPayloadContent(
@@ -108,6 +114,7 @@ class WSService: WSServing {
     }
     
     func sendInfo(to accountId: Int, type: WSPayloadInfoType) {
+        self.logProvider.add(.debug,"account \(self.authProvider.accountId ?? 0) sending info to account \(accountId)")
         send(
             type: .info,
             content: WSPayloadContent(
@@ -118,6 +125,7 @@ class WSService: WSServing {
     }
     
     private func sendAck(nonce: Int) {
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending \(nonce) ack")
         send(type: .ack, nonce: nonce)
     }
     
@@ -145,12 +153,12 @@ class WSService: WSServing {
     }
     
     private func handle(_ message: WSPayload) {
-        guard let accountId = message.payload?.fromAccountId else { return }
-        
         switch(message.type) {
         case .ack:
-            break
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an ack")
         case .offer:
+            guard let accountId = message.payload?.fromAccountId else { return }
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an offer from \(accountId)")
             if let offer = message.payload?.offer {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -161,6 +169,8 @@ class WSService: WSServing {
                 )
             }
         case .answer:
+            guard let accountId = message.payload?.fromAccountId else { return }
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an answer from \(accountId)")
             if let answer = message.payload?.answer {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -171,6 +181,8 @@ class WSService: WSServing {
                 )
             }
         case .candidate:
+            guard let accountId = message.payload?.fromAccountId else { return }
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received a candidate from \(accountId)")
             if let candidate = message.payload?.candidate {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -183,6 +195,8 @@ class WSService: WSServing {
                 )
             }
         case .info:
+            guard let accountId = message.payload?.fromAccountId else { return }
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received info from \(accountId)")
             if let info = message.payload?.info {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -191,6 +205,14 @@ class WSService: WSServing {
                         type: info.type
                     )
                 )
+            }
+        case .peers:
+            self.sendAck(nonce: message.nonce)
+            if let peers = message.payload?.onlinePeers {
+                self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received peers \(peers)")
+                persistenceProvider.updateOnlinePeers(ids: peers)
+            } else {
+                persistenceProvider.updateOnlinePeers(ids: [])
             }
         }
     }
@@ -204,8 +226,8 @@ extension WSService: WebSocketDelegate {
         case .connected:
             self.eventSubject.send(.ready)
         case let .text(receivedString):
-            print("SOCKETS IN: \(receivedString)")
             let payload = try! JSONDecoder().decode(WSPayload.self, from: receivedString.data(using: .utf8)!)
+            logProvider.add(.debug, "\(payload)")
             self.handle(payload)
         default: break
         }

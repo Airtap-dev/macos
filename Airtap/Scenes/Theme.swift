@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 13.03.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import SwiftUI
@@ -20,7 +20,7 @@ struct Theme {
         static let waveGradientMutedStart = Color("color.waveGradientMutedStart")
         static let waveGradientMutedEnd = Color("color.waveGradientMutedEnd")
         static let textFieldBackground = Color("color.textFieldBackground")
-        static let micOn = Color("color.micOn")
-        static let micOff = Color("color.micOff")
+        static let iconUnmuted = Color("color.iconUnmuted")
+        static let iconMuted = Color("color.iconMuted")
     }
 }

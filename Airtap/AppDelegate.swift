@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 27.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Cocoa
@@ -22,19 +22,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var mainView: MainView!
     var welcomeWindow: NSWindow?
     
-    private let authProvider = AuthProvider()
+    private let logProvider = LogProvider()
     private var resolver: Resolver!
     
     private var cancellables = Set<AnyCancellable>()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        self.resolver = Resolver(authProvider: authProvider)
+        let authProvider = AuthProvider(logProvider: logProvider)
+        self.resolver = Resolver(authProvider: authProvider, logProvider: logProvider)
         self.mainView = resolver.main()
         
         setupStatusBarItem()
         
-        self.authProvider.load()
-        self.authProvider.eventSubject
+        authProvider.load()
+        authProvider.eventSubject
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
                 if case let .signedIn(accountId, _) = event {
                     Analytics.start(accountId: accountId)

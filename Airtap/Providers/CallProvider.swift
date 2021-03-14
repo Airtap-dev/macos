@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 01.03.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -42,7 +42,8 @@ class CallProvider: CallProviding, ObservableObject {
         wsService: WSServing,
         authProvider: AuthProviding,
         persistenceProvider: PersistenceProviding,
-        keyboardProvider: KeyboardProviding
+        keyboardProvider: KeyboardProviding,
+        logProvider: LogProviding
     ) {
         self.webRTCService = webRTCService
         self.apiService = apiService
