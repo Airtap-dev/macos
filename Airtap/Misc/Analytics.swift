@@ -21,8 +21,8 @@ enum AnalyticsEvent: String {
 class Analytics {
     static func start(accountId: Int) {
         #if !DEBUG
-        Amplitude.instance()?.initializeApiKey(Config.amplitudeApiKey)
-        Amplitude.instance()?.setUserId("\(accountId)")
+        Amplitude.instance().initializeApiKey(Config.amplitudeApiKey)
+        Amplitude.instance().setUserId("\(accountId)")
         Analytics.track(.appStart)
         #endif
     }
