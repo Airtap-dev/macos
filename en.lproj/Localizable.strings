@@ -14,7 +14,9 @@
 "lastName" = "Last Name";
 "signUp" = "Sign Up";
 
-"removePeer" = "Remove Peer";
+"mutePeer" = "Mute";
+"unmutePeer" = "Unmute";
+"removePeer" = "Remove";
 
 "noOneSpeaking" = "Enjoy the silience";
 "youSpeaking" = "You are speaking";
