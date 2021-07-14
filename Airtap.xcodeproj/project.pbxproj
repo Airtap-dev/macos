@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = C6413E8E269F62C3000AB257 /* TinyHTTP */; };
 		C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = C6842F4A26513EE6002008E2 /* WebRTC */; };
 		FA1301A725ED228B0050A695 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA1301A625ED228B0050A695 /* Realm */; };
 		FA1301A925ED228B0050A695 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA1301A825ED228B0050A695 /* RealmSwift */; };
@@ -88,7 +89,6 @@
 		FAF27F5C25EA56DD00DC04D6 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5B25EA56DD00DC04D6 /* ContactView.swift */; };
 		FAF27F6025EA575A00DC04D6 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F5F25EA575A00DC04D6 /* String+Extensions.swift */; };
 		FAF27F6425EA57AE00DC04D6 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6325EA57AE00DC04D6 /* MainViewModel.swift */; };
-		FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */; };
 		FAF27F6C25EBB7FF00DC04D6 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6B25EBB7FF00DC04D6 /* APIService.swift */; };
 		FAF27F6F25EBBAC800DC04D6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F6E25EBBAC800DC04D6 /* Config.swift */; };
 		FAF27F7425EBBD6B00DC04D6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF27F7325EBBD6B00DC04D6 /* WelcomeView.swift */; };
@@ -179,8 +179,8 @@
 				FA5016AF25FE10680010A0C0 /* Sentry in Frameworks */,
 				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
 				C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */,
-				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
 				FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */,
+				C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */,
 				FA1301A725ED228B0050A695 /* Realm in Frameworks */,
 				FAA0582A25F828A100797A76 /* HotKey in Frameworks */,
 			);
@@ -429,7 +429,6 @@
 			);
 			name = "Airtap (Production)";
 			packageProductDependencies = (
-				FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */,
 				FAF27F8625EBC7D500DC04D6 /* KeychainSwift */,
 				FAF27FA025EC2D0100DC04D6 /* Starscream */,
 				FA1301A625ED228B0050A695 /* Realm */,
@@ -438,6 +437,7 @@
 				FA50163525FD2DAA0010A0C0 /* Sparkle */,
 				FA5016AE25FE10680010A0C0 /* Sentry */,
 				C6842F4A26513EE6002008E2 /* WebRTC */,
+				C6413E8E269F62C3000AB257 /* TinyHTTP */,
 			);
 			productName = Airtap;
 			productReference = FAAD119525EA4B4300B1F90B /* Airtap (Production).app */;
@@ -469,7 +469,6 @@
 			);
 			mainGroup = FAAD118C25EA4B4300B1F90B;
 			packageReferences = (
-				FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */,
 				FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				FAF27F9F25EC2D0100DC04D6 /* XCRemoteSwiftPackageReference "Starscream" */,
 				FA1301A525ED228B0050A695 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
@@ -477,6 +476,7 @@
 				FA50163425FD2DAA0010A0C0 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				FA5016AD25FE10680010A0C0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				C6842F4926513EE6002008E2 /* XCRemoteSwiftPackageReference "airtap-webrtc-swift" */,
+				C6413E8D269F62C3000AB257 /* XCRemoteSwiftPackageReference "swift-http-client" */,
 			);
 			productRefGroup = FAAD119625EA4B4300B1F90B /* Products */;
 			projectDirPath = "";
@@ -885,6 +885,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C6413E8D269F62C3000AB257 /* XCRemoteSwiftPackageReference "swift-http-client" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alxdrlitreev/swift-http-client.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C6842F4926513EE6002008E2 /* XCRemoteSwiftPackageReference "airtap-webrtc-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:Airtap-dev/airtap-webrtc-swift.git";
@@ -981,14 +989,6 @@
 				version = 0.1.3;
 			};
 		};
-		FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Airtap-dev/airtap-swift-http-client.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		FAF27F8525EBC7D500DC04D6 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -1008,6 +1008,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C6413E8E269F62C3000AB257 /* TinyHTTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C6413E8D269F62C3000AB257 /* XCRemoteSwiftPackageReference "swift-http-client" */;
+			productName = TinyHTTP;
+		};
 		C6842F4A26513EE6002008E2 /* WebRTC */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C6842F4926513EE6002008E2 /* XCRemoteSwiftPackageReference "airtap-webrtc-swift" */;
@@ -1082,11 +1087,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FAA0582825F828A100797A76 /* XCRemoteSwiftPackageReference "HotKey" */;
 			productName = HotKey;
-		};
-		FAF27F6725EBB7BC00DC04D6 /* TinyHTTP */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FAF27F6625EBB7BC00DC04D6 /* XCRemoteSwiftPackageReference "airtap-swift-http-client" */;
-			productName = TinyHTTP;
 		};
 		FAF27F8625EBC7D500DC04D6 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
