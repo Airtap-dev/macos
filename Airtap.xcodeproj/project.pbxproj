@@ -179,6 +179,7 @@
 				FA5016AF25FE10680010A0C0 /* Sentry in Frameworks */,
 				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
 				C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */,
+				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
 				FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */,
 				C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */,
 				FA1301A725ED228B0050A695 /* Realm in Frameworks */,
