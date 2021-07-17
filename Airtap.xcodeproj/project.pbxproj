@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BB074F326A358AC009B0228 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5016C125FE15290010A0C0 /* Analytics.swift */; };
 		C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = C6413E8E269F62C3000AB257 /* TinyHTTP */; };
 		C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = C6842F4A26513EE6002008E2 /* WebRTC */; };
 		FA1301A725ED228B0050A695 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA1301A625ED228B0050A695 /* Realm */; };
@@ -179,7 +180,6 @@
 				FA5016AF25FE10680010A0C0 /* Sentry in Frameworks */,
 				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
 				C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */,
-				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
 				FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */,
 				C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */,
 				FA1301A725ED228B0050A695 /* Realm in Frameworks */,
@@ -565,6 +565,7 @@
 				FA50167325FD55A20010A0C0 /* Dictionary+Extensions.swift in Sources */,
 				FA50167425FD55A20010A0C0 /* Resolver.swift in Sources */,
 				FA50167525FD55A20010A0C0 /* MainModel.swift in Sources */,
+				8BB074F326A358AC009B0228 /* Analytics.swift in Sources */,
 				FA50167625FD55A20010A0C0 /* NSTextField+Extensions.swift in Sources */,
 				FA50167725FD55A20010A0C0 /* PersistenceProvider.swift in Sources */,
 				FA50167825FD55A20010A0C0 /* KeyboardProvider.swift in Sources */,
@@ -643,7 +644,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -669,7 +670,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -812,7 +813,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -837,7 +838,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
