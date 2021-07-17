@@ -14,7 +14,7 @@ struct MainView: View {
     @ObservedObject private var viewModel: MainViewModel
     private let wireframe: MainWireframe!
     
-    init(viewModel: MainViewModel, wireframe: MainWireframe) {
+    init(viewModel: MainViewModel, wireframe: MainWireframe, logProvider: LogProviding) {
         self.viewModel = viewModel
         self.wireframe = wireframe
     }

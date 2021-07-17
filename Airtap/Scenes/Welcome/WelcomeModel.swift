@@ -24,7 +24,8 @@ class WelcomeModel {
     
     init(
         apiService: APIServing,
-        authProvider: AuthProviding
+        authProvider: AuthProviding,
+        logProvider: LogProviding
     ) {
         self.apiService = apiService
         self.authProvider = authProvider

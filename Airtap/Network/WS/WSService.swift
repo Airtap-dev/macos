@@ -37,7 +37,7 @@ class WSService: WSServing {
     private var socket: WebSocket?
     private var nonce: Int = 0
     
-    init(authProvider: AuthProviding) {
+    init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
         
         self.authProvider.eventSubject

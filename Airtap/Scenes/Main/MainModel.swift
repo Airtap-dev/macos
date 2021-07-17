@@ -23,7 +23,8 @@ class MainModel: ObservableObject {
     init(
         authProvider: AuthProviding,
         callProvider: CallProviding,
-        persistenceProvider: PersistenceProviding
+        persistenceProvider: PersistenceProviding,
+        logProvider: LogProviding
     ) {
         self.authProvider = authProvider
         self.callProvider = callProvider

@@ -38,7 +38,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     
     private(set) var eventSubject = PassthroughSubject<AuthProviderEvent, Never>()
     
-    init() {
+    init(logProvider: LogProviding) {
         self.keychain = KeychainSwift()
     }
 

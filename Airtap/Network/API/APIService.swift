@@ -31,7 +31,7 @@ class APIService: APIServing {
     
     private var basicAuth: String?
     
-    init(authProvider: AuthProviding) {
+    init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
         
         self.authProvider.eventSubject

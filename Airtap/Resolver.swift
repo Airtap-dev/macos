@@ -17,46 +17,50 @@ class Resolver {
     let keyboardProvider: KeyboardProviding
     let persistenceProvider: PersistenceProviding
     let callProvider: CallProviding
+    let logProvider: LogProviding
     
     let linkHandler: LinkHandling
 
-    init(authProvider: AuthProviding) {
-        self.apiService = APIService(authProvider: authProvider)
-        self.wsService = WSService(authProvider: authProvider)
-        self.webRTCService = WebRTCService(authProvider: authProvider)
+    init(authProvider: AuthProviding, logProvider: LogProviding) {
+        self.apiService = APIService(authProvider: authProvider, logProvider: logProvider)
+        self.wsService = WSService(authProvider: authProvider, logProvider: logProvider)
+        self.webRTCService = WebRTCService(authProvider: authProvider, logProvider: logProvider)
         
+        self.logProvider = logProvider
         self.authProvider = authProvider
         self.keyboardProvider = KeyboardProvider()
-        self.persistenceProvider = PersistenceProvider(authProvider: authProvider)
+        self.persistenceProvider = PersistenceProvider(authProvider: authProvider, logProvider: logProvider)
         self.callProvider = CallProvider(
             webRTCService: webRTCService,
             apiService: apiService,
             wsService: wsService,
             authProvider: authProvider,
             persistenceProvider: persistenceProvider,
-            keyboardProvider: keyboardProvider
+            keyboardProvider: keyboardProvider,
+            logProvider: logProvider
         )
         
         self.linkHandler = LinkHandler(
             authProvider: authProvider,
             apiService: apiService,
-            persistenceProvider: persistenceProvider
+            persistenceProvider: persistenceProvider,
+            logProvider: logProvider
         )
     }
     
     // MARK: - Routing -
     func welcome() -> WelcomeView {
-        let m = WelcomeModel(apiService: apiService, authProvider: authProvider)
-        let vm = WelcomeViewModel(model: m)
-        let v = WelcomeView(viewModel: vm)
+        let m = WelcomeModel(apiService: apiService, authProvider: authProvider, logProvider: logProvider)
+        let vm = WelcomeViewModel(model: m, logProvider: logProvider)
+        let v = WelcomeView(viewModel: vm, logProvider: logProvider)
         
         return v
     }
     
     func main() -> MainView {
-        let m = MainModel(authProvider: authProvider, callProvider: callProvider, persistenceProvider: persistenceProvider)
-        let vm = MainViewModel(model: m)
-        let v = MainView(viewModel: vm, wireframe: MainWireframe(self))
+        let m = MainModel(authProvider: authProvider, callProvider: callProvider, persistenceProvider: persistenceProvider, logProvider: logProvider)
+        let vm = MainViewModel(model: m, logProvider: logProvider)
+        let v = MainView(viewModel: vm, wireframe: MainWireframe(self), logProvider: logProvider)
         
         return v
     }
