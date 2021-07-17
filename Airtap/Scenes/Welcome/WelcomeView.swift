@@ -12,7 +12,7 @@ struct WelcomeView: View {
     
     @ObservedObject private var viewModel: WelcomeViewModel
     
-    init(viewModel: WelcomeViewModel) {
+    init(viewModel: WelcomeViewModel, logProvider: LogProviding) {
         self.viewModel = viewModel
     }
     

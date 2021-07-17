@@ -51,7 +51,7 @@ class WebRTCService: NSObject, WebRTCServing {
     private(set) var eventSubject = PassthroughSubject<WebRTCServiceEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    init(authProvider: AuthProviding) {
+    init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
         super.init()
         

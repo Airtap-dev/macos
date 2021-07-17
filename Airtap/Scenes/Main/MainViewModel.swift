@@ -21,7 +21,7 @@ class MainViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(model: MainModel) {
+    init(model: MainModel, logProvider: LogProviding) {
         self.model = model
         
         self.model.$isAuthorised

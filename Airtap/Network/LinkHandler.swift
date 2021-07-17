@@ -20,7 +20,7 @@ class LinkHandler: LinkHandling {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(authProvider: AuthProviding, apiService: APIServing, persistenceProvider: PersistenceProviding) {
+    init(authProvider: AuthProviding, apiService: APIServing, persistenceProvider: PersistenceProviding, logProvider: LogProviding) {
         self.apiService = apiService
         self.persistenceProvider = persistenceProvider
         self.authProvider = authProvider

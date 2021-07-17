@@ -19,7 +19,7 @@ class WelcomeViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(model: WelcomeModel) {
+    init(model: WelcomeModel, logProvider: LogProviding) {
         self.model = model
         
         self.model.eventSubject

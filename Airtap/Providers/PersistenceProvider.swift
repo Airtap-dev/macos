@@ -40,7 +40,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     var peersPublished: Published<[Peer]> { _peers }
     var peersPublisher: Published<[Peer]>.Publisher { $peers }
     
-    init(authProvider: AuthProviding) {
+    init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
         realm = try! Realm()
         

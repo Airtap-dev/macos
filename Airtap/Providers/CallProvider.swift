@@ -42,7 +42,8 @@ class CallProvider: CallProviding, ObservableObject {
         wsService: WSServing,
         authProvider: AuthProviding,
         persistenceProvider: PersistenceProviding,
-        keyboardProvider: KeyboardProviding
+        keyboardProvider: KeyboardProviding,
+        logProvider: LogProviding
     ) {
         self.webRTCService = webRTCService
         self.apiService = apiService
