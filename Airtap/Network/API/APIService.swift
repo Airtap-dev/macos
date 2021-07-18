@@ -25,6 +25,7 @@ protocol APIServing {
 
 class APIService: APIServing {
     private let authProvider: AuthProviding
+    private let logProvider: LogProviding
     
     private(set) var eventSubject = PassthroughSubject<APIServiceEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -33,6 +34,7 @@ class APIService: APIServing {
     
     init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
+        self.logProvider = logProvider
         
         self.authProvider.eventSubject
             .receive(on: DispatchQueue.main)
@@ -60,6 +62,7 @@ class APIService: APIServing {
     }
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError> {
+        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "creating a new account")))
         struct CreateAccountBody: Encodable {
             let licenseKey: String
             let firstName: String
@@ -77,6 +80,7 @@ class APIService: APIServing {
     }
     
     func startSession() -> Future<StartSessionResponse, NetworkingError> {
+        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "starting a new account session")))
         return Endpoint<StartSessionResponse>(baseURL: Config.apiEndpoint)
             .get(
                 "account/start",
@@ -86,6 +90,7 @@ class APIService: APIServing {
     }
     
     func discover(code: String) -> Future<DiscoverResponse, NetworkingError> {
+        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "discovering a new peer with code %@", code)))
         return Endpoint<DiscoverResponse>(baseURL: Config.apiEndpoint)
             .get(
                 "account/discover",

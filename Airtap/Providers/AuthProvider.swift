@@ -30,6 +30,7 @@ protocol AuthProviding {
 
 class AuthProvider: AuthProviding, ObservableObject {
     private let keychain: KeychainSwift
+    private let logProvider: LogProviding
 
     private(set) var accountId: Int?
     @Published private(set) var isAuthorised: Bool = false
@@ -40,6 +41,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     
     init(logProvider: LogProviding) {
         self.keychain = KeychainSwift()
+        self.logProvider = logProvider
     }
 
     func load(){
@@ -49,6 +51,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     }
     
     func signIn(accountId: Int, token: String) {
+        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d signing in", accountId)))
         keychain.set("\(accountId)", forKey: "accountId")
         keychain.set(token, forKey: "accountToken")
         
@@ -58,6 +61,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     }
     
     func signOut() {
+        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d signing out", self.accountId!)))
         keychain.delete("accountId")
         keychain.delete("accountToken")
         

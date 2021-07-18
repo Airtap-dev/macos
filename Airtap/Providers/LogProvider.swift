@@ -8,25 +8,23 @@
 
 import Foundation
 
-enum logLevel: Equatable {
+enum LogLevel: Equatable {
     case error
     case debug
     case info
 }
 
 struct LogEntry {
-    var level: logLevel
+    var level: LogLevel
     var text: String
 }
 
 protocol LogProviding {
-    var log: [LogEntry] { get }
-    
     func addLogEntry(entry: LogEntry)
 }
 
 class LogProvider: LogProviding {
-    private(set) var log: [LogEntry] = []
+    private var log: [LogEntry] = []
     
     init() {
     }
