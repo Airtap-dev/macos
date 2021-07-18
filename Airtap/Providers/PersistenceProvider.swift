@@ -31,6 +31,7 @@ protocol PersistenceProviding {
 
 class PersistenceProvider: PersistenceProviding, ObservableObject {
     private let authProvider: AuthProviding
+    private let logProvider: LogProviding
     private let realm: Realm
     
     private(set) var eventSubject = PassthroughSubject<PersistenceProviderEvent, Never>()
@@ -42,6 +43,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     
     init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
+        self.logProvider = logProvider
         realm = try! Realm()
         
         self.authProvider.eventSubject
@@ -77,6 +79,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func insertPeer(id: Int, firstName: String, lastName: String?) {
+        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d inserted peer %d into persistence", self.authProvider.accountId!, id)))
         Analytics.track(.addPeer)
         
         DispatchQueue.main.async { [weak self] in
@@ -99,6 +102,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func deletePeer(id: Int) {
+        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d deleted peer %d from persistence", self.authProvider.accountId!, id)))
         Analytics.track(.deletePeer)
         
         DispatchQueue.main.async { [weak self] in
@@ -119,12 +123,14 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     
     func markPeerAsSpeaking(for id: Int, isSpeaking: Bool) {
         if let index = self.peers.firstIndex(where: { $0.id == id }) {
+            self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d set peer %d isSpeaking property to %b", self.authProvider.accountId!, id, isSpeaking)))
             self.peers[index].isSpeaking = isSpeaking
         }
     }
     
     func markPeerAsMuted(for id: Int, isMuted: Bool) {
         if let index = self.peers.firstIndex(where: { $0.id == id }) {
+            self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d set peer %d isMuted property to %b", self.authProvider.accountId!, id, isMuted)))
             Analytics.track(isMuted ? .mutePeer : .unmutePeer)
             self.peers[index].isMuted = isMuted
         }
