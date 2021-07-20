@@ -80,7 +80,7 @@ class WSService: WSServing {
     }
 
     func sendOffer(to accountId: Int, sdp: String) {
-        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d sending an offer to account %d", self.authProvider.accountId!, accountId)))
+        logProvider.addLogEntry(entry: LogEntry(level: LogLevel.debug, text: String(format: "account %d sending an offer to account %d", self.authProvider.accountId!, accountId)))
         send(
             type: .offer,
             content: WSPayloadContent(
@@ -204,6 +204,8 @@ class WSService: WSServing {
                     )
                 )
             }
+        case .peers:
+            self.logProvider.addLogEntry(entry: LogEntry(level: LogLevel.debug, text: String(format: "account %d received peers \(message.payload)", self.authProvider.accountId!)))
         }
     }
 }
@@ -217,6 +219,7 @@ extension WSService: WebSocketDelegate {
             self.eventSubject.send(.ready)
         case let .text(receivedString):
             let payload = try! JSONDecoder().decode(WSPayload.self, from: receivedString.data(using: .utf8)!)
+            logProvider.addLogEntry(entry: LogEntry(level: LogLevel.debug, text: "\(payload)"))
             self.handle(payload)
         default: break
         }
