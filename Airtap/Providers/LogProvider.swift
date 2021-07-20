@@ -12,6 +12,17 @@ enum LogLevel: Equatable {
     case error
     case debug
     case info
+    
+    func toEmojiTitle() -> String {
+        switch self {
+        case .error:
+            return "❌ ERROR: "
+        case .debug:
+            return "⚠️ DEBUG: "
+        case .info:
+            return "ℹ️ INFO: "
+        }
+    }
 }
 
 struct LogEntry {
@@ -20,17 +31,16 @@ struct LogEntry {
 }
 
 protocol LogProviding {
-    func addLogEntry(entry: LogEntry)
+    func add(_ level: LogLevel, _ text: String)
 }
 
 class LogProvider: LogProviding {
     private var log: [LogEntry] = []
     
-    init() {
-    }
+    init() {}
     
-    func addLogEntry(entry: LogEntry) {
-        log.append(entry)
-        print(log)
+    func add(_ level: LogLevel, _ text: String) {
+        log.append(LogEntry(level: level, text: text))
+        print("\(level.toEmojiTitle())\(text)")
     }
 }
