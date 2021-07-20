@@ -36,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         authProvider.load()
         authProvider.eventSubject
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
                 if case let .signedIn(accountId, _) = event {
                     Analytics.start(accountId: accountId)
