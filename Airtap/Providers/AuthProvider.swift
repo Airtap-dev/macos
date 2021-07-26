@@ -51,7 +51,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     }
     
     func signIn(accountId: Int, token: String) {
-        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d signing in", accountId)))
+        self.logProvider.add(LogLevel.debug, String(format: "account %d signing in", accountId))
         keychain.set("\(accountId)", forKey: "accountId")
         keychain.set(token, forKey: "accountToken")
         
@@ -61,7 +61,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     }
     
     func signOut() {
-        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d signing out", self.accountId!)))
+        self.logProvider.add(LogLevel.debug, String(format: "account %d signing out", self.accountId!))
         keychain.delete("accountId")
         keychain.delete("accountToken")
         

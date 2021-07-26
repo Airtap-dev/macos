@@ -80,7 +80,7 @@ class WSService: WSServing {
     }
 
     func sendOffer(to accountId: Int, sdp: String) {
-        logProvider.addLogEntry(entry: LogEntry(level: LogLevel.debug, text: String(format: "account %d sending an offer to account %d", self.authProvider.accountId!, accountId)))
+        self.logProvider.add(LogLevel.debug, String(format: "account %d sending an offer to account %d", self.authProvider.accountId!, accountId))
         send(
             type: .offer,
             content: WSPayloadContent(
@@ -91,7 +91,7 @@ class WSService: WSServing {
     }
     
     func sendAnswer(to accountId: Int, sdp: String) {
-        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d sending an answer to account %d", self.authProvider.accountId!, accountId)))
+        self.logProvider.add(LogLevel.debug, String(format: "account %d sending an answer to account %d", self.authProvider.accountId!, accountId))
         send(
             type: .answer,
             content: WSPayloadContent(
@@ -102,7 +102,7 @@ class WSService: WSServing {
     }
     
     func sendCandidate(to accountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?) {
-        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d sending a candidate to account %d", self.authProvider.accountId!, accountId)))
+        self.logProvider.add(LogLevel.debug, String(format: "account %d sending a candidate to account %d", self.authProvider.accountId!, accountId))
         send(
             type: .candidate,
             content: WSPayloadContent(
@@ -113,7 +113,7 @@ class WSService: WSServing {
     }
     
     func sendInfo(to accountId: Int, type: WSPayloadInfoType) {
-        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d sending info to account %d", self.authProvider.accountId!, accountId)))
+        self.logProvider.add(LogLevel.debug, String(format: "account %d sending info to account %d", self.authProvider.accountId!, accountId))
         send(
             type: .info,
             content: WSPayloadContent(
@@ -124,7 +124,7 @@ class WSService: WSServing {
     }
     
     private func sendAck(nonce: Int) {
-        self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d sending %d ack", self.authProvider.accountId!, nonce)))
+        self.logProvider.add(LogLevel.debug, String(format: "account %d sending %d ack", self.authProvider.accountId!, nonce))
         send(type: .ack, nonce: nonce)
     }
     
@@ -156,10 +156,10 @@ class WSService: WSServing {
         
         switch(message.type) {
         case .ack:
-            self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d received an ack", self.authProvider.accountId!)))
+            self.logProvider.add(LogLevel.debug, String(format: "account %d received an ack", self.authProvider.accountId!))
             break
         case .offer:
-            self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d received an offer from %d", self.authProvider.accountId!, accountId)))
+            self.logProvider.add(LogLevel.debug, String(format: "account %d received an offer from %d", self.authProvider.accountId!, accountId))
             if let offer = message.payload?.offer {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -170,7 +170,7 @@ class WSService: WSServing {
                 )
             }
         case .answer:
-            self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d received an answer from %d", self.authProvider.accountId!, accountId)))
+            self.logProvider.add(LogLevel.debug, String(format: "account %d received an answer from %d", self.authProvider.accountId!, accountId))
             if let answer = message.payload?.answer {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -181,7 +181,7 @@ class WSService: WSServing {
                 )
             }
         case .candidate:
-            self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d received a candidate from %d", self.authProvider.accountId!, accountId)))
+            self.logProvider.add(LogLevel.debug, String(format: "account %d received a candidate from %d", self.authProvider.accountId!, accountId))
             if let candidate = message.payload?.candidate {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -194,7 +194,7 @@ class WSService: WSServing {
                 )
             }
         case .info:
-            self.logProvider.addLogEntry(entry: LogEntry.init(level: LogLevel.debug, text: String(format: "account %d received info from %d", self.authProvider.accountId!, accountId)))
+            self.logProvider.add(LogLevel.debug, String(format: "account %d received info from %d", self.authProvider.accountId!, accountId))
             if let info = message.payload?.info {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -205,7 +205,7 @@ class WSService: WSServing {
                 )
             }
         case .peers:
-            self.logProvider.addLogEntry(entry: LogEntry(level: LogLevel.debug, text: String(format: "account %d received peers \(message.payload)", self.authProvider.accountId!)))
+            self.logProvider.add(LogLevel.debug, String(format: "account %d received peers \(message.payload as Optional)", self.authProvider.accountId!))
         }
     }
 }
@@ -219,7 +219,7 @@ extension WSService: WebSocketDelegate {
             self.eventSubject.send(.ready)
         case let .text(receivedString):
             let payload = try! JSONDecoder().decode(WSPayload.self, from: receivedString.data(using: .utf8)!)
-            logProvider.addLogEntry(entry: LogEntry(level: LogLevel.debug, text: "\(payload)"))
+            logProvider.add(LogLevel.debug, "\(payload)")
             self.handle(payload)
         default: break
         }
