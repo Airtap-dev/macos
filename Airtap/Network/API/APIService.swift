@@ -62,7 +62,7 @@ class APIService: APIServing {
     }
     
     func createAccount(licenseKey: String, firstName: String, lastName: String?) -> Future<CreateAccountResponse, NetworkingError> {
-        self.logProvider.add(LogLevel.debug, String(format: "creating a new account"))
+        self.logProvider.add(.debug, "creating a new account")
         struct CreateAccountBody: Encodable {
             let licenseKey: String
             let firstName: String
@@ -80,7 +80,7 @@ class APIService: APIServing {
     }
     
     func startSession() -> Future<StartSessionResponse, NetworkingError> {
-        self.logProvider.add(LogLevel.debug, String(format: "starting a new account session"))
+        self.logProvider.add(.debug, "starting a new account session")
         return Endpoint<StartSessionResponse>(baseURL: Config.apiEndpoint)
             .get(
                 "account/start",
@@ -90,7 +90,7 @@ class APIService: APIServing {
     }
     
     func discover(code: String) -> Future<DiscoverResponse, NetworkingError> {
-        self.logProvider.add(LogLevel.debug, String(format: "discovering a new peer with code %@", code))
+        self.logProvider.add(.debug, "discovering a new peer with code \(code)")
         return Endpoint<DiscoverResponse>(baseURL: Config.apiEndpoint)
             .get(
                 "account/discover",
