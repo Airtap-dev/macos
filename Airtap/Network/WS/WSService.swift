@@ -80,7 +80,7 @@ class WSService: WSServing {
     }
 
     func sendOffer(to accountId: Int, sdp: String) {
-        self.logProvider.add(LogLevel.debug, String(format: "account %d sending an offer to account %d", self.authProvider.accountId!, accountId))
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending an offer to account \(accountId)")
         send(
             type: .offer,
             content: WSPayloadContent(
@@ -91,7 +91,7 @@ class WSService: WSServing {
     }
     
     func sendAnswer(to accountId: Int, sdp: String) {
-        self.logProvider.add(LogLevel.debug, String(format: "account %d sending an answer to account %d", self.authProvider.accountId!, accountId))
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending an answer to account \(accountId)")
         send(
             type: .answer,
             content: WSPayloadContent(
@@ -102,7 +102,7 @@ class WSService: WSServing {
     }
     
     func sendCandidate(to accountId: Int, sdp: String, sdpMLineIndex: Int32, sdpMid: String?) {
-        self.logProvider.add(LogLevel.debug, String(format: "account %d sending a candidate to account %d", self.authProvider.accountId!, accountId))
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending a candidate to account \(accountId)")
         send(
             type: .candidate,
             content: WSPayloadContent(
@@ -113,7 +113,7 @@ class WSService: WSServing {
     }
     
     func sendInfo(to accountId: Int, type: WSPayloadInfoType) {
-        self.logProvider.add(LogLevel.debug, String(format: "account %d sending info to account %d", self.authProvider.accountId!, accountId))
+        self.logProvider.add(.debug,"account \(self.authProvider.accountId ?? 0) sending info to account \(accountId)")
         send(
             type: .info,
             content: WSPayloadContent(
@@ -124,7 +124,7 @@ class WSService: WSServing {
     }
     
     private func sendAck(nonce: Int) {
-        self.logProvider.add(LogLevel.debug, String(format: "account %d sending %d ack", self.authProvider.accountId!, nonce))
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) sending \(nonce) ack")
         send(type: .ack, nonce: nonce)
     }
     
@@ -156,10 +156,10 @@ class WSService: WSServing {
         
         switch(message.type) {
         case .ack:
-            self.logProvider.add(LogLevel.debug, String(format: "account %d received an ack", self.authProvider.accountId!))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an ack")
             break
         case .offer:
-            self.logProvider.add(LogLevel.debug, String(format: "account %d received an offer from %d", self.authProvider.accountId!, accountId))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an offer from \(accountId)")
             if let offer = message.payload?.offer {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -170,7 +170,7 @@ class WSService: WSServing {
                 )
             }
         case .answer:
-            self.logProvider.add(LogLevel.debug, String(format: "account %d received an answer from %d", self.authProvider.accountId!, accountId))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an answer from \(accountId)")
             if let answer = message.payload?.answer {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -181,7 +181,7 @@ class WSService: WSServing {
                 )
             }
         case .candidate:
-            self.logProvider.add(LogLevel.debug, String(format: "account %d received a candidate from %d", self.authProvider.accountId!, accountId))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received a candidate from \(accountId)")
             if let candidate = message.payload?.candidate {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -194,7 +194,7 @@ class WSService: WSServing {
                 )
             }
         case .info:
-            self.logProvider.add(LogLevel.debug, String(format: "account %d received info from %d", self.authProvider.accountId!, accountId))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received info from \(accountId)")
             if let info = message.payload?.info {
                 self.sendAck(nonce: message.nonce)
                 self.eventSubject.send(
@@ -205,7 +205,7 @@ class WSService: WSServing {
                 )
             }
         case .peers:
-            self.logProvider.add(LogLevel.debug, String(format: "account %d received peers \(message.payload as Optional)", self.authProvider.accountId!))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received peers from \(accountId)")
         }
     }
 }
@@ -219,7 +219,7 @@ extension WSService: WebSocketDelegate {
             self.eventSubject.send(.ready)
         case let .text(receivedString):
             let payload = try! JSONDecoder().decode(WSPayload.self, from: receivedString.data(using: .utf8)!)
-            logProvider.add(LogLevel.debug, "\(payload)")
+            logProvider.add(.debug, "\(payload)")
             self.handle(payload)
         default: break
         }

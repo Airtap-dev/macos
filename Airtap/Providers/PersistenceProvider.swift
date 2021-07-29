@@ -79,7 +79,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func insertPeer(id: Int, firstName: String, lastName: String?) {
-        self.logProvider.add(LogLevel.debug, String(format: "account %d inserted peer %d into persistence", self.authProvider.accountId!, id))
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) inserted peer \(id) into persistence")
         Analytics.track(.addPeer)
         
         DispatchQueue.main.async { [weak self] in
@@ -102,7 +102,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func deletePeer(id: Int) {
-        self.logProvider.add(LogLevel.debug, String(format: "account %d deleted peer %d from persistence", self.authProvider.accountId!, id))
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) deleted peer \(id) from persistence")
         Analytics.track(.deletePeer)
         
         DispatchQueue.main.async { [weak self] in
@@ -120,17 +120,17 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
             }
         }
     }
-    
+
     func markPeerAsSpeaking(for id: Int, isSpeaking: Bool) {
         if let index = self.peers.firstIndex(where: { $0.id == id }) {
-            self.logProvider.add(LogLevel.debug, String(format: "account %d set peer %d isSpeaking property to %b", self.authProvider.accountId!, id, isSpeaking))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) set peer \(id) isSpeaking property to \(isSpeaking)")
             self.peers[index].isSpeaking = isSpeaking
         }
     }
     
     func markPeerAsMuted(for id: Int, isMuted: Bool) {
         if let index = self.peers.firstIndex(where: { $0.id == id }) {
-            self.logProvider.add(LogLevel.debug, String(format: "account %d set peer %d isMuted property to %b", self.authProvider.accountId!, id, isMuted))
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) set peer \(id) isMuted property to \(isMuted)")
             Analytics.track(isMuted ? .mutePeer : .unmutePeer)
             self.peers[index].isMuted = isMuted
         }
