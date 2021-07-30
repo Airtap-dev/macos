@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import SwiftUI
@@ -30,6 +30,7 @@ protocol AuthProviding {
 
 class AuthProvider: AuthProviding, ObservableObject {
     private let keychain: KeychainSwift
+    private let logProvider: LogProviding
 
     private(set) var accountId: Int?
     @Published private(set) var isAuthorised: Bool = false
@@ -38,8 +39,9 @@ class AuthProvider: AuthProviding, ObservableObject {
     
     private(set) var eventSubject = PassthroughSubject<AuthProviderEvent, Never>()
     
-    init() {
+    init(logProvider: LogProviding) {
         self.keychain = KeychainSwift()
+        self.logProvider = logProvider
     }
 
     func load(){
@@ -49,6 +51,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     }
     
     func signIn(accountId: Int, token: String) {
+        self.logProvider.add(.debug, "account \(accountId) signing in")
         keychain.set("\(accountId)", forKey: "accountId")
         keychain.set(token, forKey: "accountToken")
         
@@ -58,6 +61,7 @@ class AuthProvider: AuthProviding, ObservableObject {
     }
     
     func signOut() {
+        self.logProvider.add(.debug, "account \(self.accountId!) signing out")
         keychain.delete("accountId")
         keychain.delete("accountToken")
         

@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ struct WelcomeView: View {
     
     @ObservedObject private var viewModel: WelcomeViewModel
     
-    init(viewModel: WelcomeViewModel) {
+    init(viewModel: WelcomeViewModel, logProvider: LogProviding) {
         self.viewModel = viewModel
     }
     

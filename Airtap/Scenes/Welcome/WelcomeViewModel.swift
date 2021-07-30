@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ class WelcomeViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(model: WelcomeModel) {
+    init(model: WelcomeModel, logProvider: LogProviding) {
         self.model = model
         
         self.model.eventSubject

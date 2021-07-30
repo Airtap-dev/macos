@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BB074F326A358AC009B0228 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5016C125FE15290010A0C0 /* Analytics.swift */; };
+		8BB074F526A35A39009B0228 /* LogProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB074F426A35A39009B0228 /* LogProvider.swift */; };
+		8BB074F626A35A39009B0228 /* LogProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB074F426A35A39009B0228 /* LogProvider.swift */; };
 		C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = C6413E8E269F62C3000AB257 /* TinyHTTP */; };
 		C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = C6842F4A26513EE6002008E2 /* WebRTC */; };
 		FA1301A725ED228B0050A695 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FA1301A625ED228B0050A695 /* Realm */; };
@@ -107,6 +110,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8BB074F426A35A39009B0228 /* LogProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogProvider.swift; sourceTree = "<group>"; };
 		FA1301AE25ED22A70050A695 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
 		FA1301C525ED3E280050A695 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		FA14401F25ECF235000D22F4 /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
@@ -179,7 +183,6 @@
 				FA5016AF25FE10680010A0C0 /* Sentry in Frameworks */,
 				FAF27F8725EBC7D500DC04D6 /* KeychainSwift in Frameworks */,
 				C6842F4B26513EE6002008E2 /* WebRTC in Frameworks */,
-				FAF27F6825EBB7BC00DC04D6 /* TinyHTTP in Frameworks */,
 				FAF27FA125EC2D0100DC04D6 /* Starscream in Frameworks */,
 				C6413E8F269F62C3000AB257 /* TinyHTTP in Frameworks */,
 				FA1301A725ED228B0050A695 /* Realm in Frameworks */,
@@ -353,6 +356,7 @@
 				FA14402225ECF33B000D22F4 /* CallProvider.swift */,
 				FA14402525ECF890000D22F4 /* PersistenceProvider.swift */,
 				FAA0582C25F829C900797A76 /* KeyboardProvider.swift */,
+				8BB074F426A35A39009B0228 /* LogProvider.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -453,7 +457,7 @@
 				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1250;
-				ORGANIZATIONNAME = "Airtap OÜ";
+				ORGANIZATIONNAME = "Airtap Ltd";
 				TargetAttributes = {
 					FAAD119425EA4B4300B1F90B = {
 						CreatedOnToolsVersion = 12.4;
@@ -543,6 +547,7 @@
 				FA50165D25FD55A20010A0C0 /* WebRTCService.swift in Sources */,
 				FA50165E25FD55A20010A0C0 /* WelcomeViewModel.swift in Sources */,
 				FA50165F25FD55A20010A0C0 /* APIService.swift in Sources */,
+				8BB074F626A35A39009B0228 /* LogProvider.swift in Sources */,
 				FA50166025FD55A20010A0C0 /* Lang.swift in Sources */,
 				FA50166125FD55A20010A0C0 /* ContactViewModel.swift in Sources */,
 				FA50166225FD55A20010A0C0 /* WelcomeModel.swift in Sources */,
@@ -565,6 +570,7 @@
 				FA50167325FD55A20010A0C0 /* Dictionary+Extensions.swift in Sources */,
 				FA50167425FD55A20010A0C0 /* Resolver.swift in Sources */,
 				FA50167525FD55A20010A0C0 /* MainModel.swift in Sources */,
+				8BB074F326A358AC009B0228 /* Analytics.swift in Sources */,
 				FA50167625FD55A20010A0C0 /* NSTextField+Extensions.swift in Sources */,
 				FA50167725FD55A20010A0C0 /* PersistenceProvider.swift in Sources */,
 				FA50167825FD55A20010A0C0 /* KeyboardProvider.swift in Sources */,
@@ -586,6 +592,7 @@
 				FAF27FAF25EC313F00DC04D6 /* WebRTCService.swift in Sources */,
 				FAF27F7825EBBDB400DC04D6 /* WelcomeViewModel.swift in Sources */,
 				FAF27F6C25EBB7FF00DC04D6 /* APIService.swift in Sources */,
+				8BB074F526A35A39009B0228 /* LogProvider.swift in Sources */,
 				FA50161E25FCE5CE0010A0C0 /* Lang.swift in Sources */,
 				FA78329225EFCB8800A0F4EC /* ContactViewModel.swift in Sources */,
 				FAF27F7B25EBC11800DC04D6 /* WelcomeModel.swift in Sources */,
@@ -643,7 +650,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -669,7 +676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -812,7 +819,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;
@@ -837,7 +844,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = C49XK357YP;
+				DEVELOPMENT_TEAM = 6VJL86G6WU;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Airtap/Info.plist;

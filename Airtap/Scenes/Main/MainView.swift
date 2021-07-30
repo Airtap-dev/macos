@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 27.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import SwiftUI
@@ -14,7 +14,7 @@ struct MainView: View {
     @ObservedObject private var viewModel: MainViewModel
     private let wireframe: MainWireframe!
     
-    init(viewModel: MainViewModel, wireframe: MainWireframe) {
+    init(viewModel: MainViewModel, wireframe: MainWireframe, logProvider: LogProviding) {
         self.viewModel = viewModel
         self.wireframe = wireframe
     }

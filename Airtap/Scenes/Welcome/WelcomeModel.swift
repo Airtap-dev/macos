@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 28.02.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -24,7 +24,8 @@ class WelcomeModel {
     
     init(
         apiService: APIServing,
-        authProvider: AuthProviding
+        authProvider: AuthProviding,
+        logProvider: LogProviding
     ) {
         self.apiService = apiService
         self.authProvider = authProvider

@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 01.03.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -31,6 +31,7 @@ protocol PersistenceProviding {
 
 class PersistenceProvider: PersistenceProviding, ObservableObject {
     private let authProvider: AuthProviding
+    private let logProvider: LogProviding
     private let realm: Realm
     
     private(set) var eventSubject = PassthroughSubject<PersistenceProviderEvent, Never>()
@@ -40,8 +41,9 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     var peersPublished: Published<[Peer]> { _peers }
     var peersPublisher: Published<[Peer]>.Publisher { $peers }
     
-    init(authProvider: AuthProviding) {
+    init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
+        self.logProvider = logProvider
         realm = try! Realm()
         
         self.authProvider.eventSubject
@@ -77,6 +79,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func insertPeer(id: Int, firstName: String, lastName: String?) {
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) inserted peer \(id) into persistence")
         Analytics.track(.addPeer)
         
         DispatchQueue.main.async { [weak self] in
@@ -99,6 +102,7 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
     }
     
     func deletePeer(id: Int) {
+        self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) deleted peer \(id) from persistence")
         Analytics.track(.deletePeer)
         
         DispatchQueue.main.async { [weak self] in
@@ -116,15 +120,17 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
             }
         }
     }
-    
+
     func markPeerAsSpeaking(for id: Int, isSpeaking: Bool) {
         if let index = self.peers.firstIndex(where: { $0.id == id }) {
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) set peer \(id) isSpeaking property to \(isSpeaking)")
             self.peers[index].isSpeaking = isSpeaking
         }
     }
     
     func markPeerAsMuted(for id: Int, isMuted: Bool) {
         if let index = self.peers.firstIndex(where: { $0.id == id }) {
+            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) set peer \(id) isMuted property to \(isMuted)")
             Analytics.track(isMuted ? .mutePeer : .unmutePeer)
             self.peers[index].isMuted = isMuted
         }

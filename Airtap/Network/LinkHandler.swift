@@ -3,7 +3,7 @@
 //  Airtap
 //
 //  Created by Aleksandr Litreev on 01.03.2021.
-//  Copyright © 2021 Airtap OÜ. All rights reserved.
+//  Copyright © 2021 Airtap Ltd. All rights reserved.
 //
 
 import Foundation
@@ -20,7 +20,7 @@ class LinkHandler: LinkHandling {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(authProvider: AuthProviding, apiService: APIServing, persistenceProvider: PersistenceProviding) {
+    init(authProvider: AuthProviding, apiService: APIServing, persistenceProvider: PersistenceProviding, logProvider: LogProviding) {
         self.apiService = apiService
         self.persistenceProvider = persistenceProvider
         self.authProvider = authProvider
