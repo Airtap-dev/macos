@@ -152,13 +152,12 @@ class WSService: WSServing {
     }
     
     private func handle(_ message: WSPayload) {
-        guard let accountId = message.payload?.fromAccountId else { return }
-        
         switch(message.type) {
         case .ack:
             self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an ack")
             break
         case .offer:
+            guard let accountId = message.payload?.fromAccountId else { return }
             self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an offer from \(accountId)")
             if let offer = message.payload?.offer {
                 self.sendAck(nonce: message.nonce)
@@ -170,6 +169,7 @@ class WSService: WSServing {
                 )
             }
         case .answer:
+            guard let accountId = message.payload?.fromAccountId else { return }
             self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received an answer from \(accountId)")
             if let answer = message.payload?.answer {
                 self.sendAck(nonce: message.nonce)
@@ -181,6 +181,7 @@ class WSService: WSServing {
                 )
             }
         case .candidate:
+            guard let accountId = message.payload?.fromAccountId else { return }
             self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received a candidate from \(accountId)")
             if let candidate = message.payload?.candidate {
                 self.sendAck(nonce: message.nonce)
@@ -194,6 +195,7 @@ class WSService: WSServing {
                 )
             }
         case .info:
+            guard let accountId = message.payload?.fromAccountId else { return }
             self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received info from \(accountId)")
             if let info = message.payload?.info {
                 self.sendAck(nonce: message.nonce)
@@ -205,7 +207,10 @@ class WSService: WSServing {
                 )
             }
         case .peers:
-            self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received peers from \(accountId)")
+            self.sendAck(nonce: message.nonce)
+            if let peers = message.payload?.onlinePeers {
+                self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received peers \(peers)")
+            }
         }
     }
 }
