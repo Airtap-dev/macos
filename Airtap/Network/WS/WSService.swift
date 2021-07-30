@@ -30,6 +30,7 @@ protocol WSServing {
 class WSService: WSServing {
     private let authProvider: AuthProviding
     private let logProvider: LogProviding
+    private let persistenceProvider: PersistenceProviding
     
     private(set) var eventSubject = PassthroughSubject<WSServiceEvent, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -38,10 +39,10 @@ class WSService: WSServing {
     private var socket: WebSocket?
     private var nonce: Int = 0
     
-    init(authProvider: AuthProviding, logProvider: LogProviding) {
+    init(authProvider: AuthProviding, persistenceProvider: PersistenceProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
         self.logProvider = logProvider
-        
+        self.persistenceProvider = persistenceProvider
         self.authProvider.eventSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
@@ -210,6 +211,9 @@ class WSService: WSServing {
             self.sendAck(nonce: message.nonce)
             if let peers = message.payload?.onlinePeers {
                 self.logProvider.add(.debug, "account \(self.authProvider.accountId ?? 0) received peers \(peers)")
+                persistenceProvider.updateOnlinePeers(ids: peers)
+            } else {
+                persistenceProvider.updateOnlinePeers(ids: [])
             }
         }
     }

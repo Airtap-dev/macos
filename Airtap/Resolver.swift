@@ -23,13 +23,13 @@ class Resolver {
 
     init(authProvider: AuthProviding, logProvider: LogProviding) {
         self.apiService = APIService(authProvider: authProvider, logProvider: logProvider)
-        self.wsService = WSService(authProvider: authProvider, logProvider: logProvider)
         self.webRTCService = WebRTCService(authProvider: authProvider, logProvider: logProvider)
         
         self.logProvider = logProvider
         self.authProvider = authProvider
         self.keyboardProvider = KeyboardProvider()
         self.persistenceProvider = PersistenceProvider(authProvider: authProvider, logProvider: logProvider)
+        self.wsService = WSService(authProvider: authProvider, persistenceProvider: persistenceProvider, logProvider: logProvider)
         self.callProvider = CallProvider(
             webRTCService: webRTCService,
             apiService: apiService,

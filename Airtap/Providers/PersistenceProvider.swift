@@ -27,6 +27,7 @@ protocol PersistenceProviding {
     func deletePeer(id: Int)
     func markPeerAsSpeaking(for id: Int, isSpeaking: Bool)
     func markPeerAsMuted(for id: Int, isMuted: Bool)
+    func updateOnlinePeers(ids: [Int])
 }
 
 class PersistenceProvider: PersistenceProviding, ObservableObject {
@@ -135,5 +136,10 @@ class PersistenceProvider: PersistenceProviding, ObservableObject {
             self.peers[index].isMuted = isMuted
         }
     }
+    
+    func updateOnlinePeers(ids: [Int]) {
+         self.logProvider.add(.debug, "updating online peers to \(ids)")
+         self.peers.indices.forEach { self.peers[$0].isOnline = ids.contains(self.peers[$0].id) }
+     }
 }
 
