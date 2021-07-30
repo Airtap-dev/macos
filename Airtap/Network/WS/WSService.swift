@@ -41,8 +41,7 @@ class WSService: WSServing {
     init(authProvider: AuthProviding, persistenceProvider: PersistenceProviding, logProvider: LogProviding) {
         self.authProvider = authProvider
         self.logProvider = logProvider
-        self.persistenceProvider = persistenceProvider
-        
+        self.persistenceProvider = persistenceProvider        
         self.authProvider.eventSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] event in
